@@ -1,0 +1,43 @@
+[project]
+name        = "cat"
+version     = "1.0.0"
+authors     = ["CAT Language Contributors"]
+license     = "MIT"
+description = "Systems programming language, lower than assembly, faster than C"
+homepage    = "https://cat-lang.org"
+repository  = "https://github.com/catgui/cat"
+keywords    = ["systems", "compiler", "kernel", "x86", "embedded"]
+
+[compiler]
+entry       = "src/lexer.cat"    # Phase 1 entry point
+std         = "none"             # Zero standard library by default
+
+[backends]
+# Uncomment to activate a backend
+# x86_64 = "@backend/x86_64"
+# arm64   = "@backend/arm64"
+# wasm    = "@backend/wasm"
+# riscv   = "@backend/riscv"
+
+[dependencies]
+# None — zero dependencies, by design
+
+[dev-dependencies]
+# Test harness will be added in a future phase
+
+[profile.dev]
+optimize    = false
+debug       = true
+hot_reload  = true
+
+[profile.release]
+optimize    = true
+debug       = false
+pgo         = false
+cpu_specific = false
+
+[profile.release-pgo]
+optimize    = true
+debug       = false
+pgo         = true
+cpu_specific = true

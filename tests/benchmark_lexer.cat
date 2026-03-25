@@ -1,0 +1,131 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# CAT Compiler — Lexer Benchmark
+# tests/benchmark_lexer.cat
+#
+# Targets:
+#   Cold lex (100K LOC): < 500ms
+#   Cache load (100K LOC): < 1ms
+#   Throughput: > 10M tokens/second
+#   Peak RAM: < 50 MB
+# ═══════════════════════════════════════════════════════════════════════════════
+
+fn bench_lex_cold(src: ptr<u8>, src_len: u64, iterations: u32) {
+    @sys_print("[bench] cold lex\n")
+    local total_ns: u64 = 0
+    local total_toks: u64 = 0
+
+    local i: u32 = 0
+    .loop:
+        cge done, i, iterations
+        jnz done, .done
+
+        local t0: u64 = @rdtsc()
+        local l: Lexer = lexer_new(src, src_len)
+        lexer_run(&l)
+        local t1: u64 = @rdtsc()
+
+        # Approximate: 3 GHz CPU = 3 cycles/ns
+        add total_ns, total_ns, (t1 - t0) / 3
+        add total_toks, total_toks, l.tok_count
+        lexer_free(&l)
+
+        add i, i, 1
+        jmp .loop
+    .done:
+
+    local avg_ms: u64 = total_ns / (iterations as u64) / 1_000_000
+    local avg_toks: u64 = total_toks / iterations as u64
+    local toks_per_sec: u64 = avg_toks * 1000 / (avg_ms + 1)
+
+    @sys_print("  avg time:    ")  @sys_print_u64(avg_ms)      @sys_print(" ms\n")
+    @sys_print("  tokens:      ")  @sys_print_u64(avg_toks)    @sys_print("\n")
+    @sys_print("  throughput:  ")  @sys_print_u64(toks_per_sec) @sys_print(" tokens/sec\n")
+
+    cgt pass_ms, 500, avg_ms
+    if pass_ms {
+        @sys_print("  PASS (< 500ms)\n")
+    } else {
+        @sys_print("  FAIL (>= 500ms) ***\n")
+    }
+}
+
+fn bench_cache(src: ptr<u8>, src_len: u64) {
+    @sys_print("[bench] binary cache\n")
+
+    # Write cache once
+    local l: Lexer = lexer_new(src, src_len)
+    lexer_run(&l)
+    local hash: [32]u8
+    @core.memset(&hash, 0, 32)
+    cache_write(&l, "/tmp/bench.cat.cache", &hash)
+    lexer_free(&l)
+
+    # Measure load time over 100 iterations
+    local total_ns: u64 = 0
+    local iters: u32 = 100
+
+    local i: u32 = 0
+    .loop:
+        cge done, i, iters
+        jnz done, .done
+        local arena: Arena
+        local t0: u64 = @rdtsc()
+        local result: CacheResult = cache_load("/tmp/bench.cat.cache", &hash, &arena)
+        local t1: u64 = @rdtsc()
+        add total_ns, total_ns, (t1 - t0) / 3
+        arena_free_all(&arena)
+        add i, i, 1
+        jmp .loop
+    .done:
+
+    local avg_ns: u64 = total_ns / iters as u64
+    local avg_us: u64 = avg_ns / 1000
+
+    @sys_print("  avg load:    ")  @sys_print_u64(avg_us)  @sys_print(" µs\n")
+    cgt pass_us, 1000, avg_us   # < 1ms = < 1000µs
+    if pass_us {
+        @sys_print("  PASS (< 1ms)\n")
+    } else {
+        @sys_print("  FAIL (>= 1ms) ***\n")
+    }
+}
+
+fn bench_memory(src: ptr<u8>, src_len: u64) {
+    @sys_print("[bench] peak memory\n")
+    local mem_before: u64 = @sys_rss()
+    local l: Lexer = lexer_new(src, src_len)
+    lexer_run(&l)
+    local mem_after: u64 = @sys_rss()
+    local peak_mb: u64 = (mem_after - mem_before) / (1024 * 1024)
+    @sys_print("  peak RAM:    ")  @sys_print_u64(peak_mb)  @sys_print(" MB\n")
+    cgt pass_ram, 50, peak_mb
+    if pass_ram {
+        @sys_print("  PASS (< 50 MB)\n")
+    } else {
+        @sys_print("  FAIL (>= 50 MB) ***\n")
+    }
+    lexer_free(&l)
+}
+
+fn main() -> i32 {
+    # Load stress_test.cat (10,000 LOC, generated)
+    local src: ptr<u8>
+    local src_len: u64
+    local ok: bool = @sys_read_file("examples/stress_test.cat", &src, &src_len)
+    if !ok {
+        @sys_print("ERROR: Could not open examples/stress_test.cat\n")
+        @sys_print("Run: node scripts/gen_stress_test.js\n")
+        ret 1
+    }
+
+    @sys_print("Source size: ")  @sys_print_u64(src_len)  @sys_print(" bytes\n\n")
+
+    bench_lex_cold(src, src_len, 5)
+    @sys_print("\n")
+    bench_cache(src, src_len)
+    @sys_print("\n")
+    bench_memory(src, src_len)
+    @sys_print("\n")
+    @sys_print("Benchmark complete.\n")
+    ret 0
+}

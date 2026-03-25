@@ -1,0 +1,42 @@
+# Compiled binaries
+catc
+catc.exe
+*.o
+*.obj
+*.elf
+*.bin
+*.hex
+
+# Binary token caches (can always be regenerated)
+*.cat.cache
+
+# Profile data
+*.profile
+*.gcda
+*.gcno
+
+# Build artifacts
+build/
+dist/
+out/
+target/
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor artifacts
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Benchmark output
+benchmarks/results/
+*.bench
+
+# Package manager
+.cat-cache/
+packages/

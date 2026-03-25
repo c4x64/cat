@@ -1,0 +1,9655 @@
+# Auto-generated stress test - valid CAT source for benchmarks
+# Regenerate: node scripts/gen_stress_test.js OR pwsh scripts/gen_stress_test.ps1
+
+# func_0 type=i8 op=add
+@inline
+fn func_0(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    add result, a, b
+    ret result
+}
+
+# func_1 type=i16 op=sub
+@static
+fn func_1(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_2 type=i32 op=mul
+@packed
+fn func_2(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_3 type=i64 op=div
+@inline
+fn func_3(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    div result, a, b
+    ret result
+}
+
+# func_4 type=u8 op=mod
+@static
+fn func_4(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_5 type=u16 op=and
+@packed
+fn func_5(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    and result, a, b
+    ret result
+}
+
+# func_6 type=u32 op=orr
+@inline
+fn func_6(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_7 type=u64 op=xor
+@static
+fn func_7(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_8 type=f32 op=shl
+@packed
+fn func_8(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_9 type=f64 op=shr
+@inline
+fn func_9(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_10 type=bool op=add
+@static
+fn func_10(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    add result, a, b
+    ret result
+}
+
+# func_11 type=i8 op=sub
+@packed
+fn func_11(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_12 type=i16 op=mul
+@inline
+fn func_12(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_13 type=i32 op=div
+@static
+fn func_13(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    div result, a, b
+    ret result
+}
+
+# func_14 type=i64 op=mod
+@packed
+fn func_14(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_15 type=u8 op=and
+@inline
+fn func_15(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    and result, a, b
+    ret result
+}
+
+# func_16 type=u16 op=orr
+@static
+fn func_16(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_17 type=u32 op=xor
+@packed
+fn func_17(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_18 type=u64 op=shl
+@inline
+fn func_18(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_19 type=f32 op=shr
+@static
+fn func_19(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_20 type=f64 op=add
+@packed
+fn func_20(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    add result, a, b
+    ret result
+}
+
+# func_21 type=bool op=sub
+@inline
+fn func_21(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    sub result, a, b
+    ret result
+}
+
+# func_22 type=i8 op=mul
+@static
+fn func_22(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_23 type=i16 op=div
+@packed
+fn func_23(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    div result, a, b
+    ret result
+}
+
+# func_24 type=i32 op=mod
+@inline
+fn func_24(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_25 type=i64 op=and
+@static
+fn func_25(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    and result, a, b
+    ret result
+}
+
+# func_26 type=u8 op=orr
+@packed
+fn func_26(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_27 type=u16 op=xor
+@inline
+fn func_27(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_28 type=u32 op=shl
+@static
+fn func_28(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_29 type=u64 op=shr
+@packed
+fn func_29(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_30 type=f32 op=add
+@inline
+fn func_30(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    add result, a, b
+    ret result
+}
+
+# func_31 type=f64 op=sub
+@static
+fn func_31(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_32 type=bool op=mul
+@packed
+fn func_32(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    mul result, a, b
+    ret result
+}
+
+# func_33 type=i8 op=div
+@inline
+fn func_33(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    div result, a, b
+    ret result
+}
+
+# func_34 type=i16 op=mod
+@static
+fn func_34(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_35 type=i32 op=and
+@packed
+fn func_35(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    and result, a, b
+    ret result
+}
+
+# func_36 type=i64 op=orr
+@inline
+fn func_36(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_37 type=u8 op=xor
+@static
+fn func_37(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_38 type=u16 op=shl
+@packed
+fn func_38(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_39 type=u32 op=shr
+@inline
+fn func_39(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_40 type=u64 op=add
+@static
+fn func_40(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    add result, a, b
+    ret result
+}
+
+# func_41 type=f32 op=sub
+@packed
+fn func_41(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_42 type=f64 op=mul
+@inline
+fn func_42(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_43 type=bool op=div
+@static
+fn func_43(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    div result, a, b
+    ret result
+}
+
+# func_44 type=i8 op=mod
+@packed
+fn func_44(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_45 type=i16 op=and
+@inline
+fn func_45(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    and result, a, b
+    ret result
+}
+
+# func_46 type=i32 op=orr
+@static
+fn func_46(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_47 type=i64 op=xor
+@packed
+fn func_47(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_48 type=u8 op=shl
+@inline
+fn func_48(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_49 type=u16 op=shr
+@static
+fn func_49(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_50 type=u32 op=add
+@packed
+fn func_50(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    add result, a, b
+    ret result
+}
+
+# func_51 type=u64 op=sub
+@inline
+fn func_51(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_52 type=f32 op=mul
+@static
+fn func_52(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_53 type=f64 op=div
+@packed
+fn func_53(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    div result, a, b
+    ret result
+}
+
+# func_54 type=bool op=mod
+@inline
+fn func_54(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    mod result, a, b
+    ret result
+}
+
+# func_55 type=i8 op=and
+@static
+fn func_55(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    and result, a, b
+    ret result
+}
+
+# func_56 type=i16 op=orr
+@packed
+fn func_56(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_57 type=i32 op=xor
+@inline
+fn func_57(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_58 type=i64 op=shl
+@static
+fn func_58(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_59 type=u8 op=shr
+@packed
+fn func_59(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_60 type=u16 op=add
+@inline
+fn func_60(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    add result, a, b
+    ret result
+}
+
+# func_61 type=u32 op=sub
+@static
+fn func_61(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_62 type=u64 op=mul
+@packed
+fn func_62(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_63 type=f32 op=div
+@inline
+fn func_63(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    div result, a, b
+    ret result
+}
+
+# func_64 type=f64 op=mod
+@static
+fn func_64(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_65 type=bool op=and
+@packed
+fn func_65(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    and result, a, b
+    ret result
+}
+
+# func_66 type=i8 op=orr
+@inline
+fn func_66(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_67 type=i16 op=xor
+@static
+fn func_67(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_68 type=i32 op=shl
+@packed
+fn func_68(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_69 type=i64 op=shr
+@inline
+fn func_69(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_70 type=u8 op=add
+@static
+fn func_70(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    add result, a, b
+    ret result
+}
+
+# func_71 type=u16 op=sub
+@packed
+fn func_71(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_72 type=u32 op=mul
+@inline
+fn func_72(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_73 type=u64 op=div
+@static
+fn func_73(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    div result, a, b
+    ret result
+}
+
+# func_74 type=f32 op=mod
+@packed
+fn func_74(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_75 type=f64 op=and
+@inline
+fn func_75(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    and result, a, b
+    ret result
+}
+
+# func_76 type=bool op=orr
+@static
+fn func_76(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    orr result, a, b
+    ret result
+}
+
+# func_77 type=i8 op=xor
+@packed
+fn func_77(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_78 type=i16 op=shl
+@inline
+fn func_78(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_79 type=i32 op=shr
+@static
+fn func_79(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_80 type=i64 op=add
+@packed
+fn func_80(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    add result, a, b
+    ret result
+}
+
+# func_81 type=u8 op=sub
+@inline
+fn func_81(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_82 type=u16 op=mul
+@static
+fn func_82(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_83 type=u32 op=div
+@packed
+fn func_83(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    div result, a, b
+    ret result
+}
+
+# func_84 type=u64 op=mod
+@inline
+fn func_84(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_85 type=f32 op=and
+@static
+fn func_85(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    and result, a, b
+    ret result
+}
+
+# func_86 type=f64 op=orr
+@packed
+fn func_86(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_87 type=bool op=xor
+@inline
+fn func_87(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    xor result, a, b
+    ret result
+}
+
+# func_88 type=i8 op=shl
+@static
+fn func_88(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_89 type=i16 op=shr
+@packed
+fn func_89(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_90 type=i32 op=add
+@inline
+fn func_90(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    add result, a, b
+    ret result
+}
+
+# func_91 type=i64 op=sub
+@static
+fn func_91(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_92 type=u8 op=mul
+@packed
+fn func_92(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_93 type=u16 op=div
+@inline
+fn func_93(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    div result, a, b
+    ret result
+}
+
+# func_94 type=u32 op=mod
+@static
+fn func_94(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_95 type=u64 op=and
+@packed
+fn func_95(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    and result, a, b
+    ret result
+}
+
+# func_96 type=f32 op=orr
+@inline
+fn func_96(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_97 type=f64 op=xor
+@static
+fn func_97(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_98 type=bool op=shl
+@packed
+fn func_98(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    shl result, a, b
+    ret result
+}
+
+# func_99 type=i8 op=shr
+@inline
+fn func_99(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_100 type=i16 op=add
+@static
+fn func_100(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    add result, a, b
+    ret result
+}
+
+# func_101 type=i32 op=sub
+@packed
+fn func_101(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_102 type=i64 op=mul
+@inline
+fn func_102(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_103 type=u8 op=div
+@static
+fn func_103(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    div result, a, b
+    ret result
+}
+
+# func_104 type=u16 op=mod
+@packed
+fn func_104(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_105 type=u32 op=and
+@inline
+fn func_105(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    and result, a, b
+    ret result
+}
+
+# func_106 type=u64 op=orr
+@static
+fn func_106(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_107 type=f32 op=xor
+@packed
+fn func_107(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_108 type=f64 op=shl
+@inline
+fn func_108(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_109 type=bool op=shr
+@static
+fn func_109(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    shr result, a, b
+    ret result
+}
+
+# func_110 type=i8 op=add
+@packed
+fn func_110(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    add result, a, b
+    ret result
+}
+
+# func_111 type=i16 op=sub
+@inline
+fn func_111(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_112 type=i32 op=mul
+@static
+fn func_112(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_113 type=i64 op=div
+@packed
+fn func_113(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    div result, a, b
+    ret result
+}
+
+# func_114 type=u8 op=mod
+@inline
+fn func_114(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_115 type=u16 op=and
+@static
+fn func_115(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    and result, a, b
+    ret result
+}
+
+# func_116 type=u32 op=orr
+@packed
+fn func_116(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_117 type=u64 op=xor
+@inline
+fn func_117(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_118 type=f32 op=shl
+@static
+fn func_118(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_119 type=f64 op=shr
+@packed
+fn func_119(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_120 type=bool op=add
+@inline
+fn func_120(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    add result, a, b
+    ret result
+}
+
+# func_121 type=i8 op=sub
+@static
+fn func_121(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_122 type=i16 op=mul
+@packed
+fn func_122(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_123 type=i32 op=div
+@inline
+fn func_123(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    div result, a, b
+    ret result
+}
+
+# func_124 type=i64 op=mod
+@static
+fn func_124(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_125 type=u8 op=and
+@packed
+fn func_125(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    and result, a, b
+    ret result
+}
+
+# func_126 type=u16 op=orr
+@inline
+fn func_126(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_127 type=u32 op=xor
+@static
+fn func_127(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_128 type=u64 op=shl
+@packed
+fn func_128(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_129 type=f32 op=shr
+@inline
+fn func_129(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_130 type=f64 op=add
+@static
+fn func_130(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    add result, a, b
+    ret result
+}
+
+# func_131 type=bool op=sub
+@packed
+fn func_131(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    sub result, a, b
+    ret result
+}
+
+# func_132 type=i8 op=mul
+@inline
+fn func_132(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_133 type=i16 op=div
+@static
+fn func_133(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    div result, a, b
+    ret result
+}
+
+# func_134 type=i32 op=mod
+@packed
+fn func_134(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_135 type=i64 op=and
+@inline
+fn func_135(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    and result, a, b
+    ret result
+}
+
+# func_136 type=u8 op=orr
+@static
+fn func_136(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_137 type=u16 op=xor
+@packed
+fn func_137(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_138 type=u32 op=shl
+@inline
+fn func_138(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_139 type=u64 op=shr
+@static
+fn func_139(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_140 type=f32 op=add
+@packed
+fn func_140(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    add result, a, b
+    ret result
+}
+
+# func_141 type=f64 op=sub
+@inline
+fn func_141(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_142 type=bool op=mul
+@static
+fn func_142(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    mul result, a, b
+    ret result
+}
+
+# func_143 type=i8 op=div
+@packed
+fn func_143(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    div result, a, b
+    ret result
+}
+
+# func_144 type=i16 op=mod
+@inline
+fn func_144(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_145 type=i32 op=and
+@static
+fn func_145(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    and result, a, b
+    ret result
+}
+
+# func_146 type=i64 op=orr
+@packed
+fn func_146(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_147 type=u8 op=xor
+@inline
+fn func_147(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_148 type=u16 op=shl
+@static
+fn func_148(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_149 type=u32 op=shr
+@packed
+fn func_149(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_150 type=u64 op=add
+@inline
+fn func_150(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    add result, a, b
+    ret result
+}
+
+# func_151 type=f32 op=sub
+@static
+fn func_151(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_152 type=f64 op=mul
+@packed
+fn func_152(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_153 type=bool op=div
+@inline
+fn func_153(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    div result, a, b
+    ret result
+}
+
+# func_154 type=i8 op=mod
+@static
+fn func_154(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_155 type=i16 op=and
+@packed
+fn func_155(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    and result, a, b
+    ret result
+}
+
+# func_156 type=i32 op=orr
+@inline
+fn func_156(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_157 type=i64 op=xor
+@static
+fn func_157(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_158 type=u8 op=shl
+@packed
+fn func_158(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_159 type=u16 op=shr
+@inline
+fn func_159(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_160 type=u32 op=add
+@static
+fn func_160(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    add result, a, b
+    ret result
+}
+
+# func_161 type=u64 op=sub
+@packed
+fn func_161(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_162 type=f32 op=mul
+@inline
+fn func_162(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_163 type=f64 op=div
+@static
+fn func_163(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    div result, a, b
+    ret result
+}
+
+# func_164 type=bool op=mod
+@packed
+fn func_164(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    mod result, a, b
+    ret result
+}
+
+# func_165 type=i8 op=and
+@inline
+fn func_165(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    and result, a, b
+    ret result
+}
+
+# func_166 type=i16 op=orr
+@static
+fn func_166(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_167 type=i32 op=xor
+@packed
+fn func_167(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_168 type=i64 op=shl
+@inline
+fn func_168(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_169 type=u8 op=shr
+@static
+fn func_169(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_170 type=u16 op=add
+@packed
+fn func_170(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    add result, a, b
+    ret result
+}
+
+# func_171 type=u32 op=sub
+@inline
+fn func_171(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_172 type=u64 op=mul
+@static
+fn func_172(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_173 type=f32 op=div
+@packed
+fn func_173(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    div result, a, b
+    ret result
+}
+
+# func_174 type=f64 op=mod
+@inline
+fn func_174(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_175 type=bool op=and
+@static
+fn func_175(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    and result, a, b
+    ret result
+}
+
+# func_176 type=i8 op=orr
+@packed
+fn func_176(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_177 type=i16 op=xor
+@inline
+fn func_177(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_178 type=i32 op=shl
+@static
+fn func_178(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_179 type=i64 op=shr
+@packed
+fn func_179(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_180 type=u8 op=add
+@inline
+fn func_180(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    add result, a, b
+    ret result
+}
+
+# func_181 type=u16 op=sub
+@static
+fn func_181(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_182 type=u32 op=mul
+@packed
+fn func_182(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_183 type=u64 op=div
+@inline
+fn func_183(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    div result, a, b
+    ret result
+}
+
+# func_184 type=f32 op=mod
+@static
+fn func_184(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_185 type=f64 op=and
+@packed
+fn func_185(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    and result, a, b
+    ret result
+}
+
+# func_186 type=bool op=orr
+@inline
+fn func_186(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    orr result, a, b
+    ret result
+}
+
+# func_187 type=i8 op=xor
+@static
+fn func_187(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_188 type=i16 op=shl
+@packed
+fn func_188(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_189 type=i32 op=shr
+@inline
+fn func_189(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_190 type=i64 op=add
+@static
+fn func_190(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    add result, a, b
+    ret result
+}
+
+# func_191 type=u8 op=sub
+@packed
+fn func_191(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_192 type=u16 op=mul
+@inline
+fn func_192(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_193 type=u32 op=div
+@static
+fn func_193(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    div result, a, b
+    ret result
+}
+
+# func_194 type=u64 op=mod
+@packed
+fn func_194(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_195 type=f32 op=and
+@inline
+fn func_195(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    and result, a, b
+    ret result
+}
+
+# func_196 type=f64 op=orr
+@static
+fn func_196(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_197 type=bool op=xor
+@packed
+fn func_197(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    xor result, a, b
+    ret result
+}
+
+# func_198 type=i8 op=shl
+@inline
+fn func_198(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_199 type=i16 op=shr
+@static
+fn func_199(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_200 type=i32 op=add
+@packed
+fn func_200(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    add result, a, b
+    ret result
+}
+
+# func_201 type=i64 op=sub
+@inline
+fn func_201(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_202 type=u8 op=mul
+@static
+fn func_202(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_203 type=u16 op=div
+@packed
+fn func_203(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    div result, a, b
+    ret result
+}
+
+# func_204 type=u32 op=mod
+@inline
+fn func_204(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_205 type=u64 op=and
+@static
+fn func_205(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    and result, a, b
+    ret result
+}
+
+# func_206 type=f32 op=orr
+@packed
+fn func_206(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_207 type=f64 op=xor
+@inline
+fn func_207(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_208 type=bool op=shl
+@static
+fn func_208(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    shl result, a, b
+    ret result
+}
+
+# func_209 type=i8 op=shr
+@packed
+fn func_209(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_210 type=i16 op=add
+@inline
+fn func_210(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    add result, a, b
+    ret result
+}
+
+# func_211 type=i32 op=sub
+@static
+fn func_211(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_212 type=i64 op=mul
+@packed
+fn func_212(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_213 type=u8 op=div
+@inline
+fn func_213(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    div result, a, b
+    ret result
+}
+
+# func_214 type=u16 op=mod
+@static
+fn func_214(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_215 type=u32 op=and
+@packed
+fn func_215(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    and result, a, b
+    ret result
+}
+
+# func_216 type=u64 op=orr
+@inline
+fn func_216(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_217 type=f32 op=xor
+@static
+fn func_217(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_218 type=f64 op=shl
+@packed
+fn func_218(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_219 type=bool op=shr
+@inline
+fn func_219(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    shr result, a, b
+    ret result
+}
+
+# func_220 type=i8 op=add
+@static
+fn func_220(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    add result, a, b
+    ret result
+}
+
+# func_221 type=i16 op=sub
+@packed
+fn func_221(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_222 type=i32 op=mul
+@inline
+fn func_222(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_223 type=i64 op=div
+@static
+fn func_223(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    div result, a, b
+    ret result
+}
+
+# func_224 type=u8 op=mod
+@packed
+fn func_224(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_225 type=u16 op=and
+@inline
+fn func_225(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    and result, a, b
+    ret result
+}
+
+# func_226 type=u32 op=orr
+@static
+fn func_226(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_227 type=u64 op=xor
+@packed
+fn func_227(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_228 type=f32 op=shl
+@inline
+fn func_228(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_229 type=f64 op=shr
+@static
+fn func_229(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_230 type=bool op=add
+@packed
+fn func_230(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    add result, a, b
+    ret result
+}
+
+# func_231 type=i8 op=sub
+@inline
+fn func_231(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_232 type=i16 op=mul
+@static
+fn func_232(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_233 type=i32 op=div
+@packed
+fn func_233(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    div result, a, b
+    ret result
+}
+
+# func_234 type=i64 op=mod
+@inline
+fn func_234(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_235 type=u8 op=and
+@static
+fn func_235(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    and result, a, b
+    ret result
+}
+
+# func_236 type=u16 op=orr
+@packed
+fn func_236(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_237 type=u32 op=xor
+@inline
+fn func_237(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_238 type=u64 op=shl
+@static
+fn func_238(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_239 type=f32 op=shr
+@packed
+fn func_239(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_240 type=f64 op=add
+@inline
+fn func_240(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    add result, a, b
+    ret result
+}
+
+# func_241 type=bool op=sub
+@static
+fn func_241(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    sub result, a, b
+    ret result
+}
+
+# func_242 type=i8 op=mul
+@packed
+fn func_242(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_243 type=i16 op=div
+@inline
+fn func_243(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    div result, a, b
+    ret result
+}
+
+# func_244 type=i32 op=mod
+@static
+fn func_244(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_245 type=i64 op=and
+@packed
+fn func_245(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    and result, a, b
+    ret result
+}
+
+# func_246 type=u8 op=orr
+@inline
+fn func_246(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_247 type=u16 op=xor
+@static
+fn func_247(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_248 type=u32 op=shl
+@packed
+fn func_248(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_249 type=u64 op=shr
+@inline
+fn func_249(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_250 type=f32 op=add
+@static
+fn func_250(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    add result, a, b
+    ret result
+}
+
+# func_251 type=f64 op=sub
+@packed
+fn func_251(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_252 type=bool op=mul
+@inline
+fn func_252(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    mul result, a, b
+    ret result
+}
+
+# func_253 type=i8 op=div
+@static
+fn func_253(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    div result, a, b
+    ret result
+}
+
+# func_254 type=i16 op=mod
+@packed
+fn func_254(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_255 type=i32 op=and
+@inline
+fn func_255(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    and result, a, b
+    ret result
+}
+
+# func_256 type=i64 op=orr
+@static
+fn func_256(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_257 type=u8 op=xor
+@packed
+fn func_257(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_258 type=u16 op=shl
+@inline
+fn func_258(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_259 type=u32 op=shr
+@static
+fn func_259(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_260 type=u64 op=add
+@packed
+fn func_260(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    add result, a, b
+    ret result
+}
+
+# func_261 type=f32 op=sub
+@inline
+fn func_261(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_262 type=f64 op=mul
+@static
+fn func_262(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_263 type=bool op=div
+@packed
+fn func_263(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    div result, a, b
+    ret result
+}
+
+# func_264 type=i8 op=mod
+@inline
+fn func_264(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_265 type=i16 op=and
+@static
+fn func_265(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    and result, a, b
+    ret result
+}
+
+# func_266 type=i32 op=orr
+@packed
+fn func_266(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_267 type=i64 op=xor
+@inline
+fn func_267(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_268 type=u8 op=shl
+@static
+fn func_268(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_269 type=u16 op=shr
+@packed
+fn func_269(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_270 type=u32 op=add
+@inline
+fn func_270(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    add result, a, b
+    ret result
+}
+
+# func_271 type=u64 op=sub
+@static
+fn func_271(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_272 type=f32 op=mul
+@packed
+fn func_272(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_273 type=f64 op=div
+@inline
+fn func_273(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    div result, a, b
+    ret result
+}
+
+# func_274 type=bool op=mod
+@static
+fn func_274(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    mod result, a, b
+    ret result
+}
+
+# func_275 type=i8 op=and
+@packed
+fn func_275(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    and result, a, b
+    ret result
+}
+
+# func_276 type=i16 op=orr
+@inline
+fn func_276(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_277 type=i32 op=xor
+@static
+fn func_277(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_278 type=i64 op=shl
+@packed
+fn func_278(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_279 type=u8 op=shr
+@inline
+fn func_279(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_280 type=u16 op=add
+@static
+fn func_280(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    add result, a, b
+    ret result
+}
+
+# func_281 type=u32 op=sub
+@packed
+fn func_281(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_282 type=u64 op=mul
+@inline
+fn func_282(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_283 type=f32 op=div
+@static
+fn func_283(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    div result, a, b
+    ret result
+}
+
+# func_284 type=f64 op=mod
+@packed
+fn func_284(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_285 type=bool op=and
+@inline
+fn func_285(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    and result, a, b
+    ret result
+}
+
+# func_286 type=i8 op=orr
+@static
+fn func_286(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_287 type=i16 op=xor
+@packed
+fn func_287(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_288 type=i32 op=shl
+@inline
+fn func_288(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_289 type=i64 op=shr
+@static
+fn func_289(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_290 type=u8 op=add
+@packed
+fn func_290(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    add result, a, b
+    ret result
+}
+
+# func_291 type=u16 op=sub
+@inline
+fn func_291(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_292 type=u32 op=mul
+@static
+fn func_292(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_293 type=u64 op=div
+@packed
+fn func_293(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    div result, a, b
+    ret result
+}
+
+# func_294 type=f32 op=mod
+@inline
+fn func_294(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_295 type=f64 op=and
+@static
+fn func_295(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    and result, a, b
+    ret result
+}
+
+# func_296 type=bool op=orr
+@packed
+fn func_296(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    orr result, a, b
+    ret result
+}
+
+# func_297 type=i8 op=xor
+@inline
+fn func_297(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_298 type=i16 op=shl
+@static
+fn func_298(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_299 type=i32 op=shr
+@packed
+fn func_299(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_300 type=i64 op=add
+@inline
+fn func_300(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    add result, a, b
+    ret result
+}
+
+# func_301 type=u8 op=sub
+@static
+fn func_301(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_302 type=u16 op=mul
+@packed
+fn func_302(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_303 type=u32 op=div
+@inline
+fn func_303(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    div result, a, b
+    ret result
+}
+
+# func_304 type=u64 op=mod
+@static
+fn func_304(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_305 type=f32 op=and
+@packed
+fn func_305(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    and result, a, b
+    ret result
+}
+
+# func_306 type=f64 op=orr
+@inline
+fn func_306(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_307 type=bool op=xor
+@static
+fn func_307(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    xor result, a, b
+    ret result
+}
+
+# func_308 type=i8 op=shl
+@packed
+fn func_308(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_309 type=i16 op=shr
+@inline
+fn func_309(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_310 type=i32 op=add
+@static
+fn func_310(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    add result, a, b
+    ret result
+}
+
+# func_311 type=i64 op=sub
+@packed
+fn func_311(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_312 type=u8 op=mul
+@inline
+fn func_312(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_313 type=u16 op=div
+@static
+fn func_313(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    div result, a, b
+    ret result
+}
+
+# func_314 type=u32 op=mod
+@packed
+fn func_314(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_315 type=u64 op=and
+@inline
+fn func_315(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    and result, a, b
+    ret result
+}
+
+# func_316 type=f32 op=orr
+@static
+fn func_316(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_317 type=f64 op=xor
+@packed
+fn func_317(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_318 type=bool op=shl
+@inline
+fn func_318(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    shl result, a, b
+    ret result
+}
+
+# func_319 type=i8 op=shr
+@static
+fn func_319(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_320 type=i16 op=add
+@packed
+fn func_320(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    add result, a, b
+    ret result
+}
+
+# func_321 type=i32 op=sub
+@inline
+fn func_321(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_322 type=i64 op=mul
+@static
+fn func_322(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_323 type=u8 op=div
+@packed
+fn func_323(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    div result, a, b
+    ret result
+}
+
+# func_324 type=u16 op=mod
+@inline
+fn func_324(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_325 type=u32 op=and
+@static
+fn func_325(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    and result, a, b
+    ret result
+}
+
+# func_326 type=u64 op=orr
+@packed
+fn func_326(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_327 type=f32 op=xor
+@inline
+fn func_327(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_328 type=f64 op=shl
+@static
+fn func_328(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_329 type=bool op=shr
+@packed
+fn func_329(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    shr result, a, b
+    ret result
+}
+
+# func_330 type=i8 op=add
+@inline
+fn func_330(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    add result, a, b
+    ret result
+}
+
+# func_331 type=i16 op=sub
+@static
+fn func_331(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_332 type=i32 op=mul
+@packed
+fn func_332(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_333 type=i64 op=div
+@inline
+fn func_333(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    div result, a, b
+    ret result
+}
+
+# func_334 type=u8 op=mod
+@static
+fn func_334(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_335 type=u16 op=and
+@packed
+fn func_335(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    and result, a, b
+    ret result
+}
+
+# func_336 type=u32 op=orr
+@inline
+fn func_336(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_337 type=u64 op=xor
+@static
+fn func_337(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_338 type=f32 op=shl
+@packed
+fn func_338(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_339 type=f64 op=shr
+@inline
+fn func_339(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_340 type=bool op=add
+@static
+fn func_340(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    add result, a, b
+    ret result
+}
+
+# func_341 type=i8 op=sub
+@packed
+fn func_341(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_342 type=i16 op=mul
+@inline
+fn func_342(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_343 type=i32 op=div
+@static
+fn func_343(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    div result, a, b
+    ret result
+}
+
+# func_344 type=i64 op=mod
+@packed
+fn func_344(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_345 type=u8 op=and
+@inline
+fn func_345(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    and result, a, b
+    ret result
+}
+
+# func_346 type=u16 op=orr
+@static
+fn func_346(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_347 type=u32 op=xor
+@packed
+fn func_347(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_348 type=u64 op=shl
+@inline
+fn func_348(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_349 type=f32 op=shr
+@static
+fn func_349(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_350 type=f64 op=add
+@packed
+fn func_350(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    add result, a, b
+    ret result
+}
+
+# func_351 type=bool op=sub
+@inline
+fn func_351(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    sub result, a, b
+    ret result
+}
+
+# func_352 type=i8 op=mul
+@static
+fn func_352(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_353 type=i16 op=div
+@packed
+fn func_353(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    div result, a, b
+    ret result
+}
+
+# func_354 type=i32 op=mod
+@inline
+fn func_354(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_355 type=i64 op=and
+@static
+fn func_355(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    and result, a, b
+    ret result
+}
+
+# func_356 type=u8 op=orr
+@packed
+fn func_356(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_357 type=u16 op=xor
+@inline
+fn func_357(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_358 type=u32 op=shl
+@static
+fn func_358(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_359 type=u64 op=shr
+@packed
+fn func_359(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_360 type=f32 op=add
+@inline
+fn func_360(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    add result, a, b
+    ret result
+}
+
+# func_361 type=f64 op=sub
+@static
+fn func_361(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_362 type=bool op=mul
+@packed
+fn func_362(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    mul result, a, b
+    ret result
+}
+
+# func_363 type=i8 op=div
+@inline
+fn func_363(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    div result, a, b
+    ret result
+}
+
+# func_364 type=i16 op=mod
+@static
+fn func_364(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_365 type=i32 op=and
+@packed
+fn func_365(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    and result, a, b
+    ret result
+}
+
+# func_366 type=i64 op=orr
+@inline
+fn func_366(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_367 type=u8 op=xor
+@static
+fn func_367(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_368 type=u16 op=shl
+@packed
+fn func_368(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_369 type=u32 op=shr
+@inline
+fn func_369(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_370 type=u64 op=add
+@static
+fn func_370(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    add result, a, b
+    ret result
+}
+
+# func_371 type=f32 op=sub
+@packed
+fn func_371(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_372 type=f64 op=mul
+@inline
+fn func_372(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_373 type=bool op=div
+@static
+fn func_373(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    div result, a, b
+    ret result
+}
+
+# func_374 type=i8 op=mod
+@packed
+fn func_374(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_375 type=i16 op=and
+@inline
+fn func_375(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    and result, a, b
+    ret result
+}
+
+# func_376 type=i32 op=orr
+@static
+fn func_376(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_377 type=i64 op=xor
+@packed
+fn func_377(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_378 type=u8 op=shl
+@inline
+fn func_378(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_379 type=u16 op=shr
+@static
+fn func_379(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_380 type=u32 op=add
+@packed
+fn func_380(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    add result, a, b
+    ret result
+}
+
+# func_381 type=u64 op=sub
+@inline
+fn func_381(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_382 type=f32 op=mul
+@static
+fn func_382(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_383 type=f64 op=div
+@packed
+fn func_383(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    div result, a, b
+    ret result
+}
+
+# func_384 type=bool op=mod
+@inline
+fn func_384(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    mod result, a, b
+    ret result
+}
+
+# func_385 type=i8 op=and
+@static
+fn func_385(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    and result, a, b
+    ret result
+}
+
+# func_386 type=i16 op=orr
+@packed
+fn func_386(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_387 type=i32 op=xor
+@inline
+fn func_387(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_388 type=i64 op=shl
+@static
+fn func_388(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_389 type=u8 op=shr
+@packed
+fn func_389(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_390 type=u16 op=add
+@inline
+fn func_390(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    add result, a, b
+    ret result
+}
+
+# func_391 type=u32 op=sub
+@static
+fn func_391(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_392 type=u64 op=mul
+@packed
+fn func_392(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_393 type=f32 op=div
+@inline
+fn func_393(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    div result, a, b
+    ret result
+}
+
+# func_394 type=f64 op=mod
+@static
+fn func_394(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_395 type=bool op=and
+@packed
+fn func_395(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    and result, a, b
+    ret result
+}
+
+# func_396 type=i8 op=orr
+@inline
+fn func_396(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_397 type=i16 op=xor
+@static
+fn func_397(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_398 type=i32 op=shl
+@packed
+fn func_398(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_399 type=i64 op=shr
+@inline
+fn func_399(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_400 type=u8 op=add
+@static
+fn func_400(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    add result, a, b
+    ret result
+}
+
+# func_401 type=u16 op=sub
+@packed
+fn func_401(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_402 type=u32 op=mul
+@inline
+fn func_402(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_403 type=u64 op=div
+@static
+fn func_403(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    div result, a, b
+    ret result
+}
+
+# func_404 type=f32 op=mod
+@packed
+fn func_404(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_405 type=f64 op=and
+@inline
+fn func_405(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    and result, a, b
+    ret result
+}
+
+# func_406 type=bool op=orr
+@static
+fn func_406(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    orr result, a, b
+    ret result
+}
+
+# func_407 type=i8 op=xor
+@packed
+fn func_407(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_408 type=i16 op=shl
+@inline
+fn func_408(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_409 type=i32 op=shr
+@static
+fn func_409(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_410 type=i64 op=add
+@packed
+fn func_410(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    add result, a, b
+    ret result
+}
+
+# func_411 type=u8 op=sub
+@inline
+fn func_411(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_412 type=u16 op=mul
+@static
+fn func_412(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_413 type=u32 op=div
+@packed
+fn func_413(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    div result, a, b
+    ret result
+}
+
+# func_414 type=u64 op=mod
+@inline
+fn func_414(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_415 type=f32 op=and
+@static
+fn func_415(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    and result, a, b
+    ret result
+}
+
+# func_416 type=f64 op=orr
+@packed
+fn func_416(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_417 type=bool op=xor
+@inline
+fn func_417(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    xor result, a, b
+    ret result
+}
+
+# func_418 type=i8 op=shl
+@static
+fn func_418(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_419 type=i16 op=shr
+@packed
+fn func_419(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_420 type=i32 op=add
+@inline
+fn func_420(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    add result, a, b
+    ret result
+}
+
+# func_421 type=i64 op=sub
+@static
+fn func_421(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_422 type=u8 op=mul
+@packed
+fn func_422(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_423 type=u16 op=div
+@inline
+fn func_423(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    div result, a, b
+    ret result
+}
+
+# func_424 type=u32 op=mod
+@static
+fn func_424(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_425 type=u64 op=and
+@packed
+fn func_425(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    and result, a, b
+    ret result
+}
+
+# func_426 type=f32 op=orr
+@inline
+fn func_426(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_427 type=f64 op=xor
+@static
+fn func_427(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_428 type=bool op=shl
+@packed
+fn func_428(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    shl result, a, b
+    ret result
+}
+
+# func_429 type=i8 op=shr
+@inline
+fn func_429(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_430 type=i16 op=add
+@static
+fn func_430(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    add result, a, b
+    ret result
+}
+
+# func_431 type=i32 op=sub
+@packed
+fn func_431(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_432 type=i64 op=mul
+@inline
+fn func_432(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_433 type=u8 op=div
+@static
+fn func_433(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    div result, a, b
+    ret result
+}
+
+# func_434 type=u16 op=mod
+@packed
+fn func_434(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_435 type=u32 op=and
+@inline
+fn func_435(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    and result, a, b
+    ret result
+}
+
+# func_436 type=u64 op=orr
+@static
+fn func_436(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_437 type=f32 op=xor
+@packed
+fn func_437(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_438 type=f64 op=shl
+@inline
+fn func_438(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_439 type=bool op=shr
+@static
+fn func_439(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    shr result, a, b
+    ret result
+}
+
+# func_440 type=i8 op=add
+@packed
+fn func_440(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    add result, a, b
+    ret result
+}
+
+# func_441 type=i16 op=sub
+@inline
+fn func_441(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_442 type=i32 op=mul
+@static
+fn func_442(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_443 type=i64 op=div
+@packed
+fn func_443(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    div result, a, b
+    ret result
+}
+
+# func_444 type=u8 op=mod
+@inline
+fn func_444(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_445 type=u16 op=and
+@static
+fn func_445(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    and result, a, b
+    ret result
+}
+
+# func_446 type=u32 op=orr
+@packed
+fn func_446(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_447 type=u64 op=xor
+@inline
+fn func_447(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_448 type=f32 op=shl
+@static
+fn func_448(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_449 type=f64 op=shr
+@packed
+fn func_449(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_450 type=bool op=add
+@inline
+fn func_450(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    add result, a, b
+    ret result
+}
+
+# func_451 type=i8 op=sub
+@static
+fn func_451(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_452 type=i16 op=mul
+@packed
+fn func_452(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_453 type=i32 op=div
+@inline
+fn func_453(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    div result, a, b
+    ret result
+}
+
+# func_454 type=i64 op=mod
+@static
+fn func_454(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_455 type=u8 op=and
+@packed
+fn func_455(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    and result, a, b
+    ret result
+}
+
+# func_456 type=u16 op=orr
+@inline
+fn func_456(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_457 type=u32 op=xor
+@static
+fn func_457(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_458 type=u64 op=shl
+@packed
+fn func_458(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_459 type=f32 op=shr
+@inline
+fn func_459(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_460 type=f64 op=add
+@static
+fn func_460(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    add result, a, b
+    ret result
+}
+
+# func_461 type=bool op=sub
+@packed
+fn func_461(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    sub result, a, b
+    ret result
+}
+
+# func_462 type=i8 op=mul
+@inline
+fn func_462(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_463 type=i16 op=div
+@static
+fn func_463(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    div result, a, b
+    ret result
+}
+
+# func_464 type=i32 op=mod
+@packed
+fn func_464(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_465 type=i64 op=and
+@inline
+fn func_465(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    and result, a, b
+    ret result
+}
+
+# func_466 type=u8 op=orr
+@static
+fn func_466(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_467 type=u16 op=xor
+@packed
+fn func_467(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_468 type=u32 op=shl
+@inline
+fn func_468(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_469 type=u64 op=shr
+@static
+fn func_469(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_470 type=f32 op=add
+@packed
+fn func_470(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    add result, a, b
+    ret result
+}
+
+# func_471 type=f64 op=sub
+@inline
+fn func_471(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_472 type=bool op=mul
+@static
+fn func_472(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    mul result, a, b
+    ret result
+}
+
+# func_473 type=i8 op=div
+@packed
+fn func_473(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    div result, a, b
+    ret result
+}
+
+# func_474 type=i16 op=mod
+@inline
+fn func_474(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_475 type=i32 op=and
+@static
+fn func_475(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    and result, a, b
+    ret result
+}
+
+# func_476 type=i64 op=orr
+@packed
+fn func_476(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_477 type=u8 op=xor
+@inline
+fn func_477(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_478 type=u16 op=shl
+@static
+fn func_478(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_479 type=u32 op=shr
+@packed
+fn func_479(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_480 type=u64 op=add
+@inline
+fn func_480(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    add result, a, b
+    ret result
+}
+
+# func_481 type=f32 op=sub
+@static
+fn func_481(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_482 type=f64 op=mul
+@packed
+fn func_482(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_483 type=bool op=div
+@inline
+fn func_483(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    div result, a, b
+    ret result
+}
+
+# func_484 type=i8 op=mod
+@static
+fn func_484(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_485 type=i16 op=and
+@packed
+fn func_485(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    and result, a, b
+    ret result
+}
+
+# func_486 type=i32 op=orr
+@inline
+fn func_486(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_487 type=i64 op=xor
+@static
+fn func_487(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_488 type=u8 op=shl
+@packed
+fn func_488(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_489 type=u16 op=shr
+@inline
+fn func_489(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_490 type=u32 op=add
+@static
+fn func_490(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    add result, a, b
+    ret result
+}
+
+# func_491 type=u64 op=sub
+@packed
+fn func_491(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_492 type=f32 op=mul
+@inline
+fn func_492(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_493 type=f64 op=div
+@static
+fn func_493(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    div result, a, b
+    ret result
+}
+
+# func_494 type=bool op=mod
+@packed
+fn func_494(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    mod result, a, b
+    ret result
+}
+
+# func_495 type=i8 op=and
+@inline
+fn func_495(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    and result, a, b
+    ret result
+}
+
+# func_496 type=i16 op=orr
+@static
+fn func_496(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_497 type=i32 op=xor
+@packed
+fn func_497(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_498 type=i64 op=shl
+@inline
+fn func_498(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_499 type=u8 op=shr
+@static
+fn func_499(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_500 type=u16 op=add
+@packed
+fn func_500(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    add result, a, b
+    ret result
+}
+
+# func_501 type=u32 op=sub
+@inline
+fn func_501(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_502 type=u64 op=mul
+@static
+fn func_502(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_503 type=f32 op=div
+@packed
+fn func_503(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    div result, a, b
+    ret result
+}
+
+# func_504 type=f64 op=mod
+@inline
+fn func_504(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_505 type=bool op=and
+@static
+fn func_505(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    and result, a, b
+    ret result
+}
+
+# func_506 type=i8 op=orr
+@packed
+fn func_506(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_507 type=i16 op=xor
+@inline
+fn func_507(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_508 type=i32 op=shl
+@static
+fn func_508(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_509 type=i64 op=shr
+@packed
+fn func_509(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_510 type=u8 op=add
+@inline
+fn func_510(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    add result, a, b
+    ret result
+}
+
+# func_511 type=u16 op=sub
+@static
+fn func_511(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_512 type=u32 op=mul
+@packed
+fn func_512(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_513 type=u64 op=div
+@inline
+fn func_513(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    div result, a, b
+    ret result
+}
+
+# func_514 type=f32 op=mod
+@static
+fn func_514(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_515 type=f64 op=and
+@packed
+fn func_515(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    and result, a, b
+    ret result
+}
+
+# func_516 type=bool op=orr
+@inline
+fn func_516(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    orr result, a, b
+    ret result
+}
+
+# func_517 type=i8 op=xor
+@static
+fn func_517(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_518 type=i16 op=shl
+@packed
+fn func_518(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_519 type=i32 op=shr
+@inline
+fn func_519(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_520 type=i64 op=add
+@static
+fn func_520(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    add result, a, b
+    ret result
+}
+
+# func_521 type=u8 op=sub
+@packed
+fn func_521(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_522 type=u16 op=mul
+@inline
+fn func_522(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_523 type=u32 op=div
+@static
+fn func_523(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    div result, a, b
+    ret result
+}
+
+# func_524 type=u64 op=mod
+@packed
+fn func_524(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_525 type=f32 op=and
+@inline
+fn func_525(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    and result, a, b
+    ret result
+}
+
+# func_526 type=f64 op=orr
+@static
+fn func_526(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_527 type=bool op=xor
+@packed
+fn func_527(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    xor result, a, b
+    ret result
+}
+
+# func_528 type=i8 op=shl
+@inline
+fn func_528(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_529 type=i16 op=shr
+@static
+fn func_529(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_530 type=i32 op=add
+@packed
+fn func_530(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    add result, a, b
+    ret result
+}
+
+# func_531 type=i64 op=sub
+@inline
+fn func_531(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_532 type=u8 op=mul
+@static
+fn func_532(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_533 type=u16 op=div
+@packed
+fn func_533(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    div result, a, b
+    ret result
+}
+
+# func_534 type=u32 op=mod
+@inline
+fn func_534(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_535 type=u64 op=and
+@static
+fn func_535(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    and result, a, b
+    ret result
+}
+
+# func_536 type=f32 op=orr
+@packed
+fn func_536(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_537 type=f64 op=xor
+@inline
+fn func_537(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_538 type=bool op=shl
+@static
+fn func_538(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    shl result, a, b
+    ret result
+}
+
+# func_539 type=i8 op=shr
+@packed
+fn func_539(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_540 type=i16 op=add
+@inline
+fn func_540(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    add result, a, b
+    ret result
+}
+
+# func_541 type=i32 op=sub
+@static
+fn func_541(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_542 type=i64 op=mul
+@packed
+fn func_542(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_543 type=u8 op=div
+@inline
+fn func_543(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    div result, a, b
+    ret result
+}
+
+# func_544 type=u16 op=mod
+@static
+fn func_544(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_545 type=u32 op=and
+@packed
+fn func_545(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    and result, a, b
+    ret result
+}
+
+# func_546 type=u64 op=orr
+@inline
+fn func_546(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_547 type=f32 op=xor
+@static
+fn func_547(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_548 type=f64 op=shl
+@packed
+fn func_548(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_549 type=bool op=shr
+@inline
+fn func_549(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    shr result, a, b
+    ret result
+}
+
+# func_550 type=i8 op=add
+@static
+fn func_550(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    add result, a, b
+    ret result
+}
+
+# func_551 type=i16 op=sub
+@packed
+fn func_551(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_552 type=i32 op=mul
+@inline
+fn func_552(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_553 type=i64 op=div
+@static
+fn func_553(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    div result, a, b
+    ret result
+}
+
+# func_554 type=u8 op=mod
+@packed
+fn func_554(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_555 type=u16 op=and
+@inline
+fn func_555(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    and result, a, b
+    ret result
+}
+
+# func_556 type=u32 op=orr
+@static
+fn func_556(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_557 type=u64 op=xor
+@packed
+fn func_557(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_558 type=f32 op=shl
+@inline
+fn func_558(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_559 type=f64 op=shr
+@static
+fn func_559(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_560 type=bool op=add
+@packed
+fn func_560(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    add result, a, b
+    ret result
+}
+
+# func_561 type=i8 op=sub
+@inline
+fn func_561(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_562 type=i16 op=mul
+@static
+fn func_562(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_563 type=i32 op=div
+@packed
+fn func_563(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    div result, a, b
+    ret result
+}
+
+# func_564 type=i64 op=mod
+@inline
+fn func_564(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_565 type=u8 op=and
+@static
+fn func_565(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    and result, a, b
+    ret result
+}
+
+# func_566 type=u16 op=orr
+@packed
+fn func_566(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_567 type=u32 op=xor
+@inline
+fn func_567(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_568 type=u64 op=shl
+@static
+fn func_568(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_569 type=f32 op=shr
+@packed
+fn func_569(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_570 type=f64 op=add
+@inline
+fn func_570(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    add result, a, b
+    ret result
+}
+
+# func_571 type=bool op=sub
+@static
+fn func_571(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    sub result, a, b
+    ret result
+}
+
+# func_572 type=i8 op=mul
+@packed
+fn func_572(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_573 type=i16 op=div
+@inline
+fn func_573(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    div result, a, b
+    ret result
+}
+
+# func_574 type=i32 op=mod
+@static
+fn func_574(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_575 type=i64 op=and
+@packed
+fn func_575(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    and result, a, b
+    ret result
+}
+
+# func_576 type=u8 op=orr
+@inline
+fn func_576(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_577 type=u16 op=xor
+@static
+fn func_577(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_578 type=u32 op=shl
+@packed
+fn func_578(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_579 type=u64 op=shr
+@inline
+fn func_579(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_580 type=f32 op=add
+@static
+fn func_580(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    add result, a, b
+    ret result
+}
+
+# func_581 type=f64 op=sub
+@packed
+fn func_581(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_582 type=bool op=mul
+@inline
+fn func_582(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    mul result, a, b
+    ret result
+}
+
+# func_583 type=i8 op=div
+@static
+fn func_583(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    div result, a, b
+    ret result
+}
+
+# func_584 type=i16 op=mod
+@packed
+fn func_584(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_585 type=i32 op=and
+@inline
+fn func_585(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    and result, a, b
+    ret result
+}
+
+# func_586 type=i64 op=orr
+@static
+fn func_586(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_587 type=u8 op=xor
+@packed
+fn func_587(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_588 type=u16 op=shl
+@inline
+fn func_588(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_589 type=u32 op=shr
+@static
+fn func_589(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_590 type=u64 op=add
+@packed
+fn func_590(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    add result, a, b
+    ret result
+}
+
+# func_591 type=f32 op=sub
+@inline
+fn func_591(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_592 type=f64 op=mul
+@static
+fn func_592(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_593 type=bool op=div
+@packed
+fn func_593(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    div result, a, b
+    ret result
+}
+
+# func_594 type=i8 op=mod
+@inline
+fn func_594(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_595 type=i16 op=and
+@static
+fn func_595(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    and result, a, b
+    ret result
+}
+
+# func_596 type=i32 op=orr
+@packed
+fn func_596(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_597 type=i64 op=xor
+@inline
+fn func_597(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_598 type=u8 op=shl
+@static
+fn func_598(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_599 type=u16 op=shr
+@packed
+fn func_599(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_600 type=u32 op=add
+@inline
+fn func_600(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    add result, a, b
+    ret result
+}
+
+# func_601 type=u64 op=sub
+@static
+fn func_601(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_602 type=f32 op=mul
+@packed
+fn func_602(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_603 type=f64 op=div
+@inline
+fn func_603(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    div result, a, b
+    ret result
+}
+
+# func_604 type=bool op=mod
+@static
+fn func_604(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    mod result, a, b
+    ret result
+}
+
+# func_605 type=i8 op=and
+@packed
+fn func_605(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    and result, a, b
+    ret result
+}
+
+# func_606 type=i16 op=orr
+@inline
+fn func_606(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_607 type=i32 op=xor
+@static
+fn func_607(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_608 type=i64 op=shl
+@packed
+fn func_608(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_609 type=u8 op=shr
+@inline
+fn func_609(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_610 type=u16 op=add
+@static
+fn func_610(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    add result, a, b
+    ret result
+}
+
+# func_611 type=u32 op=sub
+@packed
+fn func_611(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_612 type=u64 op=mul
+@inline
+fn func_612(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_613 type=f32 op=div
+@static
+fn func_613(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    div result, a, b
+    ret result
+}
+
+# func_614 type=f64 op=mod
+@packed
+fn func_614(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_615 type=bool op=and
+@inline
+fn func_615(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    and result, a, b
+    ret result
+}
+
+# func_616 type=i8 op=orr
+@static
+fn func_616(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_617 type=i16 op=xor
+@packed
+fn func_617(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_618 type=i32 op=shl
+@inline
+fn func_618(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_619 type=i64 op=shr
+@static
+fn func_619(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_620 type=u8 op=add
+@packed
+fn func_620(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    add result, a, b
+    ret result
+}
+
+# func_621 type=u16 op=sub
+@inline
+fn func_621(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_622 type=u32 op=mul
+@static
+fn func_622(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_623 type=u64 op=div
+@packed
+fn func_623(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    div result, a, b
+    ret result
+}
+
+# func_624 type=f32 op=mod
+@inline
+fn func_624(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_625 type=f64 op=and
+@static
+fn func_625(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    and result, a, b
+    ret result
+}
+
+# func_626 type=bool op=orr
+@packed
+fn func_626(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    orr result, a, b
+    ret result
+}
+
+# func_627 type=i8 op=xor
+@inline
+fn func_627(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_628 type=i16 op=shl
+@static
+fn func_628(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_629 type=i32 op=shr
+@packed
+fn func_629(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_630 type=i64 op=add
+@inline
+fn func_630(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    add result, a, b
+    ret result
+}
+
+# func_631 type=u8 op=sub
+@static
+fn func_631(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_632 type=u16 op=mul
+@packed
+fn func_632(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_633 type=u32 op=div
+@inline
+fn func_633(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    div result, a, b
+    ret result
+}
+
+# func_634 type=u64 op=mod
+@static
+fn func_634(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_635 type=f32 op=and
+@packed
+fn func_635(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    and result, a, b
+    ret result
+}
+
+# func_636 type=f64 op=orr
+@inline
+fn func_636(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_637 type=bool op=xor
+@static
+fn func_637(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    xor result, a, b
+    ret result
+}
+
+# func_638 type=i8 op=shl
+@packed
+fn func_638(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_639 type=i16 op=shr
+@inline
+fn func_639(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_640 type=i32 op=add
+@static
+fn func_640(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    add result, a, b
+    ret result
+}
+
+# func_641 type=i64 op=sub
+@packed
+fn func_641(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_642 type=u8 op=mul
+@inline
+fn func_642(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_643 type=u16 op=div
+@static
+fn func_643(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    div result, a, b
+    ret result
+}
+
+# func_644 type=u32 op=mod
+@packed
+fn func_644(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_645 type=u64 op=and
+@inline
+fn func_645(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    and result, a, b
+    ret result
+}
+
+# func_646 type=f32 op=orr
+@static
+fn func_646(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_647 type=f64 op=xor
+@packed
+fn func_647(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_648 type=bool op=shl
+@inline
+fn func_648(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    shl result, a, b
+    ret result
+}
+
+# func_649 type=i8 op=shr
+@static
+fn func_649(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_650 type=i16 op=add
+@packed
+fn func_650(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    add result, a, b
+    ret result
+}
+
+# func_651 type=i32 op=sub
+@inline
+fn func_651(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_652 type=i64 op=mul
+@static
+fn func_652(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_653 type=u8 op=div
+@packed
+fn func_653(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    div result, a, b
+    ret result
+}
+
+# func_654 type=u16 op=mod
+@inline
+fn func_654(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_655 type=u32 op=and
+@static
+fn func_655(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    and result, a, b
+    ret result
+}
+
+# func_656 type=u64 op=orr
+@packed
+fn func_656(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_657 type=f32 op=xor
+@inline
+fn func_657(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_658 type=f64 op=shl
+@static
+fn func_658(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_659 type=bool op=shr
+@packed
+fn func_659(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    shr result, a, b
+    ret result
+}
+
+# func_660 type=i8 op=add
+@inline
+fn func_660(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    add result, a, b
+    ret result
+}
+
+# func_661 type=i16 op=sub
+@static
+fn func_661(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_662 type=i32 op=mul
+@packed
+fn func_662(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_663 type=i64 op=div
+@inline
+fn func_663(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    div result, a, b
+    ret result
+}
+
+# func_664 type=u8 op=mod
+@static
+fn func_664(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_665 type=u16 op=and
+@packed
+fn func_665(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    and result, a, b
+    ret result
+}
+
+# func_666 type=u32 op=orr
+@inline
+fn func_666(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_667 type=u64 op=xor
+@static
+fn func_667(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_668 type=f32 op=shl
+@packed
+fn func_668(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_669 type=f64 op=shr
+@inline
+fn func_669(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_670 type=bool op=add
+@static
+fn func_670(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    add result, a, b
+    ret result
+}
+
+# func_671 type=i8 op=sub
+@packed
+fn func_671(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_672 type=i16 op=mul
+@inline
+fn func_672(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_673 type=i32 op=div
+@static
+fn func_673(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    div result, a, b
+    ret result
+}
+
+# func_674 type=i64 op=mod
+@packed
+fn func_674(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_675 type=u8 op=and
+@inline
+fn func_675(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    and result, a, b
+    ret result
+}
+
+# func_676 type=u16 op=orr
+@static
+fn func_676(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_677 type=u32 op=xor
+@packed
+fn func_677(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_678 type=u64 op=shl
+@inline
+fn func_678(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_679 type=f32 op=shr
+@static
+fn func_679(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_680 type=f64 op=add
+@packed
+fn func_680(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    add result, a, b
+    ret result
+}
+
+# func_681 type=bool op=sub
+@inline
+fn func_681(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    sub result, a, b
+    ret result
+}
+
+# func_682 type=i8 op=mul
+@static
+fn func_682(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_683 type=i16 op=div
+@packed
+fn func_683(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    div result, a, b
+    ret result
+}
+
+# func_684 type=i32 op=mod
+@inline
+fn func_684(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_685 type=i64 op=and
+@static
+fn func_685(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    and result, a, b
+    ret result
+}
+
+# func_686 type=u8 op=orr
+@packed
+fn func_686(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_687 type=u16 op=xor
+@inline
+fn func_687(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_688 type=u32 op=shl
+@static
+fn func_688(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_689 type=u64 op=shr
+@packed
+fn func_689(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_690 type=f32 op=add
+@inline
+fn func_690(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    add result, a, b
+    ret result
+}
+
+# func_691 type=f64 op=sub
+@static
+fn func_691(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_692 type=bool op=mul
+@packed
+fn func_692(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    mul result, a, b
+    ret result
+}
+
+# func_693 type=i8 op=div
+@inline
+fn func_693(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    div result, a, b
+    ret result
+}
+
+# func_694 type=i16 op=mod
+@static
+fn func_694(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_695 type=i32 op=and
+@packed
+fn func_695(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    and result, a, b
+    ret result
+}
+
+# func_696 type=i64 op=orr
+@inline
+fn func_696(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_697 type=u8 op=xor
+@static
+fn func_697(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_698 type=u16 op=shl
+@packed
+fn func_698(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_699 type=u32 op=shr
+@inline
+fn func_699(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_700 type=u64 op=add
+@static
+fn func_700(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    add result, a, b
+    ret result
+}
+
+# func_701 type=f32 op=sub
+@packed
+fn func_701(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_702 type=f64 op=mul
+@inline
+fn func_702(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_703 type=bool op=div
+@static
+fn func_703(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    div result, a, b
+    ret result
+}
+
+# func_704 type=i8 op=mod
+@packed
+fn func_704(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_705 type=i16 op=and
+@inline
+fn func_705(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    and result, a, b
+    ret result
+}
+
+# func_706 type=i32 op=orr
+@static
+fn func_706(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_707 type=i64 op=xor
+@packed
+fn func_707(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_708 type=u8 op=shl
+@inline
+fn func_708(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_709 type=u16 op=shr
+@static
+fn func_709(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_710 type=u32 op=add
+@packed
+fn func_710(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    add result, a, b
+    ret result
+}
+
+# func_711 type=u64 op=sub
+@inline
+fn func_711(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_712 type=f32 op=mul
+@static
+fn func_712(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_713 type=f64 op=div
+@packed
+fn func_713(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    div result, a, b
+    ret result
+}
+
+# func_714 type=bool op=mod
+@inline
+fn func_714(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    mod result, a, b
+    ret result
+}
+
+# func_715 type=i8 op=and
+@static
+fn func_715(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    and result, a, b
+    ret result
+}
+
+# func_716 type=i16 op=orr
+@packed
+fn func_716(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_717 type=i32 op=xor
+@inline
+fn func_717(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_718 type=i64 op=shl
+@static
+fn func_718(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_719 type=u8 op=shr
+@packed
+fn func_719(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_720 type=u16 op=add
+@inline
+fn func_720(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    add result, a, b
+    ret result
+}
+
+# func_721 type=u32 op=sub
+@static
+fn func_721(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_722 type=u64 op=mul
+@packed
+fn func_722(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_723 type=f32 op=div
+@inline
+fn func_723(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    div result, a, b
+    ret result
+}
+
+# func_724 type=f64 op=mod
+@static
+fn func_724(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_725 type=bool op=and
+@packed
+fn func_725(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    and result, a, b
+    ret result
+}
+
+# func_726 type=i8 op=orr
+@inline
+fn func_726(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_727 type=i16 op=xor
+@static
+fn func_727(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_728 type=i32 op=shl
+@packed
+fn func_728(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_729 type=i64 op=shr
+@inline
+fn func_729(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_730 type=u8 op=add
+@static
+fn func_730(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    add result, a, b
+    ret result
+}
+
+# func_731 type=u16 op=sub
+@packed
+fn func_731(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_732 type=u32 op=mul
+@inline
+fn func_732(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_733 type=u64 op=div
+@static
+fn func_733(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    div result, a, b
+    ret result
+}
+
+# func_734 type=f32 op=mod
+@packed
+fn func_734(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_735 type=f64 op=and
+@inline
+fn func_735(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    and result, a, b
+    ret result
+}
+
+# func_736 type=bool op=orr
+@static
+fn func_736(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    orr result, a, b
+    ret result
+}
+
+# func_737 type=i8 op=xor
+@packed
+fn func_737(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_738 type=i16 op=shl
+@inline
+fn func_738(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_739 type=i32 op=shr
+@static
+fn func_739(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_740 type=i64 op=add
+@packed
+fn func_740(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    add result, a, b
+    ret result
+}
+
+# func_741 type=u8 op=sub
+@inline
+fn func_741(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_742 type=u16 op=mul
+@static
+fn func_742(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_743 type=u32 op=div
+@packed
+fn func_743(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    div result, a, b
+    ret result
+}
+
+# func_744 type=u64 op=mod
+@inline
+fn func_744(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_745 type=f32 op=and
+@static
+fn func_745(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    and result, a, b
+    ret result
+}
+
+# func_746 type=f64 op=orr
+@packed
+fn func_746(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_747 type=bool op=xor
+@inline
+fn func_747(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    xor result, a, b
+    ret result
+}
+
+# func_748 type=i8 op=shl
+@static
+fn func_748(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_749 type=i16 op=shr
+@packed
+fn func_749(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_750 type=i32 op=add
+@inline
+fn func_750(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    add result, a, b
+    ret result
+}
+
+# func_751 type=i64 op=sub
+@static
+fn func_751(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_752 type=u8 op=mul
+@packed
+fn func_752(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_753 type=u16 op=div
+@inline
+fn func_753(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    div result, a, b
+    ret result
+}
+
+# func_754 type=u32 op=mod
+@static
+fn func_754(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_755 type=u64 op=and
+@packed
+fn func_755(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    and result, a, b
+    ret result
+}
+
+# func_756 type=f32 op=orr
+@inline
+fn func_756(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_757 type=f64 op=xor
+@static
+fn func_757(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_758 type=bool op=shl
+@packed
+fn func_758(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    shl result, a, b
+    ret result
+}
+
+# func_759 type=i8 op=shr
+@inline
+fn func_759(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_760 type=i16 op=add
+@static
+fn func_760(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    add result, a, b
+    ret result
+}
+
+# func_761 type=i32 op=sub
+@packed
+fn func_761(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_762 type=i64 op=mul
+@inline
+fn func_762(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_763 type=u8 op=div
+@static
+fn func_763(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    div result, a, b
+    ret result
+}
+
+# func_764 type=u16 op=mod
+@packed
+fn func_764(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_765 type=u32 op=and
+@inline
+fn func_765(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    and result, a, b
+    ret result
+}
+
+# func_766 type=u64 op=orr
+@static
+fn func_766(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_767 type=f32 op=xor
+@packed
+fn func_767(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_768 type=f64 op=shl
+@inline
+fn func_768(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_769 type=bool op=shr
+@static
+fn func_769(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    shr result, a, b
+    ret result
+}
+
+# func_770 type=i8 op=add
+@packed
+fn func_770(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    add result, a, b
+    ret result
+}
+
+# func_771 type=i16 op=sub
+@inline
+fn func_771(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_772 type=i32 op=mul
+@static
+fn func_772(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_773 type=i64 op=div
+@packed
+fn func_773(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    div result, a, b
+    ret result
+}
+
+# func_774 type=u8 op=mod
+@inline
+fn func_774(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_775 type=u16 op=and
+@static
+fn func_775(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    and result, a, b
+    ret result
+}
+
+# func_776 type=u32 op=orr
+@packed
+fn func_776(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_777 type=u64 op=xor
+@inline
+fn func_777(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_778 type=f32 op=shl
+@static
+fn func_778(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_779 type=f64 op=shr
+@packed
+fn func_779(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_780 type=bool op=add
+@inline
+fn func_780(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    add result, a, b
+    ret result
+}
+
+# func_781 type=i8 op=sub
+@static
+fn func_781(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_782 type=i16 op=mul
+@packed
+fn func_782(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_783 type=i32 op=div
+@inline
+fn func_783(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    div result, a, b
+    ret result
+}
+
+# func_784 type=i64 op=mod
+@static
+fn func_784(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_785 type=u8 op=and
+@packed
+fn func_785(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    and result, a, b
+    ret result
+}
+
+# func_786 type=u16 op=orr
+@inline
+fn func_786(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_787 type=u32 op=xor
+@static
+fn func_787(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_788 type=u64 op=shl
+@packed
+fn func_788(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_789 type=f32 op=shr
+@inline
+fn func_789(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_790 type=f64 op=add
+@static
+fn func_790(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    add result, a, b
+    ret result
+}
+
+# func_791 type=bool op=sub
+@packed
+fn func_791(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    sub result, a, b
+    ret result
+}
+
+# func_792 type=i8 op=mul
+@inline
+fn func_792(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_793 type=i16 op=div
+@static
+fn func_793(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    div result, a, b
+    ret result
+}
+
+# func_794 type=i32 op=mod
+@packed
+fn func_794(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_795 type=i64 op=and
+@inline
+fn func_795(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    and result, a, b
+    ret result
+}
+
+# func_796 type=u8 op=orr
+@static
+fn func_796(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_797 type=u16 op=xor
+@packed
+fn func_797(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_798 type=u32 op=shl
+@inline
+fn func_798(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_799 type=u64 op=shr
+@static
+fn func_799(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_800 type=f32 op=add
+@packed
+fn func_800(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    add result, a, b
+    ret result
+}
+
+# func_801 type=f64 op=sub
+@inline
+fn func_801(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_802 type=bool op=mul
+@static
+fn func_802(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    mul result, a, b
+    ret result
+}
+
+# func_803 type=i8 op=div
+@packed
+fn func_803(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    div result, a, b
+    ret result
+}
+
+# func_804 type=i16 op=mod
+@inline
+fn func_804(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_805 type=i32 op=and
+@static
+fn func_805(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    and result, a, b
+    ret result
+}
+
+# func_806 type=i64 op=orr
+@packed
+fn func_806(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_807 type=u8 op=xor
+@inline
+fn func_807(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_808 type=u16 op=shl
+@static
+fn func_808(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_809 type=u32 op=shr
+@packed
+fn func_809(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_810 type=u64 op=add
+@inline
+fn func_810(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    add result, a, b
+    ret result
+}
+
+# func_811 type=f32 op=sub
+@static
+fn func_811(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_812 type=f64 op=mul
+@packed
+fn func_812(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_813 type=bool op=div
+@inline
+fn func_813(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    div result, a, b
+    ret result
+}
+
+# func_814 type=i8 op=mod
+@static
+fn func_814(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_815 type=i16 op=and
+@packed
+fn func_815(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    and result, a, b
+    ret result
+}
+
+# func_816 type=i32 op=orr
+@inline
+fn func_816(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_817 type=i64 op=xor
+@static
+fn func_817(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_818 type=u8 op=shl
+@packed
+fn func_818(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_819 type=u16 op=shr
+@inline
+fn func_819(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_820 type=u32 op=add
+@static
+fn func_820(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    add result, a, b
+    ret result
+}
+
+# func_821 type=u64 op=sub
+@packed
+fn func_821(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_822 type=f32 op=mul
+@inline
+fn func_822(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_823 type=f64 op=div
+@static
+fn func_823(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    div result, a, b
+    ret result
+}
+
+# func_824 type=bool op=mod
+@packed
+fn func_824(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    mod result, a, b
+    ret result
+}
+
+# func_825 type=i8 op=and
+@inline
+fn func_825(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    and result, a, b
+    ret result
+}
+
+# func_826 type=i16 op=orr
+@static
+fn func_826(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_827 type=i32 op=xor
+@packed
+fn func_827(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_828 type=i64 op=shl
+@inline
+fn func_828(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_829 type=u8 op=shr
+@static
+fn func_829(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_830 type=u16 op=add
+@packed
+fn func_830(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    add result, a, b
+    ret result
+}
+
+# func_831 type=u32 op=sub
+@inline
+fn func_831(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_832 type=u64 op=mul
+@static
+fn func_832(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_833 type=f32 op=div
+@packed
+fn func_833(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    div result, a, b
+    ret result
+}
+
+# func_834 type=f64 op=mod
+@inline
+fn func_834(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_835 type=bool op=and
+@static
+fn func_835(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    and result, a, b
+    ret result
+}
+
+# func_836 type=i8 op=orr
+@packed
+fn func_836(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_837 type=i16 op=xor
+@inline
+fn func_837(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_838 type=i32 op=shl
+@static
+fn func_838(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_839 type=i64 op=shr
+@packed
+fn func_839(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_840 type=u8 op=add
+@inline
+fn func_840(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    add result, a, b
+    ret result
+}
+
+# func_841 type=u16 op=sub
+@static
+fn func_841(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_842 type=u32 op=mul
+@packed
+fn func_842(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_843 type=u64 op=div
+@inline
+fn func_843(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    div result, a, b
+    ret result
+}
+
+# func_844 type=f32 op=mod
+@static
+fn func_844(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_845 type=f64 op=and
+@packed
+fn func_845(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    and result, a, b
+    ret result
+}
+
+# func_846 type=bool op=orr
+@inline
+fn func_846(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    orr result, a, b
+    ret result
+}
+
+# func_847 type=i8 op=xor
+@static
+fn func_847(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_848 type=i16 op=shl
+@packed
+fn func_848(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_849 type=i32 op=shr
+@inline
+fn func_849(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_850 type=i64 op=add
+@static
+fn func_850(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    add result, a, b
+    ret result
+}
+
+# func_851 type=u8 op=sub
+@packed
+fn func_851(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_852 type=u16 op=mul
+@inline
+fn func_852(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_853 type=u32 op=div
+@static
+fn func_853(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    div result, a, b
+    ret result
+}
+
+# func_854 type=u64 op=mod
+@packed
+fn func_854(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_855 type=f32 op=and
+@inline
+fn func_855(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    and result, a, b
+    ret result
+}
+
+# func_856 type=f64 op=orr
+@static
+fn func_856(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_857 type=bool op=xor
+@packed
+fn func_857(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    xor result, a, b
+    ret result
+}
+
+# func_858 type=i8 op=shl
+@inline
+fn func_858(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_859 type=i16 op=shr
+@static
+fn func_859(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_860 type=i32 op=add
+@packed
+fn func_860(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    add result, a, b
+    ret result
+}
+
+# func_861 type=i64 op=sub
+@inline
+fn func_861(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_862 type=u8 op=mul
+@static
+fn func_862(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_863 type=u16 op=div
+@packed
+fn func_863(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    div result, a, b
+    ret result
+}
+
+# func_864 type=u32 op=mod
+@inline
+fn func_864(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_865 type=u64 op=and
+@static
+fn func_865(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    and result, a, b
+    ret result
+}
+
+# func_866 type=f32 op=orr
+@packed
+fn func_866(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_867 type=f64 op=xor
+@inline
+fn func_867(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_868 type=bool op=shl
+@static
+fn func_868(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    shl result, a, b
+    ret result
+}
+
+# func_869 type=i8 op=shr
+@packed
+fn func_869(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_870 type=i16 op=add
+@inline
+fn func_870(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    add result, a, b
+    ret result
+}
+
+# func_871 type=i32 op=sub
+@static
+fn func_871(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_872 type=i64 op=mul
+@packed
+fn func_872(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_873 type=u8 op=div
+@inline
+fn func_873(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    div result, a, b
+    ret result
+}
+
+# func_874 type=u16 op=mod
+@static
+fn func_874(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_875 type=u32 op=and
+@packed
+fn func_875(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    and result, a, b
+    ret result
+}
+
+# func_876 type=u64 op=orr
+@inline
+fn func_876(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_877 type=f32 op=xor
+@static
+fn func_877(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_878 type=f64 op=shl
+@packed
+fn func_878(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_879 type=bool op=shr
+@inline
+fn func_879(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    shr result, a, b
+    ret result
+}
+
+# func_880 type=i8 op=add
+@static
+fn func_880(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    add result, a, b
+    ret result
+}
+
+# func_881 type=i16 op=sub
+@packed
+fn func_881(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_882 type=i32 op=mul
+@inline
+fn func_882(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_883 type=i64 op=div
+@static
+fn func_883(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    div result, a, b
+    ret result
+}
+
+# func_884 type=u8 op=mod
+@packed
+fn func_884(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_885 type=u16 op=and
+@inline
+fn func_885(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    and result, a, b
+    ret result
+}
+
+# func_886 type=u32 op=orr
+@static
+fn func_886(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_887 type=u64 op=xor
+@packed
+fn func_887(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_888 type=f32 op=shl
+@inline
+fn func_888(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_889 type=f64 op=shr
+@static
+fn func_889(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_890 type=bool op=add
+@packed
+fn func_890(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    add result, a, b
+    ret result
+}
+
+# func_891 type=i8 op=sub
+@inline
+fn func_891(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_892 type=i16 op=mul
+@static
+fn func_892(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_893 type=i32 op=div
+@packed
+fn func_893(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    div result, a, b
+    ret result
+}
+
+# func_894 type=i64 op=mod
+@inline
+fn func_894(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_895 type=u8 op=and
+@static
+fn func_895(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    and result, a, b
+    ret result
+}
+
+# func_896 type=u16 op=orr
+@packed
+fn func_896(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_897 type=u32 op=xor
+@inline
+fn func_897(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_898 type=u64 op=shl
+@static
+fn func_898(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_899 type=f32 op=shr
+@packed
+fn func_899(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_900 type=f64 op=add
+@inline
+fn func_900(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    add result, a, b
+    ret result
+}
+
+# func_901 type=bool op=sub
+@static
+fn func_901(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    sub result, a, b
+    ret result
+}
+
+# func_902 type=i8 op=mul
+@packed
+fn func_902(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_903 type=i16 op=div
+@inline
+fn func_903(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    div result, a, b
+    ret result
+}
+
+# func_904 type=i32 op=mod
+@static
+fn func_904(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_905 type=i64 op=and
+@packed
+fn func_905(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    and result, a, b
+    ret result
+}
+
+# func_906 type=u8 op=orr
+@inline
+fn func_906(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_907 type=u16 op=xor
+@static
+fn func_907(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_908 type=u32 op=shl
+@packed
+fn func_908(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_909 type=u64 op=shr
+@inline
+fn func_909(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_910 type=f32 op=add
+@static
+fn func_910(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    add result, a, b
+    ret result
+}
+
+# func_911 type=f64 op=sub
+@packed
+fn func_911(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_912 type=bool op=mul
+@inline
+fn func_912(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    mul result, a, b
+    ret result
+}
+
+# func_913 type=i8 op=div
+@static
+fn func_913(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    div result, a, b
+    ret result
+}
+
+# func_914 type=i16 op=mod
+@packed
+fn func_914(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_915 type=i32 op=and
+@inline
+fn func_915(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    and result, a, b
+    ret result
+}
+
+# func_916 type=i64 op=orr
+@static
+fn func_916(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_917 type=u8 op=xor
+@packed
+fn func_917(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_918 type=u16 op=shl
+@inline
+fn func_918(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_919 type=u32 op=shr
+@static
+fn func_919(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_920 type=u64 op=add
+@packed
+fn func_920(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    add result, a, b
+    ret result
+}
+
+# func_921 type=f32 op=sub
+@inline
+fn func_921(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_922 type=f64 op=mul
+@static
+fn func_922(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_923 type=bool op=div
+@packed
+fn func_923(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    div result, a, b
+    ret result
+}
+
+# func_924 type=i8 op=mod
+@inline
+fn func_924(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_925 type=i16 op=and
+@static
+fn func_925(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    and result, a, b
+    ret result
+}
+
+# func_926 type=i32 op=orr
+@packed
+fn func_926(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_927 type=i64 op=xor
+@inline
+fn func_927(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_928 type=u8 op=shl
+@static
+fn func_928(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_929 type=u16 op=shr
+@packed
+fn func_929(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_930 type=u32 op=add
+@inline
+fn func_930(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    add result, a, b
+    ret result
+}
+
+# func_931 type=u64 op=sub
+@static
+fn func_931(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_932 type=f32 op=mul
+@packed
+fn func_932(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_933 type=f64 op=div
+@inline
+fn func_933(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    div result, a, b
+    ret result
+}
+
+# func_934 type=bool op=mod
+@static
+fn func_934(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    mod result, a, b
+    ret result
+}
+
+# func_935 type=i8 op=and
+@packed
+fn func_935(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    and result, a, b
+    ret result
+}
+
+# func_936 type=i16 op=orr
+@inline
+fn func_936(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_937 type=i32 op=xor
+@static
+fn func_937(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_938 type=i64 op=shl
+@packed
+fn func_938(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_939 type=u8 op=shr
+@inline
+fn func_939(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_940 type=u16 op=add
+@static
+fn func_940(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    add result, a, b
+    ret result
+}
+
+# func_941 type=u32 op=sub
+@packed
+fn func_941(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_942 type=u64 op=mul
+@inline
+fn func_942(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_943 type=f32 op=div
+@static
+fn func_943(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    div result, a, b
+    ret result
+}
+
+# func_944 type=f64 op=mod
+@packed
+fn func_944(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_945 type=bool op=and
+@inline
+fn func_945(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    and result, a, b
+    ret result
+}
+
+# func_946 type=i8 op=orr
+@static
+fn func_946(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_947 type=i16 op=xor
+@packed
+fn func_947(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_948 type=i32 op=shl
+@inline
+fn func_948(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_949 type=i64 op=shr
+@static
+fn func_949(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_950 type=u8 op=add
+@packed
+fn func_950(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    add result, a, b
+    ret result
+}
+
+# func_951 type=u16 op=sub
+@inline
+fn func_951(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_952 type=u32 op=mul
+@static
+fn func_952(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_953 type=u64 op=div
+@packed
+fn func_953(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    div result, a, b
+    ret result
+}
+
+# func_954 type=f32 op=mod
+@inline
+fn func_954(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_955 type=f64 op=and
+@static
+fn func_955(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    and result, a, b
+    ret result
+}
+
+# func_956 type=bool op=orr
+@packed
+fn func_956(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    orr result, a, b
+    ret result
+}
+
+# func_957 type=i8 op=xor
+@inline
+fn func_957(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_958 type=i16 op=shl
+@static
+fn func_958(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_959 type=i32 op=shr
+@packed
+fn func_959(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_960 type=i64 op=add
+@inline
+fn func_960(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    add result, a, b
+    ret result
+}
+
+# func_961 type=u8 op=sub
+@static
+fn func_961(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_962 type=u16 op=mul
+@packed
+fn func_962(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_963 type=u32 op=div
+@inline
+fn func_963(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    div result, a, b
+    ret result
+}
+
+# func_964 type=u64 op=mod
+@static
+fn func_964(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_965 type=f32 op=and
+@packed
+fn func_965(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    and result, a, b
+    ret result
+}
+
+# func_966 type=f64 op=orr
+@inline
+fn func_966(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_967 type=bool op=xor
+@static
+fn func_967(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    xor result, a, b
+    ret result
+}
+
+# func_968 type=i8 op=shl
+@packed
+fn func_968(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_969 type=i16 op=shr
+@inline
+fn func_969(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_970 type=i32 op=add
+@static
+fn func_970(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    add result, a, b
+    ret result
+}
+
+# func_971 type=i64 op=sub
+@packed
+fn func_971(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_972 type=u8 op=mul
+@inline
+fn func_972(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_973 type=u16 op=div
+@static
+fn func_973(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    div result, a, b
+    ret result
+}
+
+# func_974 type=u32 op=mod
+@packed
+fn func_974(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_975 type=u64 op=and
+@inline
+fn func_975(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    and result, a, b
+    ret result
+}
+
+# func_976 type=f32 op=orr
+@static
+fn func_976(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_977 type=f64 op=xor
+@packed
+fn func_977(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_978 type=bool op=shl
+@inline
+fn func_978(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    shl result, a, b
+    ret result
+}
+
+# func_979 type=i8 op=shr
+@static
+fn func_979(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_980 type=i16 op=add
+@packed
+fn func_980(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    add result, a, b
+    ret result
+}
+
+# func_981 type=i32 op=sub
+@inline
+fn func_981(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_982 type=i64 op=mul
+@static
+fn func_982(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_983 type=u8 op=div
+@packed
+fn func_983(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    div result, a, b
+    ret result
+}
+
+# func_984 type=u16 op=mod
+@inline
+fn func_984(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_985 type=u32 op=and
+@static
+fn func_985(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    and result, a, b
+    ret result
+}
+
+# func_986 type=u64 op=orr
+@packed
+fn func_986(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_987 type=f32 op=xor
+@inline
+fn func_987(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_988 type=f64 op=shl
+@static
+fn func_988(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_989 type=bool op=shr
+@packed
+fn func_989(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    shr result, a, b
+    ret result
+}
+
+# func_990 type=i8 op=add
+@inline
+fn func_990(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    add result, a, b
+    ret result
+}
+
+# func_991 type=i16 op=sub
+@static
+fn func_991(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_992 type=i32 op=mul
+@packed
+fn func_992(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_993 type=i64 op=div
+@inline
+fn func_993(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    div result, a, b
+    ret result
+}
+
+# func_994 type=u8 op=mod
+@static
+fn func_994(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_995 type=u16 op=and
+@packed
+fn func_995(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    and result, a, b
+    ret result
+}
+
+# func_996 type=u32 op=orr
+@inline
+fn func_996(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_997 type=u64 op=xor
+@static
+fn func_997(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_998 type=f32 op=shl
+@packed
+fn func_998(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_999 type=f64 op=shr
+@inline
+fn func_999(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_1000 type=bool op=add
+@static
+fn func_1000(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    add result, a, b
+    ret result
+}
+
+# func_1001 type=i8 op=sub
+@packed
+fn func_1001(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_1002 type=i16 op=mul
+@inline
+fn func_1002(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_1003 type=i32 op=div
+@static
+fn func_1003(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    div result, a, b
+    ret result
+}
+
+# func_1004 type=i64 op=mod
+@packed
+fn func_1004(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_1005 type=u8 op=and
+@inline
+fn func_1005(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    and result, a, b
+    ret result
+}
+
+# func_1006 type=u16 op=orr
+@static
+fn func_1006(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_1007 type=u32 op=xor
+@packed
+fn func_1007(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_1008 type=u64 op=shl
+@inline
+fn func_1008(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_1009 type=f32 op=shr
+@static
+fn func_1009(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_1010 type=f64 op=add
+@packed
+fn func_1010(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    add result, a, b
+    ret result
+}
+
+# func_1011 type=bool op=sub
+@inline
+fn func_1011(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    sub result, a, b
+    ret result
+}
+
+# func_1012 type=i8 op=mul
+@static
+fn func_1012(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_1013 type=i16 op=div
+@packed
+fn func_1013(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    div result, a, b
+    ret result
+}
+
+# func_1014 type=i32 op=mod
+@inline
+fn func_1014(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_1015 type=i64 op=and
+@static
+fn func_1015(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    and result, a, b
+    ret result
+}
+
+# func_1016 type=u8 op=orr
+@packed
+fn func_1016(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_1017 type=u16 op=xor
+@inline
+fn func_1017(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_1018 type=u32 op=shl
+@static
+fn func_1018(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_1019 type=u64 op=shr
+@packed
+fn func_1019(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_1020 type=f32 op=add
+@inline
+fn func_1020(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    add result, a, b
+    ret result
+}
+
+# func_1021 type=f64 op=sub
+@static
+fn func_1021(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_1022 type=bool op=mul
+@packed
+fn func_1022(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    mul result, a, b
+    ret result
+}
+
+# func_1023 type=i8 op=div
+@inline
+fn func_1023(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    div result, a, b
+    ret result
+}
+
+# func_1024 type=i16 op=mod
+@static
+fn func_1024(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_1025 type=i32 op=and
+@packed
+fn func_1025(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    and result, a, b
+    ret result
+}
+
+# func_1026 type=i64 op=orr
+@inline
+fn func_1026(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_1027 type=u8 op=xor
+@static
+fn func_1027(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_1028 type=u16 op=shl
+@packed
+fn func_1028(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_1029 type=u32 op=shr
+@inline
+fn func_1029(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_1030 type=u64 op=add
+@static
+fn func_1030(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    add result, a, b
+    ret result
+}
+
+# func_1031 type=f32 op=sub
+@packed
+fn func_1031(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_1032 type=f64 op=mul
+@inline
+fn func_1032(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_1033 type=bool op=div
+@static
+fn func_1033(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    div result, a, b
+    ret result
+}
+
+# func_1034 type=i8 op=mod
+@packed
+fn func_1034(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_1035 type=i16 op=and
+@inline
+fn func_1035(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    and result, a, b
+    ret result
+}
+
+# func_1036 type=i32 op=orr
+@static
+fn func_1036(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_1037 type=i64 op=xor
+@packed
+fn func_1037(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_1038 type=u8 op=shl
+@inline
+fn func_1038(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_1039 type=u16 op=shr
+@static
+fn func_1039(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_1040 type=u32 op=add
+@packed
+fn func_1040(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    add result, a, b
+    ret result
+}
+
+# func_1041 type=u64 op=sub
+@inline
+fn func_1041(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_1042 type=f32 op=mul
+@static
+fn func_1042(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_1043 type=f64 op=div
+@packed
+fn func_1043(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    div result, a, b
+    ret result
+}
+
+# func_1044 type=bool op=mod
+@inline
+fn func_1044(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    mod result, a, b
+    ret result
+}
+
+# func_1045 type=i8 op=and
+@static
+fn func_1045(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    and result, a, b
+    ret result
+}
+
+# func_1046 type=i16 op=orr
+@packed
+fn func_1046(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_1047 type=i32 op=xor
+@inline
+fn func_1047(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_1048 type=i64 op=shl
+@static
+fn func_1048(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_1049 type=u8 op=shr
+@packed
+fn func_1049(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_1050 type=u16 op=add
+@inline
+fn func_1050(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    add result, a, b
+    ret result
+}
+
+# func_1051 type=u32 op=sub
+@static
+fn func_1051(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_1052 type=u64 op=mul
+@packed
+fn func_1052(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_1053 type=f32 op=div
+@inline
+fn func_1053(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    div result, a, b
+    ret result
+}
+
+# func_1054 type=f64 op=mod
+@static
+fn func_1054(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_1055 type=bool op=and
+@packed
+fn func_1055(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    and result, a, b
+    ret result
+}
+
+# func_1056 type=i8 op=orr
+@inline
+fn func_1056(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_1057 type=i16 op=xor
+@static
+fn func_1057(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_1058 type=i32 op=shl
+@packed
+fn func_1058(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_1059 type=i64 op=shr
+@inline
+fn func_1059(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_1060 type=u8 op=add
+@static
+fn func_1060(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    add result, a, b
+    ret result
+}
+
+# func_1061 type=u16 op=sub
+@packed
+fn func_1061(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_1062 type=u32 op=mul
+@inline
+fn func_1062(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_1063 type=u64 op=div
+@static
+fn func_1063(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    div result, a, b
+    ret result
+}
+
+# func_1064 type=f32 op=mod
+@packed
+fn func_1064(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_1065 type=f64 op=and
+@inline
+fn func_1065(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    and result, a, b
+    ret result
+}
+
+# func_1066 type=bool op=orr
+@static
+fn func_1066(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    orr result, a, b
+    ret result
+}
+
+# func_1067 type=i8 op=xor
+@packed
+fn func_1067(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_1068 type=i16 op=shl
+@inline
+fn func_1068(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_1069 type=i32 op=shr
+@static
+fn func_1069(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_1070 type=i64 op=add
+@packed
+fn func_1070(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    add result, a, b
+    ret result
+}
+
+# func_1071 type=u8 op=sub
+@inline
+fn func_1071(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_1072 type=u16 op=mul
+@static
+fn func_1072(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_1073 type=u32 op=div
+@packed
+fn func_1073(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    div result, a, b
+    ret result
+}
+
+# func_1074 type=u64 op=mod
+@inline
+fn func_1074(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_1075 type=f32 op=and
+@static
+fn func_1075(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    and result, a, b
+    ret result
+}
+
+# func_1076 type=f64 op=orr
+@packed
+fn func_1076(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_1077 type=bool op=xor
+@inline
+fn func_1077(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    xor result, a, b
+    ret result
+}
+
+# func_1078 type=i8 op=shl
+@static
+fn func_1078(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_1079 type=i16 op=shr
+@packed
+fn func_1079(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_1080 type=i32 op=add
+@inline
+fn func_1080(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    add result, a, b
+    ret result
+}
+
+# func_1081 type=i64 op=sub
+@static
+fn func_1081(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_1082 type=u8 op=mul
+@packed
+fn func_1082(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_1083 type=u16 op=div
+@inline
+fn func_1083(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    div result, a, b
+    ret result
+}
+
+# func_1084 type=u32 op=mod
+@static
+fn func_1084(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_1085 type=u64 op=and
+@packed
+fn func_1085(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    and result, a, b
+    ret result
+}
+
+# func_1086 type=f32 op=orr
+@inline
+fn func_1086(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_1087 type=f64 op=xor
+@static
+fn func_1087(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_1088 type=bool op=shl
+@packed
+fn func_1088(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    shl result, a, b
+    ret result
+}
+
+# func_1089 type=i8 op=shr
+@inline
+fn func_1089(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_1090 type=i16 op=add
+@static
+fn func_1090(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    add result, a, b
+    ret result
+}
+
+# func_1091 type=i32 op=sub
+@packed
+fn func_1091(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_1092 type=i64 op=mul
+@inline
+fn func_1092(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_1093 type=u8 op=div
+@static
+fn func_1093(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    div result, a, b
+    ret result
+}
+
+# func_1094 type=u16 op=mod
+@packed
+fn func_1094(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_1095 type=u32 op=and
+@inline
+fn func_1095(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    and result, a, b
+    ret result
+}
+
+# func_1096 type=u64 op=orr
+@static
+fn func_1096(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_1097 type=f32 op=xor
+@packed
+fn func_1097(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_1098 type=f64 op=shl
+@inline
+fn func_1098(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_1099 type=bool op=shr
+@static
+fn func_1099(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    shr result, a, b
+    ret result
+}
+
+# func_1100 type=i8 op=add
+@packed
+fn func_1100(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    add result, a, b
+    ret result
+}
+
+# func_1101 type=i16 op=sub
+@inline
+fn func_1101(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_1102 type=i32 op=mul
+@static
+fn func_1102(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_1103 type=i64 op=div
+@packed
+fn func_1103(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    div result, a, b
+    ret result
+}
+
+# func_1104 type=u8 op=mod
+@inline
+fn func_1104(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_1105 type=u16 op=and
+@static
+fn func_1105(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    and result, a, b
+    ret result
+}
+
+# func_1106 type=u32 op=orr
+@packed
+fn func_1106(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_1107 type=u64 op=xor
+@inline
+fn func_1107(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_1108 type=f32 op=shl
+@static
+fn func_1108(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_1109 type=f64 op=shr
+@packed
+fn func_1109(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_1110 type=bool op=add
+@inline
+fn func_1110(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    add result, a, b
+    ret result
+}
+
+# func_1111 type=i8 op=sub
+@static
+fn func_1111(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_1112 type=i16 op=mul
+@packed
+fn func_1112(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_1113 type=i32 op=div
+@inline
+fn func_1113(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    div result, a, b
+    ret result
+}
+
+# func_1114 type=i64 op=mod
+@static
+fn func_1114(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_1115 type=u8 op=and
+@packed
+fn func_1115(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    and result, a, b
+    ret result
+}
+
+# func_1116 type=u16 op=orr
+@inline
+fn func_1116(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_1117 type=u32 op=xor
+@static
+fn func_1117(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_1118 type=u64 op=shl
+@packed
+fn func_1118(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_1119 type=f32 op=shr
+@inline
+fn func_1119(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_1120 type=f64 op=add
+@static
+fn func_1120(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    add result, a, b
+    ret result
+}
+
+# func_1121 type=bool op=sub
+@packed
+fn func_1121(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    sub result, a, b
+    ret result
+}
+
+# func_1122 type=i8 op=mul
+@inline
+fn func_1122(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_1123 type=i16 op=div
+@static
+fn func_1123(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    div result, a, b
+    ret result
+}
+
+# func_1124 type=i32 op=mod
+@packed
+fn func_1124(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_1125 type=i64 op=and
+@inline
+fn func_1125(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    and result, a, b
+    ret result
+}
+
+# func_1126 type=u8 op=orr
+@static
+fn func_1126(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_1127 type=u16 op=xor
+@packed
+fn func_1127(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_1128 type=u32 op=shl
+@inline
+fn func_1128(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_1129 type=u64 op=shr
+@static
+fn func_1129(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_1130 type=f32 op=add
+@packed
+fn func_1130(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    add result, a, b
+    ret result
+}
+
+# func_1131 type=f64 op=sub
+@inline
+fn func_1131(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_1132 type=bool op=mul
+@static
+fn func_1132(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    mul result, a, b
+    ret result
+}
+
+# func_1133 type=i8 op=div
+@packed
+fn func_1133(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    div result, a, b
+    ret result
+}
+
+# func_1134 type=i16 op=mod
+@inline
+fn func_1134(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_1135 type=i32 op=and
+@static
+fn func_1135(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    and result, a, b
+    ret result
+}
+
+# func_1136 type=i64 op=orr
+@packed
+fn func_1136(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_1137 type=u8 op=xor
+@inline
+fn func_1137(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_1138 type=u16 op=shl
+@static
+fn func_1138(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_1139 type=u32 op=shr
+@packed
+fn func_1139(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_1140 type=u64 op=add
+@inline
+fn func_1140(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    add result, a, b
+    ret result
+}
+
+# func_1141 type=f32 op=sub
+@static
+fn func_1141(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_1142 type=f64 op=mul
+@packed
+fn func_1142(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_1143 type=bool op=div
+@inline
+fn func_1143(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    div result, a, b
+    ret result
+}
+
+# func_1144 type=i8 op=mod
+@static
+fn func_1144(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_1145 type=i16 op=and
+@packed
+fn func_1145(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    and result, a, b
+    ret result
+}
+
+# func_1146 type=i32 op=orr
+@inline
+fn func_1146(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_1147 type=i64 op=xor
+@static
+fn func_1147(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_1148 type=u8 op=shl
+@packed
+fn func_1148(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_1149 type=u16 op=shr
+@inline
+fn func_1149(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_1150 type=u32 op=add
+@static
+fn func_1150(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    add result, a, b
+    ret result
+}
+
+# func_1151 type=u64 op=sub
+@packed
+fn func_1151(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_1152 type=f32 op=mul
+@inline
+fn func_1152(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_1153 type=f64 op=div
+@static
+fn func_1153(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    div result, a, b
+    ret result
+}
+
+# func_1154 type=bool op=mod
+@packed
+fn func_1154(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    mod result, a, b
+    ret result
+}
+
+# func_1155 type=i8 op=and
+@inline
+fn func_1155(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    and result, a, b
+    ret result
+}
+
+# func_1156 type=i16 op=orr
+@static
+fn func_1156(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_1157 type=i32 op=xor
+@packed
+fn func_1157(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_1158 type=i64 op=shl
+@inline
+fn func_1158(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_1159 type=u8 op=shr
+@static
+fn func_1159(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_1160 type=u16 op=add
+@packed
+fn func_1160(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    add result, a, b
+    ret result
+}
+
+# func_1161 type=u32 op=sub
+@inline
+fn func_1161(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_1162 type=u64 op=mul
+@static
+fn func_1162(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_1163 type=f32 op=div
+@packed
+fn func_1163(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    div result, a, b
+    ret result
+}
+
+# func_1164 type=f64 op=mod
+@inline
+fn func_1164(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_1165 type=bool op=and
+@static
+fn func_1165(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    and result, a, b
+    ret result
+}
+
+# func_1166 type=i8 op=orr
+@packed
+fn func_1166(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_1167 type=i16 op=xor
+@inline
+fn func_1167(a: i16, b: i16) -> i16 {
+    local result: i16 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_1168 type=i32 op=shl
+@static
+fn func_1168(a: i32, b: i32) -> i32 {
+    global result: i32 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_1169 type=i64 op=shr
+@packed
+fn func_1169(a: i64, b: i64) -> i64 {
+    const result: i64 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_1170 type=u8 op=add
+@inline
+fn func_1170(a: u8, b: u8) -> u8 {
+    local result: u8 = 0
+    add result, a, b
+    ret result
+}
+
+# func_1171 type=u16 op=sub
+@static
+fn func_1171(a: u16, b: u16) -> u16 {
+    global result: u16 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_1172 type=u32 op=mul
+@packed
+fn func_1172(a: u32, b: u32) -> u32 {
+    const result: u32 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_1173 type=u64 op=div
+@inline
+fn func_1173(a: u64, b: u64) -> u64 {
+    local result: u64 = 0
+    div result, a, b
+    ret result
+}
+
+# func_1174 type=f32 op=mod
+@static
+fn func_1174(a: f32, b: f32) -> f32 {
+    global result: f32 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_1175 type=f64 op=and
+@packed
+fn func_1175(a: f64, b: f64) -> f64 {
+    const result: f64 = 0
+    and result, a, b
+    ret result
+}
+
+# func_1176 type=bool op=orr
+@inline
+fn func_1176(a: bool, b: bool) -> bool {
+    local result: bool = 0
+    orr result, a, b
+    ret result
+}
+
+# func_1177 type=i8 op=xor
+@static
+fn func_1177(a: i8, b: i8) -> i8 {
+    global result: i8 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_1178 type=i16 op=shl
+@packed
+fn func_1178(a: i16, b: i16) -> i16 {
+    const result: i16 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_1179 type=i32 op=shr
+@inline
+fn func_1179(a: i32, b: i32) -> i32 {
+    local result: i32 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_1180 type=i64 op=add
+@static
+fn func_1180(a: i64, b: i64) -> i64 {
+    global result: i64 = 0
+    add result, a, b
+    ret result
+}
+
+# func_1181 type=u8 op=sub
+@packed
+fn func_1181(a: u8, b: u8) -> u8 {
+    const result: u8 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_1182 type=u16 op=mul
+@inline
+fn func_1182(a: u16, b: u16) -> u16 {
+    local result: u16 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_1183 type=u32 op=div
+@static
+fn func_1183(a: u32, b: u32) -> u32 {
+    global result: u32 = 0
+    div result, a, b
+    ret result
+}
+
+# func_1184 type=u64 op=mod
+@packed
+fn func_1184(a: u64, b: u64) -> u64 {
+    const result: u64 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_1185 type=f32 op=and
+@inline
+fn func_1185(a: f32, b: f32) -> f32 {
+    local result: f32 = 0
+    and result, a, b
+    ret result
+}
+
+# func_1186 type=f64 op=orr
+@static
+fn func_1186(a: f64, b: f64) -> f64 {
+    global result: f64 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_1187 type=bool op=xor
+@packed
+fn func_1187(a: bool, b: bool) -> bool {
+    const result: bool = 0
+    xor result, a, b
+    ret result
+}
+
+# func_1188 type=i8 op=shl
+@inline
+fn func_1188(a: i8, b: i8) -> i8 {
+    local result: i8 = 0
+    shl result, a, b
+    ret result
+}
+
+# func_1189 type=i16 op=shr
+@static
+fn func_1189(a: i16, b: i16) -> i16 {
+    global result: i16 = 0
+    shr result, a, b
+    ret result
+}
+
+# func_1190 type=i32 op=add
+@packed
+fn func_1190(a: i32, b: i32) -> i32 {
+    const result: i32 = 0
+    add result, a, b
+    ret result
+}
+
+# func_1191 type=i64 op=sub
+@inline
+fn func_1191(a: i64, b: i64) -> i64 {
+    local result: i64 = 0
+    sub result, a, b
+    ret result
+}
+
+# func_1192 type=u8 op=mul
+@static
+fn func_1192(a: u8, b: u8) -> u8 {
+    global result: u8 = 0
+    mul result, a, b
+    ret result
+}
+
+# func_1193 type=u16 op=div
+@packed
+fn func_1193(a: u16, b: u16) -> u16 {
+    const result: u16 = 0
+    div result, a, b
+    ret result
+}
+
+# func_1194 type=u32 op=mod
+@inline
+fn func_1194(a: u32, b: u32) -> u32 {
+    local result: u32 = 0
+    mod result, a, b
+    ret result
+}
+
+# func_1195 type=u64 op=and
+@static
+fn func_1195(a: u64, b: u64) -> u64 {
+    global result: u64 = 0
+    and result, a, b
+    ret result
+}
+
+# func_1196 type=f32 op=orr
+@packed
+fn func_1196(a: f32, b: f32) -> f32 {
+    const result: f32 = 0
+    orr result, a, b
+    ret result
+}
+
+# func_1197 type=f64 op=xor
+@inline
+fn func_1197(a: f64, b: f64) -> f64 {
+    local result: f64 = 0
+    xor result, a, b
+    ret result
+}
+
+# func_1198 type=bool op=shl
+@static
+fn func_1198(a: bool, b: bool) -> bool {
+    global result: bool = 0
+    shl result, a, b
+    ret result
+}
+
+# func_1199 type=i8 op=shr
+@packed
+fn func_1199(a: i8, b: i8) -> i8 {
+    const result: i8 = 0
+    shr result, a, b
+    ret result
+}
+
+type Vec0 { x: f32  y: f32  z: f32  w: f32 }
+type Vec1 { x: f32  y: f32  z: f32  w: f32 }
+type Vec2 { x: f32  y: f32  z: f32  w: f32 }
+type Vec3 { x: f32  y: f32  z: f32  w: f32 }
+type Vec4 { x: f32  y: f32  z: f32  w: f32 }
+type Vec5 { x: f32  y: f32  z: f32  w: f32 }
+type Vec6 { x: f32  y: f32  z: f32  w: f32 }
+type Vec7 { x: f32  y: f32  z: f32  w: f32 }
+type Vec8 { x: f32  y: f32  z: f32  w: f32 }
+type Vec9 { x: f32  y: f32  z: f32  w: f32 }
+type Vec10 { x: f32  y: f32  z: f32  w: f32 }
+type Vec11 { x: f32  y: f32  z: f32  w: f32 }
+type Vec12 { x: f32  y: f32  z: f32  w: f32 }
+type Vec13 { x: f32  y: f32  z: f32  w: f32 }
+type Vec14 { x: f32  y: f32  z: f32  w: f32 }
+type Vec15 { x: f32  y: f32  z: f32  w: f32 }
+type Vec16 { x: f32  y: f32  z: f32  w: f32 }
+type Vec17 { x: f32  y: f32  z: f32  w: f32 }
+type Vec18 { x: f32  y: f32  z: f32  w: f32 }
+type Vec19 { x: f32  y: f32  z: f32  w: f32 }
+type Vec20 { x: f32  y: f32  z: f32  w: f32 }
+type Vec21 { x: f32  y: f32  z: f32  w: f32 }
+type Vec22 { x: f32  y: f32  z: f32  w: f32 }
+type Vec23 { x: f32  y: f32  z: f32  w: f32 }
+type Vec24 { x: f32  y: f32  z: f32  w: f32 }
+type Vec25 { x: f32  y: f32  z: f32  w: f32 }
+type Vec26 { x: f32  y: f32  z: f32  w: f32 }
+type Vec27 { x: f32  y: f32  z: f32  w: f32 }
+type Vec28 { x: f32  y: f32  z: f32  w: f32 }
+type Vec29 { x: f32  y: f32  z: f32  w: f32 }
+type Vec30 { x: f32  y: f32  z: f32  w: f32 }
+type Vec31 { x: f32  y: f32  z: f32  w: f32 }
+type Vec32 { x: f32  y: f32  z: f32  w: f32 }
+type Vec33 { x: f32  y: f32  z: f32  w: f32 }
+type Vec34 { x: f32  y: f32  z: f32  w: f32 }
+type Vec35 { x: f32  y: f32  z: f32  w: f32 }
+type Vec36 { x: f32  y: f32  z: f32  w: f32 }
+type Vec37 { x: f32  y: f32  z: f32  w: f32 }
+type Vec38 { x: f32  y: f32  z: f32  w: f32 }
+type Vec39 { x: f32  y: f32  z: f32  w: f32 }
+type Vec40 { x: f32  y: f32  z: f32  w: f32 }
+type Vec41 { x: f32  y: f32  z: f32  w: f32 }
+type Vec42 { x: f32  y: f32  z: f32  w: f32 }
+type Vec43 { x: f32  y: f32  z: f32  w: f32 }
+type Vec44 { x: f32  y: f32  z: f32  w: f32 }
+type Vec45 { x: f32  y: f32  z: f32  w: f32 }
+type Vec46 { x: f32  y: f32  z: f32  w: f32 }
+type Vec47 { x: f32  y: f32  z: f32  w: f32 }
+type Vec48 { x: f32  y: f32  z: f32  w: f32 }
+type Vec49 { x: f32  y: f32  z: f32  w: f32 }
+
+fn main() -> i32 { ret 0 }

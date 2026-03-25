@@ -1,0 +1,382 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# CAT Compiler — Lexer Test Suite
+# tests/test_lexer.cat
+#
+# Tests:
+#   1. Valid input — all token types
+#   2. Invalid input — all error codes
+#   3. Edge cases — empty file, Unicode, max integers
+#   4. Binary cache round-trip
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# Minimal test harness
+global pass_count: u32 = 0
+global fail_count: u32 = 0
+
+fn assert_eq_kind(got: TokenKind, expected: TokenKind, label: ptr<u8>) {
+    ceq ok, got, expected
+    jnz ok, .pass
+    fail_count = fail_count + 1
+    @sys_print("FAIL: ")
+    @sys_print(label)
+    @sys_print("\n")
+    ret
+    .pass:
+        pass_count = pass_count + 1
+}
+
+fn assert_true(cond: bool, label: ptr<u8>) {
+    jnz cond, .pass
+    fail_count = fail_count + 1
+    @sys_print("FAIL: ")
+    @sys_print(label)
+    @sys_print("\n")
+    ret
+    .pass: pass_count = pass_count + 1
+}
+
+fn lex_src(src: ptr<u8>) -> Lexer {
+    local l: Lexer = lexer_new(src, @core.strlen(src))
+    lexer_run(&l)
+    ret l
+}
+
+fn tok(l: ptr<Lexer>, i: u64) -> ptr<Token> {
+    ret l.tokens + i
+}
+
+# ─── 1. Keywords ──────────────────────────────────────────────────────────────
+
+fn test_keywords() {
+    local l: Lexer = lex_src("fn type const global local import export if else while for return break continue true false null")
+    assert_eq_kind(tok(&l, 0).kind,  Fn,       "kw: fn")
+    assert_eq_kind(tok(&l, 1).kind,  Type,     "kw: type")
+    assert_eq_kind(tok(&l, 2).kind,  Const,    "kw: const")
+    assert_eq_kind(tok(&l, 3).kind,  Global,   "kw: global")
+    assert_eq_kind(tok(&l, 4).kind,  Local,    "kw: local")
+    assert_eq_kind(tok(&l, 5).kind,  Import,   "kw: import")
+    assert_eq_kind(tok(&l, 6).kind,  Export,   "kw: export")
+    assert_eq_kind(tok(&l, 7).kind,  If,       "kw: if")
+    assert_eq_kind(tok(&l, 8).kind,  Else,     "kw: else")
+    assert_eq_kind(tok(&l, 9).kind,  While,    "kw: while")
+    assert_eq_kind(tok(&l, 10).kind, For,      "kw: for")
+    assert_eq_kind(tok(&l, 11).kind, Return,   "kw: return")
+    assert_eq_kind(tok(&l, 12).kind, Break,    "kw: break")
+    assert_eq_kind(tok(&l, 13).kind, Continue, "kw: continue")
+    assert_eq_kind(tok(&l, 14).kind, True,     "kw: true")
+    assert_eq_kind(tok(&l, 15).kind, False,    "kw: false")
+    assert_eq_kind(tok(&l, 16).kind, Null,     "kw: null")
+    assert_eq_kind(tok(&l, 17).kind, Eof,      "kw: trailing Eof")
+    lexer_free(&l)
+}
+
+# ─── 2. Built-in types ────────────────────────────────────────────────────────
+
+fn test_types() {
+    local l: Lexer = lex_src("i8 i16 i32 i64 i128 u8 u16 u32 u64 u128 f32 f64 bool void ptr")
+    assert_eq_kind(tok(&l, 0).kind,  TyI8,   "ty: i8")
+    assert_eq_kind(tok(&l, 4).kind,  TyI128, "ty: i128")
+    assert_eq_kind(tok(&l, 5).kind,  TyU8,   "ty: u8")
+    assert_eq_kind(tok(&l, 9).kind,  TyU128, "ty: u128")
+    assert_eq_kind(tok(&l, 10).kind, TyF32,  "ty: f32")
+    assert_eq_kind(tok(&l, 12).kind, TyBool, "ty: bool")
+    assert_eq_kind(tok(&l, 13).kind, TyVoid, "ty: void")
+    assert_eq_kind(tok(&l, 14).kind, TyPtr,  "ty: ptr")
+    lexer_free(&l)
+}
+
+# ─── 3. Instructions ──────────────────────────────────────────────────────────
+
+fn test_instructions() {
+    local l: Lexer = lex_src("mov lea add sub mul div mod neg and orr xor not shl shr sar rol ror cmp ceq cne clt cle cgt cge jmp je jne jl jle jg jge jz jnz call ret sel")
+    assert_eq_kind(tok(&l, 0).kind,  Mov, "instr: mov")
+    assert_eq_kind(tok(&l, 2).kind,  Add, "instr: add")
+    assert_eq_kind(tok(&l, 30).kind, Jnz, "instr: jnz")
+    assert_eq_kind(tok(&l, 31).kind, Call,"instr: call")
+    assert_eq_kind(tok(&l, 32).kind, Ret, "instr: ret")
+    assert_eq_kind(tok(&l, 33).kind, Sel, "instr: sel")
+    lexer_free(&l)
+}
+
+# ─── 4. Directives ────────────────────────────────────────────────────────────
+
+fn test_directives() {
+    local l: Lexer = lex_src("@inline @static @packed @align @cpuid @rdtsc @atomic_cas @simd_fma")
+    local i: u64 = 0
+    .loop:
+        ceq done, tok(&l, i).kind, Eof
+        jnz done, .done
+        assert_eq_kind(tok(&l, i).kind, Directive, "@directive")
+        add i, i, 1
+        jmp .loop
+    .done:
+    lexer_free(&l)
+}
+
+# ─── 5. Flag &c4 ─────────────────────────────────────────────────────────────
+
+fn test_flag() {
+    local l: Lexer = lex_src("&c4")
+    assert_eq_kind(tok(&l, 0).kind, Flag, "flag: &c4")
+    # &c5 is NOT a flag — must lex as Amp + Ident
+    local l2: Lexer = lex_src("&c5")
+    assert_eq_kind(tok(&l2, 0).kind, Amp,   "amp before c5")
+    assert_eq_kind(tok(&l2, 1).kind, Ident, "ident c5")
+    lexer_free(&l)  lexer_free(&l2)
+}
+
+# ─── 6. Symbols ───────────────────────────────────────────────────────────────
+
+fn test_symbols() {
+    local l: Lexer = lex_src("( ) { } [ ] : ; , . -> := = == != < > <= >= << >> + - * / % & | ^ ~ ! && ||")
+    assert_eq_kind(tok(&l, 0).kind,  LParen,  "sym: (")
+    assert_eq_kind(tok(&l, 10).kind, Arrow,   "sym: ->")
+    assert_eq_kind(tok(&l, 11).kind, Walrus,  "sym: :=")
+    assert_eq_kind(tok(&l, 13).kind, Eq,      "sym: ==")
+    assert_eq_kind(tok(&l, 14).kind, Ne,      "sym: !=")
+    assert_eq_kind(tok(&l, 17).kind, Le,      "sym: <=")
+    assert_eq_kind(tok(&l, 18).kind, Ge,      "sym: >=")
+    assert_eq_kind(tok(&l, 19).kind, ShiftL,  "sym: <<")
+    assert_eq_kind(tok(&l, 20).kind, ShiftR,  "sym: >>")
+    assert_eq_kind(tok(&l, 31).kind, LgAnd,   "sym: &&")
+    assert_eq_kind(tok(&l, 32).kind, LgOr,    "sym: ||")
+    lexer_free(&l)
+}
+
+# ─── 7. Integer literals ──────────────────────────────────────────────────────
+
+fn test_integers() {
+    local l: Lexer = lex_src("42 0xFF 0b1010 0o755 1_000_000 0xDEAD_BEEF")
+    assert_eq_kind(tok(&l, 0).kind, IntLit, "int: decimal")
+    assert_true(tok(&l, 0).literal.int_val == 42, "int: 42")
+    assert_true(tok(&l, 1).literal.int_val == 0xFF, "int: 0xFF")
+    assert_true(tok(&l, 2).literal.int_val == 0b1010, "int: 0b1010")
+    assert_true(tok(&l, 3).literal.int_val == 0o755, "int: 0o755")
+    assert_true(tok(&l, 4).literal.int_val == 1000000, "int: 1_000_000")
+    assert_true(tok(&l, 5).literal.int_val == 0xDEAD_BEEF, "int: 0xDEAD_BEEF")
+    lexer_free(&l)
+}
+
+# ─── 8. Float literals ────────────────────────────────────────────────────────
+
+fn test_floats() {
+    local l: Lexer = lex_src("3.14 2.5e10 1.5e-5 0.0")
+    assert_eq_kind(tok(&l, 0).kind, FloatLit, "float: 3.14")
+    assert_true(tok(&l, 1).literal.float_val == 2.5e10, "float: 2.5e10")
+    assert_true(tok(&l, 2).literal.float_val == 1.5e-5, "float: 1.5e-5")
+    assert_true(tok(&l, 3).literal.float_val == 0.0,    "float: 0.0")
+    lexer_free(&l)
+}
+
+# ─── 9. String literals ───────────────────────────────────────────────────────
+
+fn test_strings() {
+    local l: Lexer = lex_src("\"hello world\" \"escape: \\n\\t\\\\\" \"unicode: \\u{1F4A9}\"")
+    assert_eq_kind(tok(&l, 0).kind, StringLit, "str: plain")
+    assert_eq_kind(tok(&l, 1).kind, StringLit, "str: escapes")
+    assert_eq_kind(tok(&l, 2).kind, StringLit, "str: unicode")
+    assert_true(tok(&l, 0).literal.string_val.len == 11, "str: len=11")
+    lexer_free(&l)
+}
+
+# ─── 10. Character literals ───────────────────────────────────────────────────
+
+fn test_chars() {
+    local l: Lexer = lex_src("'a' 'Z' '\\n' '\\x41' '\\u{03B1}'")
+    assert_true(tok(&l, 0).literal.char_val == 'a',      "char: a")
+    assert_true(tok(&l, 1).literal.char_val == 'Z',      "char: Z")
+    assert_true(tok(&l, 2).literal.char_val == '\n',     "char: \\n")
+    assert_true(tok(&l, 3).literal.char_val == 0x41,     "char: \\x41")
+    assert_true(tok(&l, 4).literal.char_val == 0x03B1,   "char: \\u{03B1}")
+    lexer_free(&l)
+}
+
+# ─── 11. Comments ─────────────────────────────────────────────────────────────
+
+fn test_comments() {
+    local l: Lexer = lex_src("# line comment\nfn /* block */ main")
+    assert_eq_kind(tok(&l, 0).kind, Comment, "comment: line")
+    assert_eq_kind(tok(&l, 1).kind, Fn,      "after line comment: fn")
+    assert_eq_kind(tok(&l, 2).kind, Comment, "comment: block")
+    assert_eq_kind(tok(&l, 3).kind, Ident,   "after block: main")
+    # Nested block comment
+    local l2: Lexer = lex_src("/* outer /* inner */ still */")
+    assert_eq_kind(tok(&l2, 0).kind, Comment, "nested block comment")
+    assert_eq_kind(tok(&l2, 1).kind, Eof,     "nested: no extra tokens")
+    lexer_free(&l)  lexer_free(&l2)
+}
+
+# ─── 12. Identifiers ──────────────────────────────────────────────────────────
+
+fn test_identifiers() {
+    local l: Lexer = lex_src("main _temp value123 CamelCase __double_under")
+    assert_eq_kind(tok(&l, 0).kind, Ident, "ident: main")
+    assert_eq_kind(tok(&l, 1).kind, Ident, "ident: _temp")
+    assert_eq_kind(tok(&l, 2).kind, Ident, "ident: value123")
+    assert_eq_kind(tok(&l, 3).kind, Ident, "ident: CamelCase")
+    assert_eq_kind(tok(&l, 4).kind, Ident, "ident: __double_under")
+    lexer_free(&l)
+}
+
+# ─── 13. Empty file ───────────────────────────────────────────────────────────
+
+fn test_empty_file() {
+    local l: Lexer = lex_src("")
+    assert_eq_kind(tok(&l, 0).kind, Eof, "empty: single Eof")
+    assert_true(l.tok_count == 1, "empty: tok_count == 1")
+    lexer_free(&l)
+}
+
+fn test_whitespace_only() {
+    local l: Lexer = lex_src("   \t\n  \r\n  ")
+    assert_eq_kind(tok(&l, 0).kind, Eof, "ws_only: single Eof")
+    lexer_free(&l)
+}
+
+fn test_comment_only() {
+    local l: Lexer = lex_src("# just a comment\n/* and a block */")
+    assert_eq_kind(tok(&l, 0).kind, Comment, "comment_only: line comment")
+    assert_eq_kind(tok(&l, 1).kind, Comment, "comment_only: block comment")
+    assert_eq_kind(tok(&l, 2).kind, Eof,     "comment_only: Eof")
+    lexer_free(&l)
+}
+
+# ─── 14. Error recovery ───────────────────────────────────────────────────────
+
+fn test_unknown_char() {
+    # '$' is illegal in CAT
+    local l: Lexer = lex_src("fn bad$ main")
+    assert_eq_kind(tok(&l, 0).kind, Fn,    "err_char: fn before $")
+    assert_eq_kind(tok(&l, 1).kind, Ident, "err_char: bad")
+    assert_eq_kind(tok(&l, 2).kind, Error, "err_char: $ is Error token")
+    assert_eq_kind(tok(&l, 3).kind, Ident, "err_char: recovery to main")
+    assert_true(l.had_error, "err_char: had_error set")
+    assert_true(l.diag_count == 1, "err_char: one diagnostic")
+    lexer_free(&l)
+}
+
+fn test_unterminated_string() {
+    local l: Lexer = lex_src("\"unterminated")
+    assert_eq_kind(tok(&l, 0).kind, Error, "unterm_str: Error token")
+    assert_true(l.had_error, "unterm_str: had_error")
+    lexer_free(&l)
+}
+
+fn test_unterminated_comment() {
+    local l: Lexer = lex_src("/* never closed")
+    assert_eq_kind(tok(&l, 0).kind, Error, "unterm_cmt: Error token")
+    assert_true(l.had_error, "unterm_cmt: had_error")
+    lexer_free(&l)
+}
+
+fn test_multiple_errors() {
+    # Three errors in one file — all collected
+    local l: Lexer = lex_src("fn bad$ example\nx: i32@ = 5\ny := \"no close")
+    assert_true(l.had_error, "multi_err: had_error")
+    cge three, l.diag_count, 3
+    assert_true(three, "multi_err: >= 3 diagnostics collected")
+    lexer_free(&l)
+}
+
+fn test_bad_escape() {
+    local l: Lexer = lex_src("\"\\q\"")   # \q is not a valid escape
+    assert_true(l.had_error, "bad_escape: had_error")
+    lexer_free(&l)
+}
+
+fn test_unicode_overflow() {
+    local l: Lexer = lex_src("\"\\u{110000}\"")  # > 0x10FFFF
+    assert_true(l.had_error, "unicode_over: had_error")
+    lexer_free(&l)
+}
+
+# ─── 15. Max integer ─────────────────────────────────────────────────────────
+
+fn test_max_int() {
+    # Max positive i128 = 170141183460469231731687303715884105727
+    local l: Lexer = lex_src("170141183460469231731687303715884105727")
+    assert_eq_kind(tok(&l, 0).kind, IntLit, "max_int: is IntLit")
+    # Value correctness: just check it parsed without error
+    assert_true(!l.had_error, "max_int: no error")
+    lexer_free(&l)
+}
+
+# ─── 16. Binary cache round-trip ─────────────────────────────────────────────
+
+fn test_cache_roundtrip() {
+    local src: ptr<u8> = "fn main() -> i32 { ret 0 }"
+    local l: Lexer = lexer_new(src, @core.strlen(src))
+    lexer_run(&l)
+
+    # Write cache
+    local hash: [32]u8   # In tests, use a zeroed hash
+    @core.memset(&hash, 0, 32)
+    local ok: bool = cache_write(&l, "/tmp/test.cat.cache", &hash)
+    assert_true(ok, "cache: write succeeded")
+
+    # Load cache
+    local arena2: Arena
+    local loaded: CacheResult = cache_load("/tmp/test.cat.cache", &hash, &arena2)
+    assert_true(loaded.ok, "cache: load succeeded")
+    assert_true(loaded.tok_count == l.tok_count, "cache: token count matches")
+
+    # Verify first token
+    ceq kind_ok, loaded.tokens[0].kind, Fn
+    assert_true(kind_ok, "cache: first token is Fn")
+
+    lexer_free(&l)
+    arena_free_all(&arena2)
+}
+
+# ─── 17. Line/column tracking ────────────────────────────────────────────────
+
+fn test_line_col() {
+    local l: Lexer = lex_src("fn\n  main")
+    assert_true(tok(&l, 0).line   == 1, "lc: fn at line 1")
+    assert_true(tok(&l, 0).column == 1, "lc: fn at col 1")
+    assert_true(tok(&l, 1).line   == 2, "lc: main at line 2")
+    assert_true(tok(&l, 1).column == 3, "lc: main at col 3")
+    lexer_free(&l)
+}
+
+# ─── Main test runner ─────────────────────────────────────────────────────────
+
+fn main() -> i32 {
+    test_keywords()
+    test_types()
+    test_instructions()
+    test_directives()
+    test_flag()
+    test_symbols()
+    test_integers()
+    test_floats()
+    test_strings()
+    test_chars()
+    test_comments()
+    test_identifiers()
+    test_empty_file()
+    test_whitespace_only()
+    test_comment_only()
+    test_unknown_char()
+    test_unterminated_string()
+    test_unterminated_comment()
+    test_multiple_errors()
+    test_bad_escape()
+    test_unicode_overflow()
+    test_max_int()
+    test_cache_roundtrip()
+    test_line_col()
+
+    @sys_print("Tests run: ")
+    @sys_print_u32(pass_count + fail_count)
+    @sys_print("  Pass: ")
+    @sys_print_u32(pass_count)
+    @sys_print("  Fail: ")
+    @sys_print_u32(fail_count)
+    @sys_print("\n")
+
+    ceq all_pass, fail_count, 0
+    jnz all_pass, .ok
+    ret 1      # non-zero = failure
+    .ok: ret 0
+}

@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build compiler (Phase 1 - Bootstrap via C)
+        run: make bootstrap
+
+      - name: Run lexer tests
+        run: ./catc tests/test_lexer.cat --run-tests
+
+      - name: Run benchmarks (must not regress)
+        run: ./catc tests/benchmark_lexer.cat --benchmark --max-ms=500
+
+      - name: Check binary size
+        run: |
+          make hello
+          SIZE=$(stat -c%s examples/hello)
+          echo "Binary size: ${SIZE} bytes"
+          test $SIZE -le 16384   # Must be ≤ 16 KB
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check for zero warnings
+        run: ./catc src/lexer.cat --check --Werror

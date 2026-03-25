@@ -1,0 +1,132 @@
+# Anticheat hook — DirectX Present hooking with hot reload
+# Demonstrates: &c4 hot reload, function pointers, runtime patching.
+# Target: Windows x86-64 kernel-mode or usermode injection.
+
+# ─── Types ────────────────────────────────────────────────────────────────────
+
+type HookResult = enum {
+    Allow(value: i32)
+    Block
+    BanPlayer
+}
+
+type PlayerState {
+    entity_ptr:   u64   # Pointer to game entity struct
+    pos_x:        f32
+    pos_y:        f32
+    pos_z:        f32
+    team_id:      i32
+    health:       i32
+    is_visible:   bool
+    is_crouching: bool
+}
+
+# Function pointer type for the original IDXGISwapChain::Present
+# HRESULT __stdcall Present(IDXGISwapChain*, UINT SyncInterval, UINT Flags)
+type PresentFn = fn_ptr<(ptr<void>, u32, u32) -> i32>
+
+global original_present: PresentFn
+global detection_count:  u64 = 0
+global ban_pending:      bool = false
+
+# ─── Detection Routines ───────────────────────────────────────────────────────
+
+# Check for wallhack: entity visible through walls via raycast delta
+fn detect_wallhack(player: ptr<PlayerState>) -> bool {
+    # Wallhack detection:
+    # Compare rendered visibility vs server-side visibility.
+    # In a real engine: confirm via ray-trace on server representation.
+    # Here we use a placeholder heuristic.
+
+    # If client marks invisible entities as visible
+    ceq mismatch, player.is_visible, true
+    jnz mismatch, .clean
+
+    # Additional: check for camera-facing angle exploit
+    # (placeholder — real logic queries game state)
+
+    .wallhack_detected:
+        @atomic_add(&detection_count, 1)
+        ret true
+
+    .clean:
+        ret false
+}
+
+# Check for aimbot: statistical analysis of mouse deltas vs target proximity
+fn detect_aimbot() -> bool {
+    # Placeholder: In production this would sample input deltas
+    # and compare against humanly achievable angular velocities.
+    ret false
+}
+
+# Attempt to ban the local player (report to server)
+fn ban_player() {
+    @atomic_store(&ban_pending, true)
+    # Signal send thread to dispatch ban packet
+}
+
+# ─── Hook — Hot Reloadable (&c4 mode: direct JMP patch, 5ms reload) ──────────
+
+# &c4: Unsafe hot reload — compiler overwrites function prologue with JMP.
+# YOU are responsible for ensuring no caller is on the stack at patch time.
+# Use only for functions that are called rarely (once per frame = fine).
+&c4
+fn hook_directx_present(swap_chain: ptr<void>, sync_interval: u32, flags: u32) -> i32 {
+    # Per-frame anticheat checks
+    # In a real implementation: walk entity list from game memory.
+
+    # Scan all entities (placeholder loop)
+    local entity_count: i32 = 128   # Max entities per game
+    local i: i32 = 0
+    .scan:
+        cge done, i, entity_count
+        jnz done, .scan_done
+
+        # Get entity pointer (would come from game memory scan)
+        local player: ptr<PlayerState> = null   # placeholder
+
+        if player == null {
+            add i, i, 1
+            jmp .scan
+        }
+
+        if detect_wallhack(player) {
+            ban_player()
+        }
+
+        if detect_aimbot() {
+            ban_player()
+        }
+
+        add i, i, 1
+        jmp .scan
+
+    .scan_done:
+        # Forward to original DirectX Present
+        ret @original_present(swap_chain, sync_interval, flags)
+}
+
+# ─── Hook Installer ───────────────────────────────────────────────────────────
+
+# Installs the hook by patching the vtable pointer.
+# Called once at injection time.
+fn install_hook(vtable: ptr<ptr<void>>) {
+    # Save original Present pointer (vtable index 8 for IDXGISwapChain)
+    mov original_present, vtable[8]
+
+    # Overwrite vtable entry with our hook
+    # (Requires disabling page protection or using VirtualProtect on Windows)
+    mov vtable[8], hook_directx_present
+
+    # Compiler note: &c4 functions expose a hot-reload slot.
+    # To update hook logic without reinstalling: catc -patch hook_directx_present
+}
+
+# ─── Entry Point ──────────────────────────────────────────────────────────────
+
+fn anticheat_init(swap_chain_vtable: ptr<ptr<void>>) {
+    @atomic_store(&ban_pending, false)
+    @atomic_store(&detection_count, 0)
+    install_hook(swap_chain_vtable)
+}
