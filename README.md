@@ -38,7 +38,7 @@
 
 ```bash
 # Install (zero dependencies)
-curl -sf https://cat-lang.org/install.sh | sh
+curl -sf https://cat-lang.netlify.app/install.sh | sh
 
 # Compile
 catc hello.cat -o hello
@@ -270,7 +270,7 @@ catgui/
 ## Building from Source
 
 ```bash
-git clone https://github.com/catgui/cat
+git clone https://github.com/c4x64/cat
 cd cat
 make
 ./catc --version
