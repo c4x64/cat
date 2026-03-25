@@ -270,7 +270,7 @@ catgui/
 ## Building from Source
 
 ```bash
-git clone https://github.com/catgui/cat
+git clone https://github.com/c4x64/cat
 cd cat
 make
 ./catc --version
