@@ -38,7 +38,7 @@
 
 ```bash
 # Install (zero dependencies)
-curl -sf https://cat-lang.org/install.sh | sh
+curl -sf https://cat-lang.netlify.app/install.sh | sh
 
 # Compile
 catc hello.cat -o hello
