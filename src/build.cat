@@ -1,0 +1,388 @@
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# CAT COMPILER BUILD SCRIPT
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+import @std/fs
+import @std/process
+import @std/time
+import @std/string
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# CONFIGURATION
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+const VERSION: ptr<u8> = "0.1.0"
+const PROJECT_NAME: ptr<u8> = "catgui"
+
+const SRC_DIR: ptr<u8> = "src"
+const BUILD_DIR: ptr<u8> = "build"
+const BIN_DIR: ptr<u8> = "bin"
+const TEST_DIR: ptr<u8> = "tests"
+const EXAMPLES_DIR: ptr<u8> = "examples"
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# HELPER FUNCTIONS
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+fn print_banner(message: ptr<u8>) {
+    @print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n")
+    @print("🔥 ")
+    @print(message)
+    @print("\n")
+    @print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n")
+}
+
+fn print_step(message: ptr<u8>) {
+    @print("📋 ")
+    @print(message)
+    @print("...\n")
+}
+
+fn print_success(message: ptr<u8>) {
+    @print("✅ ")
+    @print(message)
+    @print("\n")
+}
+
+fn print_error(message: ptr<u8>) {
+    @print("❌ ")
+    @print(message)
+    @print("\n")
+}
+
+fn create_dir_if_not_exists(path: ptr<u8>) -> bool {
+    if @fs.exists(path) {
+        ret true
+    }
+    ret @fs.mkdir(path)
+}
+
+fn compile_file(src: ptr<u8>, out: ptr<u8>) -> bool {
+    @print("  🔨 Compiling ")
+    @print(src)
+    @print(" -> ")
+    @print(out)
+    @print("\n")
+    
+    # Call catc compiler (when it exists)
+    ret @process.exec("catc", [src, "-o", out])
+}
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# BUILD TASKS
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+fn task_bootstrap() -> i32 {
+    print_banner("CAT COMPILER BOOTSTRAP")
+    
+    @print("\n")
+    print_step("Phase 1: Checking prerequisites")
+    
+    # Check for C compiler (for initial bootstrap)
+    if !@process.command_exists("gcc") {
+        print_error("GCC not found. Install it first.")
+        ret 1
+    }
+    
+    if !@process.command_exists("git") {
+        print_error("Git not found. Install it first.")
+        ret 1
+    }
+    
+    print_success("Prerequisites OK")
+    @print("\n")
+    
+    print_step("Phase 2: Creating directory structure")
+    
+    create_dir_if_not_exists(BUILD_DIR)
+    create_dir_if_not_exists(BIN_DIR)
+    create_dir_if_not_exists(SRC_DIR)
+    create_dir_if_not_exists(TEST_DIR)
+    create_dir_if_not_exists(EXAMPLES_DIR)
+    create_dir_if_not_exists("stdlib")
+    create_dir_if_not_exists("docs")
+    
+    print_success("Directories created")
+    @print("\n")
+    
+    print_step("Phase 3: Checking for source files")
+    
+    if !@fs.exists("src/lexer.cat") {
+        @print("⚠️  No CAT source files found yet.\n")
+        @print("\n")
+        @print("Next steps:\n")
+        @print("  1. Generate compiler code with AI\n")
+        @print("  2. Save generated files to src/\n")
+        @print("  3. Run: cat build.cat bootstrap\n")
+        @print("\n")
+        
+        # Create placeholder files
+        @fs.touch("src/lexer.cat")
+        @fs.touch("src/parser.cat")
+        @fs.touch("src/types.cat")
+        @fs.touch("src/ir.cat")
+        @fs.touch("src/optimizer.cat")
+        
+        print_success("Placeholder files created")
+    } else {
+        print_success("Source files found")
+    }
+    
+    @print("\n")
+    print_banner("Bootstrap complete!")
+    @print("\n")
+    @print("Next: Run 'cat build.cat help' to see all commands\n")
+    @print("\n")
+    
+    ret 0
+}
+
+fn task_build() -> i32 {
+    print_banner("BUILDING CAT COMPILER")
+    
+    start_time := @time.now()
+    
+    # Find all .cat files in src/
+    sources := @fs.list_files(SRC_DIR, "*.cat")
+    
+    print_step("Compiling compiler components")
+    
+    for src in sources {
+        # Get filename without extension
+        basename := @string.basename(src)
+        name := @string.remove_extension(basename)
+        
+        # Output to build dir
+        output := @string.concat(BUILD_DIR, "/", name, ".o")
+        
+        if !compile_file(src, output) {
+            print_error("Compilation failed")
+            ret 1
+        }
+    }
+    
+    print_success("Compilation complete")
+    
+    print_step("Linking compiler")
+    
+    # Link all object files
+    if !@process.exec("catc", ["--link", BUILD_DIR, "-o", BIN_DIR, "/catc"]) {
+        print_error("Linking failed")
+        ret 1
+    }
+    
+    print_success("Linking complete")
+    
+    elapsed := @time.now() - start_time
+    
+    @print("\n")
+    @print("✨ Build complete in ")
+    @print(@string.format_time(elapsed))
+    @print("\n")
+    @print("📦 Binary: bin/catc\n")
+    
+    ret 0
+}
+
+fn task_test() -> i32 {
+    print_banner("RUNNING TESTS")
+    
+    tests := @fs.list_files(TEST_DIR, "test_*.cat")
+    
+    if tests.length == 0 {
+        @print("⚠️  No tests found in ")
+        @print(TEST_DIR)
+        @print("\n")
+        ret 0
+    }
+    
+    passed := 0
+    failed := 0
+    
+    for test in tests {
+        @print("🧪 Running ")
+        @print(test)
+        @print("...\n")
+        
+        # Compile and run test
+        if compile_file(test, BUILD_DIR, "/test_temp") {
+            if @process.exec(BUILD_DIR, "/test_temp") {
+                @print("  ✅ PASSED\n")
+                passed = passed + 1
+            } else {
+                @print("  ❌ FAILED\n")
+                failed = failed + 1
+            }
+        } else {
+            @print("  ❌ COMPILATION FAILED\n")
+            failed = failed + 1
+        }
+    }
+    
+    @print("\n")
+    @print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n")
+    @print("📊 Test Results: ")
+    @print(@string.from_int(passed))
+    @print(" passed, ")
+    @print(@string.from_int(failed))
+    @print(" failed\n")
+    @print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n")
+    
+    ret failed == 0 ? 0 : 1
+}
+
+fn task_benchmark() -> i32 {
+    print_banner("RUNNING BENCHMARKS")
+    
+    bench_file := "tests/benchmark_lexer.cat"
+    
+    if !@fs.exists(bench_file) {
+        @print("⚠️  Benchmark file not found: ")
+        @print(bench_file)
+        @print("\n")
+        ret 0
+    }
+    
+    @print("📊 Benchmarking lexer...\n")
+    
+    # Compile benchmark
+    if !compile_file(bench_file, BUILD_DIR, "/benchmark") {
+        print_error("Benchmark compilation failed")
+        ret 1
+    }
+    
+    # Run benchmark
+    @process.exec(BUILD_DIR, "/benchmark")
+    
+    ret 0
+}
+
+fn task_clean() -> i32 {
+    print_banner("CLEANING BUILD ARTIFACTS")
+    
+    @fs.remove_dir(BUILD_DIR)
+    @fs.remove_dir(BIN_DIR)
+    
+    # Remove cache files
+    @fs.remove_glob("src/*.cache")
+    
+    print_success("Clean complete")
+    ret 0
+}
+
+fn task_install() -> i32 {
+    print_banner("INSTALLING CAT COMPILER")
+    
+    prefix := @env.get("PREFIX") ?? "/usr/local"
+    
+    bindir := @string.concat(prefix, "/bin")
+    libdir := @string.concat(prefix, "/lib/cat")
+    docdir := @string.concat(prefix, "/share/doc/cat")
+    
+    print_step("Installing to ")
+    @print(prefix)
+    @print("\n")
+    
+    # Create directories
+    create_dir_if_not_exists(bindir)
+    create_dir_if_not_exists(libdir)
+    create_dir_if_not_exists(docdir)
+    
+    # Copy binary
+    @fs.copy("bin/catc", @string.concat(bindir, "/catc"))
+    @fs.chmod(@string.concat(bindir, "/catc"), 0o755)
+    
+    # Copy stdlib
+    if @fs.exists("stdlib") {
+        @fs.copy_recursive("stdlib", libdir)
+    }
+    
+    # Copy docs
+    if @fs.exists("docs") {
+        @fs.copy_recursive("docs", docdir)
+    }
+    
+    print_success("Installation complete")
+    @print("\n")
+    @print("CAT compiler installed to: ")
+    @print(bindir)
+    @print("/catc\n")
+    @print("Standard library: ")
+    @print(libdir)
+    @print("\n")
+    @print("Documentation: ")
+    @print(docdir)
+    @print("\n")
+    
+    ret 0
+}
+
+fn task_help() -> i32 {
+    @print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n")
+    @print("🔥 CAT COMPILER - BUILD COMMANDS\n")
+    @print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n")
+    @print("\n")
+    @print("📦 BUILDING:\n")
+    @print("  cat build.cat bootstrap    Initialize project\n")
+    @print("  cat build.cat build        Build compiler\n")
+    @print("  cat build.cat rebuild      Clean + build\n")
+    @print("\n")
+    @print("🧪 TESTING:\n")
+    @print("  cat build.cat test         Run all tests\n")
+    @print("  cat build.cat benchmark    Run benchmarks\n")
+    @print("\n")
+    @print("🗑️  CLEANUP:\n")
+    @print("  cat build.cat clean        Remove build files\n")
+    @print("\n")
+    @print("📦 INSTALLATION:\n")
+    @print("  cat build.cat install      Install to system\n")
+    @print("  PREFIX=~/.local cat build.cat install\n")
+    @print("\n")
+    @print("💡 TIPS:\n")
+    @print("  - First time? Run: cat build.cat bootstrap\n")
+    @print("  - Fast build: cat build.cat build --parallel\n")
+    @print("  - Watch mode: cat build.cat watch\n")
+    @print("\n")
+    @print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n")
+    ret 0
+}
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# MAIN ENTRY POINT
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+fn main() -> i32 {
+    args := @process.args()
+    
+    if args.length < 2 {
+        task_help()
+        ret 0
+    }
+    
+    command := args[1]
+    
+    if @string.equals(command, "bootstrap") {
+        ret task_bootstrap()
+    } else if @string.equals(command, "build") {
+        ret task_build()
+    } else if @string.equals(command, "rebuild") {
+        task_clean()
+        ret task_build()
+    } else if @string.equals(command, "test") {
+        ret task_test()
+    } else if @string.equals(command, "benchmark") {
+        ret task_benchmark()
+    } else if @string.equals(command, "clean") {
+        ret task_clean()
+    } else if @string.equals(command, "install") {
+        ret task_install()
+    } else if @string.equals(command, "help") {
+        ret task_help()
+    } else {
+        @print("❌ Unknown command: ")
+        @print(command)
+        @print("\n")
+        @print("Run 'cat build.cat help' for available commands\n")
+        ret 1
+    }
+}
