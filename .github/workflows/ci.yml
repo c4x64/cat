@@ -32,5 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Build compiler
+        run: make bootstrap
       - name: Check for zero warnings
         run: ./catc src/lexer.cat --check --Werror

@@ -17,6 +17,7 @@ catc.exe
 
 # Build artifacts
 build/
+bin/
 dist/
 out/
 target/
