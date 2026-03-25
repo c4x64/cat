@@ -2,6 +2,7 @@
 CAT Compiler — Bootstrap Lexer (Python)
 Tokenizes CAT source code into a stream of Token objects.
 """
+#contains error right now 
 
 from enum import Enum, auto
 from dataclasses import dataclass, field
