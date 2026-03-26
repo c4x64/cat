@@ -1,0 +1,11 @@
+:main
+mov rdi, 42
+call {do_exit}
+# Should not reach here
+mov rax, 60
+mov rdi, 1
+syscall
+
+:do_exit
+mov rax, 60
+syscall

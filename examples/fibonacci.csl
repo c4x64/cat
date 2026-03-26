@@ -1,0 +1,16 @@
+:main
+mov rax, 0
+mov rbx, 1
+mov rcx, 10
+:loop_start
+cmp rcx, 0
+je {loop_end}
+push rax
+add rax, rbx
+pop rbx
+dec rcx
+jmp {loop_start}
+:loop_end
+mov rax, 60
+mov rdi, 0
+syscall
