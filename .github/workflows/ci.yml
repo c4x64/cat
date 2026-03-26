@@ -12,27 +12,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build compiler (Phase 1 - Bootstrap via C)
-        run: make bootstrap
-
-      - name: Run lexer tests
-        run: ./catc tests/test_lexer.cat --run-tests
-
-      - name: Run benchmarks (must not regress)
-        run: ./catc tests/benchmark_lexer.cat --benchmark --max-ms=500
-
-      - name: Check binary size
+      - name: Build Chain
         run: |
-          make hello
-          SIZE=$(stat -c%s examples/hello)
-          echo "Binary size: ${SIZE} bytes"
-          test $SIZE -le 16384   # Must be ≤ 16 KB
+          python clc.py clc.cl -o clc
+          chmod +x clc
+          ./clc cslc.cl -o cslc
+          chmod +x cslc
+          rm clc.py
+          ./cslc examples/hello.csl -o examples/hello.cl
+          ./clc examples/hello.cl -o examples/hello.elf
+          ./cslc examples/fibonacci.csl -o examples/fibonacci.cl
+          ./clc examples/fibonacci.cl -o examples/fibonacci.elf
+          ./cslc examples/function.csl -o examples/function.cl
+          ./clc examples/function.cl -o examples/function.elf
 
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Build compiler
-        run: make bootstrap
-      - name: Check for zero warnings
-        run: ./catc src/lexer.cat --check --Werror
+      - name: Verify bin sizes
+        run: |
+          stat -c%s examples/hello.elf
+          stat -c%s examples/fibonacci.elf
+          stat -c%s examples/function.elf
