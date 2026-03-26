@@ -16,7 +16,7 @@ jobs:
         run: |
           python clc.py clc.cl -o clc
           chmod +x clc
-          ./clc cslc.cl -o cslc
+          strace ./clc cslc.cl -o cslc
           chmod +x cslc
           rm clc.py
           ./cslc examples/hello.csl -o examples/hello.cl
