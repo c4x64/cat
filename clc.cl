@@ -383,8 +383,13 @@ E9 {pass2_loop}
 :pass2_end
 
 # ─── WRITE FILE TO DISK ───
-# sys_open("a.out", O_WRONLY|O_CREAT|O_TRUNC = 0x241, 0755 = 493)
+48 83 3C 24 04               # cmp qword [rsp], 4
+0F 8C {use_def}              # jl use_def
+48 8B 7C 24 20               # mov rdi, [rsp + 32] (argv[3])
+E9 {do_opn}                  # jmp do_opn
+:use_def
 48 8D 3D {_out_name}         # lea rdi, [rip + _out_name]
+:do_opn
 48 C7 C6 41 02 00 00         # mov rsi, 0x241
 48 C7 C2 ED 01 00 00         # mov rdx, 493
 48 C7 C0 02 00 00 00         # mov rax, 2 (sys_open)
@@ -411,13 +416,13 @@ E9 {pass2_loop}
 
 # ─── DATA SECTION ───
 :usage_msg
-"Usage: clc <input.cl>\n(Self-hosted assembler)\n"
+"Usage: clc <input.cl> [-o <output>]\n"
 
 :err_open
-"Failed to open file\n"
+"Failed to open fil\0"
 
 :_out_name
-"a.out\n"
+"a.out\0"
 
 :_start_str
 "_start"

@@ -21,7 +21,7 @@ def parse_string(line: str) -> bytearray:
     return b
 
 def assemble(inf: str, outf: str) -> None:
-    with open(inf, 'r') as f: lines = f.readlines()
+    with open(inf, 'r', encoding='utf-8') as f: lines = f.readlines()
     
     labels: Dict[str, int] = {}
     offset: int = 0
