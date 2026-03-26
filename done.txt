@@ -1,8 +1,0 @@
-# Progress Log
-
-- [x] Deleted old C bootstrap compiler files.
-- [/] Implementing Python bootstrap compiler (Phase 1).
-  - [/] src/lexer.py
-  - [ ] src/parser.py
-  - [ ] src/codegen.py
-  - [ ] catc.py
