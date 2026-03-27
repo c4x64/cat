@@ -1,0 +1,5 @@
+main:
+MOVI R0, 10
+MOVI R1, 20
+add R2, R0, R1
+halt
