@@ -40,10 +40,17 @@ class CVSLCompiler:
             
             # 4. Instruction refinement: mov R0, 10 -> movi R0, 10
             parts = re.split(r'[,\s]+', line)
-            if parts[0].upper() == "MOV" and len(parts) > 2:
-                # If second operand is a number, use MOVI
+            mnemonic = parts[0].upper()
+            if mnemonic == "MOV" and len(parts) > 2:
                 if re.match(r'^-?\d+$', parts[2]) or parts[2].startswith("0x"):
                     line = line.replace(parts[0], "MOVI")
+            
+            # Map logical mnemonics if they differ
+            # e.g. 'and' in cVSL -> 'AND' in CatArch (already matches)
+            # but 'shl v0, v1, 2' -> 'SHLI R0, R1, 2'
+            if mnemonic in ["SHL", "SHR", "AND", "OR", "XOR"] and len(parts) > 3:
+                 if re.match(r'^-?\d+$', parts[3]) or parts[3].startswith("0x"):
+                     line = line.replace(mnemonic, mnemonic + "I")
 
             self.output.append(line)
         
