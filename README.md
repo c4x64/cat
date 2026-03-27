@@ -1,37 +1,43 @@
-# cL - Circle 1 of the CAT Language Ecosystem
+# 🐈 CatArch: The Future of Minimalist Computing
 
-cL is not a programming language.
-cL IS machine code with human-readable annotations.
+![CatArch Logo](cat-arch/assets/logo.png)
 
-## The 7 Circles
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![CatArch](https://img.shields.io/badge/Architecture-CatArch-blue)](https://ctlang.netlify.app)
+[![VM](https://img.shields.io/badge/VM-CatVM-green)](https://ctlang.netlify.app)
 
-cL is the foundation. Everything else is built on it.
+**CatArch** is a precision-engineered 32-bit RISC instruction set designed for the next generation of high-performance compilers. It eliminates legacy bloat, focusing on a massive 256-register file and a clean, orthogonal design.
 
-1. **cL** - Raw machine code (you are here)
-2. **cSL** - Named registers, basic types
-3. **cVSL** - Portable assembly
-4. **CAT** - C replacement
-5. **CatS** - Rust replacement
-6. **CatVS** - Python replacement
-7. **CatVVS** - English-like DSL
+## 🚀 Vision
+The goal of the CatArch project is to provide a fully self-hosted, architecture-agnostic foundation for the **CAT Programming Language**.
 
-## Features (exactly 5)
+## 🏗️ Architecture Specifications
+- **Register File**: 256 general-purpose registers (`R0`-`R255`), 256-bit wide each.
+- **Memory Model**: Flat 48-bit address space.
+- **Instruction Format**: Fixed 32-bit width for maximum throughput.
+- **Sysem Calls**: Native support for Linux-style I/O operations.
 
-1. Hex bytes: `48 C7 C0 01 00 00 00`
-2. Comments: `# this is a comment`
-3. Labels: `:label_name`
-4. References: `{label_name}`
-5. Strings: `"Hello\n"`
+## 🛠️ Getting Started (Self-Hosting)
+CatArch is designed to be self-sufficient. You can build the native Virtual Machine and use the self-hosted assembler without any external dependencies.
 
-## Usage
-
+### 1. Build the Native VM
 ```bash
-python clc.py hello.cl -o hello
-./hello
+gcc cat-arch/vm/cvm.c -o cvm
 ```
 
-Why?
-Because the first assemblers were written in machine code.
-We start from the ground and build up.
-No external dependencies. No cheating.
-Pure from raw bytes to high-level language.
+### 2. Assemble a Program
+```bash
+./cvm cat-arch/asm/casm.bin < my_prog.casm > my_prog.bin
+```
+
+### 3. Run the Program
+```bash
+./cvm my_prog.bin
+```
+
+## 🌐 Official Website
+For more information, documentation, and the full CAT specification, visit:
+**[ctlang.netlify.app](https://ctlang.netlify.app)**
+
+---
+*Built with ❤️ for the future of computing.*
