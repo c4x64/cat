@@ -1,0 +1,33 @@
+# casm.casm - Minimal Self-Hosted Assembler
+LEA R10, buffer
+MOVI R0, 0
+MOV R5, R10
+MOVI R3, 1024
+SYSCALL
+MOV R12, R1
+LOAD R20, [R10+0]
+ANDI R20, R20, 0xFF
+MOVI R21, 0x41 # 'A'
+CMP R20, R21
+JNZ exit
+MOVI R1, 0x10
+SHLI R1, R1, 24
+MOVI R2, 0x01
+SHLI R2, R2, 16
+OR R1, R1, R2
+MOVI R2, 0x02
+SHLI R2, R2, 8
+OR R1, R1, R2
+MOVI R2, 0x03
+OR R1, R1, R2
+STORE [R11+0], R1
+MOVI R0, 1
+MOV R5, R11
+MOVI R3, 4
+SYSCALL
+exit:
+HALT
+buffer:
+" "
+output:
+"    "

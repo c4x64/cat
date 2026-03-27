@@ -1,0 +1,5 @@
+# sum.casm - Add two numbers
+MOVI R1, 10
+MOVI R2, 20
+ADD R3, R1, R2
+HALT
