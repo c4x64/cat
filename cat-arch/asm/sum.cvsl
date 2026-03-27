@@ -1,0 +1,11 @@
+# sum.cvsl - Portable Assembly Sum Example
+var a = v0
+var b = v1
+var res = v2
+
+func main:
+    mov a, 10
+    mov b, 20
+    add res, a, b
+    halt
+endfunc
