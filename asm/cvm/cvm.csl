@@ -1,0 +1,204 @@
+# cvm.csl - Native CatVM for x86-64 (Circle 2)
+# This VM executes CatArch binaries natively on x86-64 Linux.
+
+:_start
+    # 1. Map memory (16MB)
+    mov rdi, 0 # addr
+    mov rsi, 0x1000000 # 16MB
+    mov rdx, 3 # PROT_READ | PROT_WRITE
+    mov r10, 0x22 # MAP_PRIVATE | MAP_ANONYMOUS
+    mov r8, -1 # fd
+    mov r9, 0 # offset
+    mov rax, 9 # sys_mmap
+    syscall
+    mov r12, rax # r12 = VM memory base
+
+    # 2. Alloc register file (256 * 32 bytes for 256-bit regs)
+    # For now, let's use 64-bit regs for the bootstrap VM
+    mov rdi, 0
+    mov rsi, 2048 # 256 * 8 bytes
+    mov rdx, 3
+    mov r10, 0x22
+    mov r8, -1
+    mov r9, 0
+    mov rax, 9 # sys_mmap
+    syscall
+    mov r13, rax # r13 = Register file base
+
+    # 3. Load program (from argv[1])
+    mov rdi, [rsp+16] # argv[1]
+    mov rsi, 0 # O_RDONLY
+    mov rdx, 0
+    mov rax, 2 # sys_open
+    syscall
+    mov rbx, rax # rbx = fd
+
+    # Read into VM memory at offset 0
+    mov rdi, rbx # fd
+    mov rsi, r12 # buffer
+    mov rdx, 0x1000000 # max size
+    mov rax, 0 # sys_read
+    syscall
+    
+    # Init PC=0 (r13 + 255*8)
+    # SP = 16MB - 1024 (r13 + 254*8)
+    mov rax, 0x1000000
+    sub rax, 1024
+    mov [r13+2032], rax # SP (R254)
+    mov qword [r13+2040], 0 # PC (R255)
+
+:vm_loop
+    # 4. Fetch
+    mov rax, [r13+2040] # PC
+    mov r14, r12 # mem base
+    add r14, rax # r14 = instr ptr
+    mov eax, [r14] # FETCH 32-bit instruction
+    
+    # Decode
+    # Instruction: [op:8][rd:8][rs1:8][rs2:8/imm8]
+    # EAX = [rs2:8][rs1:8][rd:8][op:8] (Little Endian)
+    mov rbx, rax
+    shr rbx, 24 # RBX = opcode
+    
+    mov rcx, rax
+    shr rcx, 16
+    and rcx, 0xFF # RCX = rd
+    
+    mov rdx, rax
+    shr rdx, 8
+    and rdx, 0xFF # RDX = rs1
+    
+    mov rsi, rax
+    and rsi, 0xFF # RSI = rs2 / imm8
+    
+    # 5. Execute Dispatch
+    cmp bl, 0xFF # HALT
+    je finish
+    
+    cmp bl, 0x01 # MOV
+    je h_mov
+    
+    cmp bl, 0x02 # MOVI
+    je h_movi
+
+    cmp bl, 0x04 # LOAD
+    je h_load
+
+    cmp bl, 0x05 # STORE
+    je h_store
+    
+    cmp bl, 0x10 # ADD
+    je h_add
+    
+    cmp bl, 0xF0 # SYSCALL
+    je h_syscall
+    
+    # Default: skip
+    jmp next_pc
+
+:h_mov
+    shl rdx, 3 # rs1 * 8
+    add rdx, r13
+    mov r8, [rdx]
+    
+    shl rcx, 3 # rd * 8
+    add rcx, r13
+    mov [rcx], r8
+    jmp next_pc
+
+:h_movi
+    mov r8, rax
+    shr r8, 16 
+    and r8, 0xFFFF
+    
+    shl rcx, 3 # rd * 8
+    add rcx, r13
+    mov [rcx], r8
+    jmp next_pc
+
+:h_load
+    # regs[rd] = memory[regs[rs1] + off8]
+    shl rdx, 3 # rs1 * 8
+    add rdx, r13
+    mov r8, [rdx] # r8 = regs[rs1]
+    
+    movsx r9, sil # r9 = sign-extended off8 (RSI is rs2/off8)
+    add r8, r9 # r8 = final address
+    
+    add r8, r12 # r8 = host absolute address
+    mov r9, [r8] # LOAD 64-bit value
+    
+    shl rcx, 3 # rd * 8
+    add rcx, r13
+    mov [rcx], r9
+    jmp next_pc
+
+:h_store
+    # memory[regs[rd] + off8] = regs[rs1]
+    shl rcx, 3 # rd * 8
+    add rcx, r13
+    mov r8, [rcx] # r8 = regs[rd]
+    
+    movsx r9, sil # r9 = sign-extended off8
+    add r8, r9 # r8 = final address
+    
+    shl rdx, 3 # rs1 * 8
+    add rdx, r13
+    mov r9, [rdx] # r9 = value to store
+    
+    add r8, r12 # r8 = host absolute address
+    mov [r8], r9 # STORE 64-bit value
+    jmp next_pc
+
+:h_add
+    shl rdx, 3 # rs1 * 8
+    add rdx, r13
+    mov r8, [rdx]
+    
+    shl rsi, 3 # rs2 * 8
+    add rsi, r13
+    mov r9, [rsi]
+    
+    add r8, r9
+    
+    shl rcx, 3 # rd * 8
+    add rcx, r13
+    mov [rcx], r8
+    jmp next_pc
+
+:h_syscall
+    mov r8, [r13+0] # R0
+    cmp r8, 0 # sys_read
+    je s_read
+    cmp r8, 1 # sys_write
+    je s_write
+    jmp next_pc
+
+:s_read
+    mov rdi, 0 # stdin
+    mov rsi, r12
+    add rsi, [r13+40] # R5
+    mov rdx, [r13+24] # R3
+    mov rax, 0 # sys_read
+    syscall
+    mov [r13+8], rax # R1 = result
+    jmp next_pc
+
+:s_write
+    mov rdi, 1 # stdout
+    mov rsi, r12
+    add rsi, [r13+40] # R5
+    mov rdx, [r13+24] # R3
+    mov rax, 1 # sys_write
+    syscall
+    mov [r13+8], rax # R1 = result
+    jmp next_pc
+
+:next_pc
+    add qword [r13+2040], 4
+    jmp vm_loop
+
+:finish
+    mov rax, 60
+    mov rdi, 0
+    syscall

@@ -1,33 +1,112 @@
-# casm.casm - Minimal Self-Hosted Assembler
-LEA R10, buffer
-MOVI R0, 0
-MOV R5, R10
-MOVI R3, 1024
-SYSCALL
-MOV R12, R1
-LOAD R20, [R10+0]
-ANDI R20, R20, 0xFF
-MOVI R21, 0x41 # 'A'
-CMP R20, R21
-JNZ exit
-MOVI R1, 0x10
-SHLI R1, R1, 24
-MOVI R2, 0x01
-SHLI R2, R2, 16
-OR R1, R1, R2
-MOVI R2, 0x02
-SHLI R2, R2, 8
-OR R1, R1, R2
-MOVI R2, 0x03
-OR R1, R1, R2
-STORE [R11+0], R1
-MOVI R0, 1
-MOV R5, R11
-MOVI R3, 4
-SYSCALL
+# casm.casm - Self-Hosted CatArch Assembler
+# Reads CatArch Assembly from stdin, writes Binary to stdout.
+
+main:
+    # Buffers
+    LEA R10, buffer
+    LEA R11, output
+    MOV R12, R10
+
+    # DEBUG: Emit DEADBEEF
+    MOVI R22, 0xDE
+    SHLI R22, R22, 24
+    MOVI R23, 0xAD
+    SHLI R23, R23, 16
+    OR R22, R22, R23
+    MOVI R23, 0xBE
+    SHLI R23, R23, 8
+    OR R22, R22, R23
+    MOVI R23, 0xEF
+    OR R22, R22, R23
+    STORE [R11+0], R22
+    MOVI R0, 1 # sys_write
+    MOV R5, R11
+    MOVI R3, 4
+    SYSCALL
+    
+read_loop:
+    # 1. Read Word
+    MOVI R0, 0 # sys_read
+    MOV R5, R12
+    MOVI R3, 32 # word max
+    SYSCALL
+    
+    # 2. EOF check
+    CMPI R1, 0
+    JZ exit
+    
+    # 3. Simple Mnemonic Check (First Byte)
+    LOAD R20, [R12+0]
+    ANDI R20, R20, 0xFF
+    
+    # Check 'H' (HALT)
+    MOVI R21, 0x48 # 'H'
+    CMP R20, R21
+    JZ h_halt
+    
+    # Check 'M' (MOV/MOVI)
+    MOVI R21, 0x4D # 'M'
+    CMP R20, R21
+    JZ h_mov
+    
+    # Check 'A' (ADD)
+    MOVI R21, 0x41 # 'A'
+    CMP R20, R21
+    JZ h_add
+    
+    # Skip unknown
+    JMP read_loop
+
+h_halt:
+    # Emit 0xFF000000
+    MOVI R22, 0xFF
+    SHLI R22, R22, 24
+    STORE [R11+0], R22
+    JMP emit_inst
+
+h_mov:
+    # Distinguish MOV vs MOVI (very simple: length check or check for 'I')
+    LOAD R25, [R12+3] # Check 4th char
+    ANDI R25, R25, 0xFF
+    MOVI R26, 0x49 # 'I'
+    CMP R25, R26
+    JZ h_movi
+    
+    # Assemble MOV rd, rs1
+    MOVI R22, 0x01
+    SHLI R22, R22, 24
+    MOVI R23, 0x00
+    SHLI R23, R23, 16
+    OR R22, R22, R23
+    MOVI R24, 0x01
+    SHLI R24, R24, 8
+    OR R22, R22, R24
+    STORE [R11+0], R22
+    JMP emit_inst
+
+h_movi:
+    MOVI R22, 0x02
+    SHLI R22, R22, 24
+    STORE [R11+0], R22
+    JMP emit_inst
+
+h_add:
+    MOVI R22, 0x10
+    SHLI R22, R22, 24
+    STORE [R11+0], R22
+    JMP emit_inst
+
+emit_inst:
+    MOVI R0, 1 # sys_write
+    MOV R5, R11
+    MOVI R3, 4 # 4 bytes
+    SYSCALL
+    JMP read_loop
+
 exit:
-HALT
+    HALT
+
 buffer:
-" "
+    "                                "
 output:
-"    "
+    "    "

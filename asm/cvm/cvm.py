@@ -77,9 +77,9 @@ class CatVM:
         
         if not self.halted: self.regs[255] = next_pc
         else:
-            # Print success if R3 is 1
-            if self.regs[3] == 1: print("SUCCESS: R3 = 1")
-            else: print(f"HALTED: R3 = {self.regs[3]}")
+            # Print status to stderr to avoid polluting stdout redirect
+            if self.regs[3] == 1: print("SUCCESS: R3 = 1", file=sys.stderr)
+            else: print(f"HALTED: R3 = {self.regs[3]}", file=sys.stderr)
 
 if __name__ == "__main__":
     if len(sys.argv) < 2: sys.exit(1)
