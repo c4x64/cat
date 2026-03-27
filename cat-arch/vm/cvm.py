@@ -17,7 +17,8 @@ class CatVM:
         self.regs[254] = mem_size - 1024 # SP
 
     def load(self, prog):
-        self.mem[:len(prog)] = prog
+        for i in range(len(prog)):
+            self.mem[i] = prog[i]
 
     def run(self):
         while not self.halted:
@@ -59,13 +60,18 @@ class CatVM:
             if sys_num == 0:
                 data = sys.stdin.buffer.read(int(self.regs[3]))
                 addr = int(self.regs[5] & 0xFFFFFF)
-                self.mem[addr:addr+len(data)] = data
+                for i in range(len(data)):
+                    self.mem[addr + i] = data[i]
                 self.regs[1] = len(data)
             elif sys_num == 1:
                 addr = int(self.regs[5] & 0xFFFFFF)
-                data = self.mem[addr:addr+int(self.regs[3])]
-                sys.stdout.buffer.write(data); sys.stdout.buffer.flush()
-                self.regs[1] = len(data)
+                length = int(self.regs[3])
+                data_list = []
+                for i in range(length):
+                    data_list.append(self.mem[addr + i])
+                data_bytes = bytes(data_list)
+                sys.stdout.buffer.write(data_bytes); sys.stdout.buffer.flush()
+                self.regs[1] = len(data_bytes)
             elif sys_num == 60: self.halted = True
         elif op == 0xFF: self.halted = True
         
