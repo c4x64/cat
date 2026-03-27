@@ -1,0 +1,20 @@
+main:
+MOVI R0, 0
+MOVI R1, 0
+MOVI R2, 10
+_while_start_1:
+CMP R0, R2
+JL _true_2
+JMP _end_3
+_true_2:
+add R1, R1, R0
+add R0, R0, 1
+JMP _while_start_1
+_end_3:
+CMP R1, 45
+JZ _true_4
+JMP _end_5
+_true_4:
+MOVI R3, 1  # Success flag
+_end_5:
+halt

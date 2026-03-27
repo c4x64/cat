@@ -1,0 +1,22 @@
+# loop_test.cvsl - Test while loops and if conditions
+var i = v0
+var total = v1
+var limit = v2
+
+func main:
+    mov i, 0
+    mov total, 0
+    mov limit, 10
+    
+    while i < limit:
+        add total, total, i
+        add i, i, 1
+    endwhile
+    
+    # Check if total is 45 (0+1+2+3+4+5+6+7+8+9)
+    if total == 45:
+        mov v3, 1  # Success flag
+    endif
+    
+    halt
+endfunc

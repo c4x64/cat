@@ -5,6 +5,12 @@ class CVSLCompiler:
     def __init__(self):
         self.vars = {}
         self.output = []
+        self.label_count = 0
+        self.stack = [] # (type, end_label, start_label_if_while)
+
+    def gen_label(self, name):
+        self.label_count += 1
+        return f"_{name}_{self.label_count}"
 
     def compile(self, filename):
         with open(filename, "r") as f:
@@ -30,7 +36,42 @@ class CVSLCompiler:
             if line == "endfunc":
                 continue
 
-            # 3. Instruction translation
+            # 3. Control Flow: if/while
+            if line.startswith("if ") or line.startswith("while "):
+                is_while = line.startswith("while ")
+                m = re.match(r'(if|while)\s+(v\d+|\w+)\s*(==|!=|<|>)\s*(v\d+|\w+|[0-9x]+):', line)
+                if m:
+                    _, v1, op, v2 = m.groups()
+                    v1 = self.vars.get(v1, v1.replace("v", "R"))
+                    v2 = self.vars.get(v2, v2.replace("v", "R"))
+                    
+                    start_lab = ""
+                    if is_while:
+                        start_lab = self.gen_label("while_start")
+                        self.output.append(f"{start_lab}:")
+                    
+                    self.output.append(f"CMP {v1}, {v2}")
+                    true_lab = self.gen_label("true")
+                    end_lab = self.gen_label("end")
+                    
+                    if op == "==": self.output.append(f"JZ {true_lab}")
+                    elif op == "!=": self.output.append(f"JNZ {true_lab}")
+                    elif op == "<":  self.output.append(f"JL {true_lab}")
+                    elif op == ">":  self.output.append(f"JG {true_lab}")
+                    
+                    self.output.append(f"JMP {end_lab}")
+                    self.output.append(f"{true_lab}:")
+                    self.stack.append(("while" if is_while else "if", end_lab, start_lab))
+                continue
+
+            if line == "endif" or line == "endwhile":
+                type, end_lab, start_lab = self.stack.pop()
+                if type == "while":
+                    self.output.append(f"JMP {start_lab}")
+                self.output.append(f"{end_lab}:")
+                continue
+
+            # 4. Instruction translation
             # Replace named variables with R-registers
             for var_name, reg_name in self.vars.items():
                 line = re.sub(rf'\b{var_name}\b', reg_name, line)
@@ -38,16 +79,13 @@ class CVSLCompiler:
             # Translate v0-v255 to R0-R255
             line = re.sub(r'\bv(\d+)\b', r'R\1', line)
             
-            # 4. Instruction refinement: mov R0, 10 -> movi R0, 10
+            # Instruction refinement: mov R0, 10 -> movi R0, 10
             parts = re.split(r'[,\s]+', line)
             mnemonic = parts[0].upper()
             if mnemonic == "MOV" and len(parts) > 2:
                 if re.match(r'^-?\d+$', parts[2]) or parts[2].startswith("0x"):
                     line = line.replace(parts[0], "MOVI")
             
-            # Map logical mnemonics if they differ
-            # e.g. 'and' in cVSL -> 'AND' in CatArch (already matches)
-            # but 'shl v0, v1, 2' -> 'SHLI R0, R1, 2'
             if mnemonic in ["SHL", "SHR", "AND", "OR", "XOR"] and len(parts) > 3:
                  if re.match(r'^-?\d+$', parts[3]) or parts[3].startswith("0x"):
                      line = line.replace(mnemonic, mnemonic + "I")
