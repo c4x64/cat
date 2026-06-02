@@ -1,0 +1,45 @@
+name: Forge Windows
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: true
+          install: >-
+            mingw-w64-x86_64-gcc
+            make
+
+      - name: Build Stage 0 compiler
+        run: make -C forge/stage0 CC=gcc
+
+      - name: Compile examples (x86_64)
+        run: |
+          forge/stage0/forge forge/examples/exit.forge -o /tmp/exit_x86
+          forge/stage0/forge forge/examples/hello.forge -o /tmp/hello_x86
+          forge/stage0/forge forge/examples/fib.forge -o /tmp/fib_x86
+
+      - name: Verify ELF output
+        run: |
+          file /tmp/exit_x86 | grep -q 'ELF 64-bit LSB executable, x86-64'
+          file /tmp/hello_x86 | grep -q 'ELF 64-bit LSB executable, x86-64'
+          file /tmp/fib_x86 | grep -q 'ELF 64-bit LSB executable, x86-64'
+
+      - name: Verify codegen sizes
+        run: |
+          forge/stage0/forge forge/examples/exit.forge -o /dev/null 2>&1 | grep -E '^[0-9]+ bytes'
+          forge/stage0/forge forge/examples/hello.forge -o /dev/null 2>&1 | grep -E '^[0-9]+ bytes'
+          forge/stage0/forge forge/examples/fib.forge -o /dev/null 2>&1 | grep -E '^[0-9]+ bytes'

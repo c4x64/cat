@@ -1,0 +1,58 @@
+# Forge Standard Library — Stage 1 bootstrap
+# Syscall wrappers for x86_64 Linux
+# All functions use bare `return` to preserve rax result
+
+# ─── Syscall wrappers ──────────────────────────────────────────────
+
+fn sys_exit(code: i64):
+    asm volatile:
+        mov rax, 60
+        syscall
+
+fn sys_write(fd: i64, buf: i64, count: i64) -> i64:
+    asm volatile:
+        mov rax, 1
+        syscall
+    return
+
+fn sys_read(fd: i64, buf: i64, count: i64) -> i64:
+    asm volatile:
+        mov rax, 0
+        syscall
+    return
+
+fn sys_open(path: i64, flags: i64, mode: i64) -> i64:
+    asm volatile:
+        mov rax, 2
+        syscall
+    return
+
+fn sys_close(fd: i64) -> i64:
+    asm volatile:
+        mov rax, 3
+        syscall
+    return
+
+fn sys_brk(addr: i64) -> i64:
+    asm volatile:
+        mov rax, 12
+        syscall
+    return
+
+# ─── High-level helpers ────────────────────────────────────────────
+
+fn print_str(s: i64, len: i64):
+    sys_write(1, s, len)
+
+fn print(s: i64):
+    sys_write(1, s, 1)
+
+fn print_endl():
+    let nl = 10
+    asm volatile:
+        mov rax, 1
+        mov rdi, 1
+        lea rsi, [nl]
+        mov rdx, 1
+        syscall
+    return

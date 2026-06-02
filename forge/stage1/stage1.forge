@@ -1,0 +1,703 @@
+# ──────────────────────────────────────────────────────────────────────
+# Forge Stage 1 Bootstrap Compiler
+# Written in Forge-Sub (compiled by Stage 0)
+# Self-hosting: Stage 1 compiles Stage 2 (Full Forge)
+# Target: x86_64 Linux ELF
+# ──────────────────────────────────────────────────────────────────────
+
+#include "../lib/std.forge"
+
+# ─── Constants ─────────────────────────────────────────────────────
+
+let MAX_SRC      = 65536
+let MAX_TOKENS   = 8192
+let MAX_NODES    = 4096
+let MAX_LABELS   = 512
+let MAX_STRINGS  = 256
+let MAX_FUNCS    = 128
+let MAX_LINES    = 1024
+let MAX_CODE     = 131072
+let MAX_TK_LEN   = 8
+let MAX_IR       = 32768
+
+# Token kinds
+let TK_EOF      = 0
+let TK_NEWLINE  = 1
+let TK_INDENT   = 2
+let TK_DEDENT   = 3
+let TK_IDENT    = 4
+let TK_INT      = 5
+let TK_STRING   = 6
+let TK_KEYWORD  = 7
+let TK_COLON    = 8
+let TK_COMMA    = 9
+let TK_LPAREN   = 10
+let TK_RPAREN   = 11
+let TK_LBRACK   = 12
+let TK_RBRACK   = 13
+let TK_ARROW    = 14
+let TK_PLUS     = 15
+let TK_MINUS    = 16
+let TK_STAR     = 17
+let TK_SLASH    = 18
+let TK_EQ       = 19
+let TK_NE       = 20
+let TK_LT       = 21
+let TK_GT       = 22
+let TK_LE       = 23
+let TK_GE       = 24
+let TK_ASSIGN   = 25
+let TK_DOT      = 26
+let TK_AT       = 27
+let TK_AND      = 28
+let TK_OR       = 29
+let TK_PERCENT  = 30
+let TK_PLUS_EQ  = 31
+let TK_MINUS_EQ = 32
+let TK_STAR_EQ  = 33
+
+# Keywords
+let KW_FN       = 100
+let KW_LET      = 101
+let KW_VAR      = 102
+let KW_CONST    = 103
+let KW_IF       = 104
+let KW_ELSE     = 105
+let KW_WHILE    = 106
+let KW_FOR      = 107
+let KW_RETURN   = 108
+let KW_ASM      = 109
+let KW_VOLATILE = 110
+let KW_SAFETY   = 111
+let KW_PURE     = 112
+let KW_TRUE     = 113
+let KW_FALSE    = 114
+let KW_IN       = 115
+let KW_BREAK    = 116
+let KW_CONTINUE = 117
+let KW_PUB      = 118
+let KW_STRUCT   = 119
+
+# Types
+let TY_I64      = 200
+
+# Node kinds
+let ND_PROGRAM     = 0
+let ND_FUNC        = 1
+let ND_LET         = 2
+let ND_VAR         = 3
+let ND_CONST       = 4
+let ND_IF          = 5
+let ND_WHILE       = 6
+let ND_FOR         = 7
+let ND_RETURN      = 8
+let ND_ASM         = 9
+let ND_BLOCK       = 10
+let ND_ASSIGN      = 11
+let ND_CALL        = 12
+let ND_BINARY      = 13
+let ND_INT         = 14
+let ND_IDENT       = 15
+let ND_STRING      = 16
+let ND_DATA        = 17
+let ND_BOOL        = 18
+
+# IR opcodes
+let IR_NOP        = 0
+let IR_MOVI       = 1
+let IR_MOV        = 2
+let IR_LEA        = 3
+let IR_LOAD       = 4
+let IR_STORE      = 5
+let IR_PUSH       = 6
+let IR_POP        = 7
+let IR_ADD        = 8
+let IR_SUB        = 9
+let IR_IMUL       = 10
+let IR_AND        = 11
+let IR_OR         = 12
+let IR_XOR        = 13
+let IR_SHL        = 14
+let IR_SHR        = 15
+let IR_SAR        = 16
+let IR_CMP        = 17
+let IR_CMPI       = 18
+let IR_JMP        = 19
+let IR_JE         = 20
+let IR_JNE        = 21
+let IR_JL         = 22
+let IR_JLE        = 23
+let IR_JG         = 24
+let IR_JGE        = 25
+let IR_JZ         = 26
+let IR_JNZ        = 27
+let IR_CALL       = 28
+let IR_RET        = 29
+let IR_SYSCALL    = 30
+let IR_LABEL      = 31
+let IR_DATA_STR   = 32
+
+# ─── Global state ──────────────────────────────────────────────────
+
+# Source buffer
+var src_buf: [MAX_SRC]i64 = undefined
+var src_len: i64 = 0
+var src_pos: i64 = 0
+var src_line: i64 = 1
+var src_col: i64 = 1
+
+# Token buffer
+var tokens: [MAX_TOKENS * MAX_TK_LEN]i64 = undefined
+var ntokens: i64 = 0
+var token_pos: i64 = 0
+
+# Node pool (flat arrays indexed by node id)
+var node_kind: [MAX_NODES]i64 = undefined
+var node_i64: [MAX_NODES]i64 = undefined
+var node_sval: [MAX_NODES * 32]i64 = undefined  # string storage per node
+var node_slen: [MAX_NODES]i64 = undefined
+var node_nnodes: i64 = 0
+
+# Node child storage (arbitrary children using sequential indices)
+var node_data: [MAX_NODES * 8]i64 = undefined
+var node_data_pos: i64 = 0
+
+# IR buffer
+var ir_op: [MAX_IR]i64 = undefined
+var ir_a: [MAX_IR]i64 = undefined
+var ir_b: [MAX_IR]i64 = undefined
+var ir_imm: [MAX_IR]i64 = undefined
+var ir_name: [MAX_IR * 32]i64 = undefined
+var ir_nlen: [MAX_IR]i64 = undefined
+var ir_n: i64 = 0
+
+# Label table
+var label_name: [MAX_LABELS * 32]i64 = undefined
+var label_off: [MAX_LABELS]i64 = undefined
+var label_n: i64 = 0
+var label_ir_idx: [MAX_LABELS]i64 = undefined
+
+# String table
+var str_data: [MAX_STRINGS * 64]i64 = undefined
+var str_n: i64 = 0
+
+# Function table
+var func_name: [MAX_FUNCS * 32]i64 = undefined
+var func_node: [MAX_FUNCS]i64 = undefined
+var func_n: i64 = 0
+
+# Local variable table (per function, reset on each func)
+var local_name: [64 * 32]i64 = undefined
+var local_off: [64]i64 = undefined
+var local_n: i64 = 0
+
+# Code output
+var code_buf: [MAX_CODE]i64 = undefined
+var code_len: i64 = 0
+
+# Vreg allocator
+var vreg_next: i64 = 8
+
+# Temp buffer for asm line reconstruction
+var asm_line: [256]i64 = undefined
+
+# ─── Helper functions ──────────────────────────────────────────────
+
+fn store_str(buf: [*]i64, pos: i64, s: [*]i64, slen: i64):
+    var i: i64 = 0
+    while i < slen:
+        buf[pos + i] = s[i]
+        i = i + 1
+    buf[pos + slen] = 0
+
+fn copy_str(dst: [*]i64, dpos: i64, src: [*]i64, spos: i64, slen: i64):
+    var i: i64 = 0
+    while i < slen:
+        dst[dpos + i] = src[spos + i]
+        i = i + 1
+    dst[dpos + slen] = 0
+
+fn str_eq(a: [*]i64, ap: i64, al: i64, b: [*]i64, bp: i64, bl: i64) -> i64:
+    if al != bl: return 0
+    var i: i64 = 0
+    while i < al:
+        if a[ap + i] != b[bp + i]:
+            return 0
+        i = i + 1
+    return 1
+
+fn char_at(p: i64) -> i64:
+    if p >= src_len: return 0
+    return src_buf[p]
+
+fn char_peek() -> i64:
+    return char_at(src_pos)
+
+fn char_advance() -> i64:
+    var c = char_at(src_pos)
+    if c != 0:
+        src_pos = src_pos + 1
+        if c == 10:  # '\n'
+            src_line = src_line + 1
+            src_col = 1
+        else:
+            src_col = src_col + 1
+    return c
+
+fn char_is_digit(c: i64) -> i64:
+    if c >= 48 and c <= 57: return 1
+    return 0
+
+fn char_is_alpha(c: i64) -> i64:
+    if c >= 65 and c <= 90: return 1
+    if c >= 97 and c <= 122: return 1
+    if c == 95: return 1
+    return 0
+
+fn char_is_alnum(c: i64) -> i64:
+    if char_is_alpha(c): return 1
+    if char_is_digit(c): return 1
+    return 0
+
+fn char_is_space(c: i64) -> i64:
+    if c == 32 or c == 9: return 1
+    return 0
+
+fn char_hex_val(c: i64) -> i64:
+    if c >= 48 and c <= 57: return c - 48
+    if c >= 65 and c <= 70: return c - 65 + 10
+    if c >= 97 and c <= 102: return c - 97 + 10
+    return -1
+
+# ─── Token buffer ──────────────────────────────────────────────────
+
+fn token_push(kind: i64, ival: i64):
+    var i = ntokens * MAX_TK_LEN
+    tokens[i] = kind
+    tokens[i + 1] = ival
+    tokens[i + 2] = 0  # str pos (for string/ident)
+    tokens[i + 3] = 0  # str len
+    ntokens = ntokens + 1
+
+fn token_push_str(kind: i64, ival: i64, str_pos: i64, str_len: i64):
+    var i = ntokens * MAX_TK_LEN
+    tokens[i] = kind
+    tokens[i + 1] = ival
+    tokens[i + 2] = str_pos
+    tokens[i + 3] = str_len
+    ntokens = ntokens + 1
+
+fn token_kind(p: i64) -> i64:
+    if p >= ntokens: return TK_EOF
+    return tokens[p * MAX_TK_LEN]
+
+fn token_ival(p: i64) -> i64:
+    return tokens[p * MAX_TK_LEN + 1]
+
+fn token_str_pos(p: i64) -> i64:
+    return tokens[p * MAX_TK_LEN + 2]
+
+fn token_str_len(p: i64) -> i64:
+    return tokens[p * MAX_TK_LEN + 3]
+
+fn token_peek() -> i64:
+    return token_kind(token_pos)
+
+fn token_advance() -> i64:
+    var k = token_kind(token_pos)
+    token_pos = token_pos + 1
+    return k
+
+fn token_match(k: i64) -> i64:
+    if token_peek() == k:
+        token_pos = token_pos + 1
+        return 1
+    return 0
+
+# ─── Node allocation ───────────────────────────────────────────────
+
+fn alloc_node(kind: i64) -> i64:
+    var n = node_nnodes
+    node_kind[n] = kind
+    node_i64[n] = 0
+    node_slen[n] = 0
+    node_nnodes = n + 1
+    return n
+
+fn node_set_str(n: i64, str_p: i64, str_l: i64):
+    var dst = n * 32
+    var i: i64 = 0
+    while i < str_l:
+        node_sval[dst + i] = str_p + i
+        i = i + 1
+    node_slen[n] = str_l
+    node_sval[dst + str_l] = 0
+
+fn node_str_pos(n: i64) -> i64:
+    return n * 32
+
+fn node_str_len(n: i64) -> i64:
+    return node_slen[n]
+
+fn node_data_alloc(size: i64) -> i64:
+    var p = node_data_pos
+    node_data_pos = p + size
+    return p
+
+fn node_data_set(p: i64, i: i64, v: i64):
+    node_data[p + i] = v
+
+fn node_data_get(p: i64, i: i64) -> i64:
+    return node_data[p + i]
+
+# ─── Label table ───────────────────────────────────────────────────
+
+fn find_label(name_p: i64, name_l: i64) -> i64:
+    var i: i64 = 0
+    while i < label_n:
+        var lp = i * 32
+        if str_eq(label_name, lp, name_l, name_p, name_l):
+            return i
+        i = i + 1
+    return -1
+
+fn add_label(name_p: i64, name_l: i64, ir_idx: i64):
+    var i = label_n
+    if i >= MAX_LABELS: return
+    var lp = i * 32
+    copy_str(label_name, lp, name_p, name_l)
+    label_ir_idx[i] = ir_idx
+    label_off[i] = 0
+    label_n = i + 1
+
+# ─── IR helpers ────────────────────────────────────────────────────
+
+fn ir_emit(op: i64, a: i64, b: i64, imm: i64) -> i64:
+    var i = ir_n
+    if i >= MAX_IR: return -1
+    ir_op[i] = op
+    ir_a[i] = a
+    ir_b[i] = b
+    ir_imm[i] = imm
+    ir_n = i + 1
+    # Clear name
+    var np = i * 32
+    ir_name[np] = 0
+    ir_nlen[i] = 0
+    return i
+
+fn ir_label_emit(name_p: i64, name_l: i64) -> i64:
+    var i = ir_emit(IR_LABEL, 0, 0, 0)
+    add_label(name_p, name_l, i)
+    return i
+
+fn ir_data_str(s_p: i64, s_l: i64) -> i64:
+    var i = ir_emit(IR_DATA_STR, 0, 0, 0)
+    var np = i * 32
+    copy_str(ir_name, np, s_p, s_l)
+    ir_nlen[i] = s_l
+    return i
+
+fn ir_name_set(i: i64, s_p: i64, s_l: i64):
+    var np = i * 32
+    copy_str(ir_name, np, s_p, s_l)
+    ir_nlen[i] = s_l
+
+fn vreg() -> i64:
+    var r = vreg_next
+    vreg_next = (vreg_next + 1) % 8 + 8
+    return r
+
+# ─── Lexer ─────────────────────────────────────────────────────────
+
+fn lex_line_start():
+    var level: i64 = 0
+    var ch: i64 = char_peek()
+    while ch == 32 or ch == 9:
+        if ch == 9:
+            level = level + 8
+        else:
+            level = level + 1
+        char_advance()
+        ch = char_peek()
+    # Handle indent/dedent via simple stack
+    # (tokens recorded as INDENT/DEDENT)
+    # For bootstrap: skip indent tracking initially
+    # Just record indent token
+    var p = token_pos
+    # Track indentation
+    # (simplified for bootstrap - just skip whitespace after initial indent)
+
+fn lex_skip_ws():
+    var ch: i64 = char_peek()
+    while ch == 32 or ch == 9:
+        char_advance()
+        ch = char_peek()
+
+fn lex_number() -> i64:
+    var val: i64 = 0
+    var ch: i64 = char_peek()
+
+    # Check for hex
+    if ch == 48:
+        char_advance()
+        ch = char_peek()
+        if ch == 120 or ch == 88:  # 0x
+            char_advance()
+            ch = char_peek()
+            while char_hex_val(ch) >= 0:
+                val = val * 16 + char_hex_val(ch)
+                char_advance()
+                ch = char_peek()
+            token_push(TK_INT, val)
+            return 1
+
+    # Decimal
+    while char_is_digit(ch):
+        val = val * 10 + (ch - 48)
+        char_advance()
+        ch = char_peek()
+    token_push(TK_INT, val)
+    return 1
+
+fn lex_string():
+    char_advance()  # skip opening "
+    var start = src_pos
+    while char_peek() != 34:  # "
+        if char_peek() == 92:  # backslash
+            char_advance()
+        char_advance()
+    var end = src_pos
+    char_advance()  # skip closing "
+    # Store string in string table
+    var s_pos = str_n * 64
+    var s_len = end - start
+    copy_str(str_data, s_pos, start, s_len)
+    str_n = str_n + 1
+    token_push_str(TK_STRING, 0, s_pos, s_len)
+
+fn lex_ident():
+    var start = src_pos
+    while char_is_alnum(char_peek()):
+        char_advance()
+    var len = src_pos - start
+    # Check keywords through simple if chain
+    # (too verbose to list all - use asm-level comparison)
+    var kw: i64 = 0
+
+    # Keyword matching using inline asm for efficiency
+    # For bootstrap, use simple str comparison
+    asm volatile:
+        lea rsi, [start]
+        mov rdi, [src_buf + rsi * 8]
+        # Simple keyword matching
+        ret
+    # (will implement fully in next iteration)
+    token_push_str(TK_IDENT, 0, start, len)
+
+fn lex():
+    ntokens = 0
+    token_pos = 0
+    src_pos = 0
+    src_line = 1
+    src_col = 1
+
+    var at_line_start: i64 = 1
+
+    while char_peek() != 0:
+        var ch = char_peek()
+
+        if at_line_start:
+            at_line_start = 0
+            var level: i64 = 0
+            while char_peek() == 32 or char_peek() == 9:
+                if char_peek() == 9:
+                    level = level + 8
+                else:
+                    level = level + 1
+                char_advance()
+            ch = char_peek()
+            if ch == 0: break
+            if ch == 10:
+                at_line_start = 1
+                char_advance()
+                continue
+
+        if ch == 32 or ch == 9:
+            char_advance()
+            continue
+
+        if ch == 10:  # newline
+            char_advance()
+            if ntokens > 0:
+                token_push(TK_NEWLINE, 0)
+            at_line_start = 1
+            continue
+
+        if ch == 35:  # #
+            while char_peek() != 10 and char_peek() != 0:
+                char_advance()
+            continue
+
+        if ch == 34:  # "
+            lex_string()
+            continue
+
+        if char_is_digit(ch):
+            lex_number()
+            continue
+
+        if char_is_alpha(ch):
+            lex_ident()
+            continue
+
+        # Single/double char operators
+        if ch == 58:  # :
+            char_advance()
+            if char_peek() == 58:
+                char_advance()
+                token_push(TK_COLON, 0)  # treat :: as :
+            else:
+                token_push(TK_COLON, 0)
+            continue
+
+        if ch == 44: char_advance(); token_push(TK_COMMA, 0); continue
+        if ch == 40: char_advance(); token_push(TK_LPAREN, 0); continue
+        if ch == 41: char_advance(); token_push(TK_RPAREN, 0); continue
+        if ch == 91: char_advance(); token_push(TK_LBRACK, 0); continue
+        if ch == 93: char_advance(); token_push(TK_RBRACK, 0); continue
+        if ch == 46: char_advance(); token_push(TK_DOT, 0); continue
+        if ch == 64: char_advance(); token_push(TK_AT, 0); continue
+        if ch == 37: char_advance(); token_push(TK_PERCENT, 0); continue
+        if ch == 38: char_advance(); token_push(TK_AND, 0); continue
+        if ch == 124: char_advance(); token_push(TK_OR, 0); continue
+
+        if ch == 61:  # =
+            char_advance()
+            if char_peek() == 61:
+                char_advance()
+                token_push(TK_EQ, 0)
+            else:
+                token_push(TK_ASSIGN, 0)
+            continue
+
+        if ch == 33:  # !
+            char_advance()
+            if char_peek() == 61:
+                char_advance()
+                token_push(TK_NE, 0)
+            continue
+
+        if ch == 60:  # <
+            char_advance()
+            if char_peek() == 61:
+                char_advance()
+                token_push(TK_LE, 0)
+            else:
+                token_push(TK_LT, 0)
+            continue
+
+        if ch == 62:  # >
+            char_advance()
+            if char_peek() == 61:
+                char_advance()
+                token_push(TK_GE, 0)
+            else:
+                token_push(TK_GT, 0)
+            continue
+
+        if ch == 43:  # +
+            char_advance()
+            if char_peek() == 61:
+                char_advance()
+                token_push(TK_PLUS_EQ, 0)
+            else:
+                token_push(TK_PLUS, 0)
+            continue
+
+        if ch == 45:  # -
+            char_advance()
+            if char_peek() == 62:  # ->
+                char_advance()
+                token_push(TK_ARROW, 0)
+            elif char_peek() == 61:
+                char_advance()
+                token_push(TK_MINUS_EQ, 0)
+            else:
+                token_push(TK_MINUS, 0)
+            continue
+
+        if ch == 42:  # *
+            char_advance()
+            if char_peek() == 61:
+                char_advance()
+                token_push(TK_STAR_EQ, 0)
+            else:
+                token_push(TK_STAR, 0)
+            continue
+
+        if ch == 47:  # /
+            char_advance()
+            token_push(TK_SLASH, 0)
+            continue
+
+        # Skip unknown chars
+        char_advance()
+
+    token_push(TK_EOF, 0)
+
+# ─── Parser (stub) ────────────────────────────────────────────────
+
+fn parse_program():
+    # Simplified parser for bootstrap
+    # Will be filled in with full recursive descent
+    var n = alloc_node(ND_PROGRAM)
+
+fn parse():
+    parse_program()
+
+# ─── Codegen (stub) ────────────────────────────────────────────────
+
+fn codegen():
+    # Simplified codegen for bootstrap
+    pass
+
+# ─── ELF writer (stub) ─────────────────────────────────────────────
+
+fn write_elf(path: i64, path_len: i64):
+    pass
+
+# ─── File reading ──────────────────────────────────────────────────
+
+fn read_file(path_p: i64, path_l: i64) -> i64:
+    # Open file using sys_open
+    # For bootstrap, read from stdin
+    return -1
+
+# ─── Main ──────────────────────────────────────────────────────────
+
+fn main():
+    # Bootstrap: compile itself
+    # Read source
+    var path = "stage1.forge"
+    var result = read_file(path, 12)
+    if result < 0:
+        # Minimal error message
+        asm volatile:
+            mov rax, 1
+            mov rdi, 1
+            lea rsi, [err_msg]
+            mov rdx, 24
+            syscall
+            mov rax, 60
+            mov rdi, 1
+            syscall
+        return
+    lex()
+    parse()
+    codegen()
+    write_elf("stage1.out", 11)
+    sys_exit(0)
+
+:err_msg
+"Cannot read source file\n"

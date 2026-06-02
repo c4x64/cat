@@ -29,6 +29,11 @@ void free_node(Node* n) {
     case N_IF: case N_WHILE: case N_FOR:
         free_node(n->as.flow.cond); free_node(n->as.flow.body);
         free_node(n->as.flow.else_body); free(n->as.flow.loop_var); break;
+    case N_ASSIGN: free_node(n->as.assign.target); free_node(n->as.assign.val); break;
+    case N_CALL:
+        for (int i = 0; i < n->as.call.acount; i++) free_node(n->as.call.args[i]);
+        free(n->as.call.args); free_node(n->as.call.callee); break;
+    case N_INDEX: free_node(n->as.index_.obj); free_node(n->as.index_.idx); break;
     case N_BINARY: free_node(n->as.binary.l); free_node(n->as.binary.r); break;
     case N_UNARY: free_node(n->as.unary.op); break;
     case N_DATA:
@@ -37,6 +42,11 @@ void free_node(Node* n) {
         for (int i = 0; i < n->as.asm_block.count; i++) free(n->as.asm_block.lines[i]);
         free(n->as.asm_block.lines); break;
     case N_IDENT: case N_STRING: free(n->as.s_val); break;
+    case N_INT: case N_FLOAT: case N_BOOL: break;
+    case N_SIZE_OF: case N_SAFETY_ANN: break;
+    case N_DEREF: case N_ADDR_OF: free_node(n->as.unary.op); break;
+    case N_ARRAY_TYPE: free_node(n->as.array_type.elem_type); break;
+    case N_CAST: free_node(n->as.cast.type); free_node(n->as.cast.expr); break;
     default: break;
     }
     free(n);

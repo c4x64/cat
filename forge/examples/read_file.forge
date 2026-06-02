@@ -1,0 +1,16 @@
+#include "lib/std.forge"
+
+:filepath
+"forge/examples/read_file.forge"
+
+var buf: [4096]i64 = undefined
+
+fn main():
+    var fd = sys_open(filepath, 0, 0)
+    if fd < 0:
+        sys_exit(1)
+    var n = sys_read(fd, &buf, 4096)
+    if n > 0:
+        sys_write(1, &buf, n)
+    sys_close(fd)
+    sys_exit(0)

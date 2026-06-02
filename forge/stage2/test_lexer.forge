@@ -1,0 +1,40 @@
+# Test harness for Stage 2 lexer
+
+#include "lexer.forge"
+
+:test_src
+"fn main():\n    var x: i64 = 42\n    sys_exit(x)\n"
+
+fn token_name(kind: i64) -> i64:
+    if kind == TK_EOF: return 0
+    if kind == TK_NEWLINE: return 0
+    if kind == TK_IDENT: return 0
+    if kind == TK_INT: return 0
+    if kind == TK_COLON: return 0
+    if kind == TK_LPAREN: return 0
+    if kind == TK_RPAREN: return 0
+    if kind == TK_ASSIGN: return 0
+    if kind == TK_PLUS: return 0
+    if kind == TK_MINUS: return 0
+    if kind == TK_STAR: return 0
+    if kind == TK_SLASH: return 0
+    return 0
+
+fn main():
+    var i: i64 = 0
+    while test_src[i] != 0:
+        src_buf[i] = test_src[i]
+        i = i + 1
+    src_len = i
+
+    lex()
+
+    var pos: i64 = 0
+    while pos < ntokens:
+        var i = pos * 4
+        var kind = tokens[i]
+        var ival = tokens[i + 1]
+        # Skip printing for now, just test it doesn't crash
+        pos = pos + 1
+
+    sys_exit(0)

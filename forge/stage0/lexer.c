@@ -80,24 +80,23 @@ void lex(Compiler* c) {
             save_line = line; save_col = col;
             /* Update ch to the first content character */
             ch = (c->pos < (int)c->src_len) ? c->src[c->pos] : 0;
-            /* Handle indent/dedent */
-            if (level > indent_stack[indent_top]) {
-                if (nt < MAX_TOKENS) {
-                    Token t = make_token( T_INDENT, line, 1);
-                    c->tokens[nt++] = t;
-                }
-                indent_stack[++indent_top] = level;
-            } else {
-                while (indent_top > 0 && level < indent_stack[indent_top]) {
+            /* Blank lines (empty or comment-only) don't affect indentation */
+            if (ch != '\n' && ch != '#') {
+                /* Handle indent/dedent */
+                if (level > indent_stack[indent_top]) {
                     if (nt < MAX_TOKENS) {
-                        Token t = make_token( T_DEDENT, line, 1);
+                        Token t = make_token( T_INDENT, line, 1);
                         c->tokens[nt++] = t;
                     }
-                    indent_top--;
-                }
-                if (level < 0) { /* blank line */
-                    while (c->pos < (int)c->src_len && c->src[c->pos] != '\n') c->pos++;
-                    ch = c->src[c->pos];
+                    indent_stack[++indent_top] = level;
+                } else {
+                    while (indent_top > 0 && level < indent_stack[indent_top]) {
+                        if (nt < MAX_TOKENS) {
+                            Token t = make_token( T_DEDENT, line, 1);
+                            c->tokens[nt++] = t;
+                        }
+                        indent_top--;
+                    }
                 }
             }
         }
@@ -118,6 +117,51 @@ void lex(Compiler* c) {
 
         /* Comments */
         if (ch == '#') {
+            /* Check for #include directive for text inclusion */
+            if (c->pos + 9 < (int)c->src_len &&
+                strncmp(c->src + c->pos, "#include \"", 10) == 0) {
+                c->pos += 10; col += 10;
+                int start = c->pos;
+                while (c->pos < (int)c->src_len && c->src[c->pos] != '"') {
+                    c->pos++; col++;
+                }
+                int end = c->pos;
+                if (c->pos < (int)c->src_len) { c->pos++; col++; }
+                /* Read and inline the included file */
+                char inc_path[256];
+                int len = end - start;
+                if (len > 255) len = 255;
+                memcpy(inc_path, c->src + start, len);
+                inc_path[len] = 0;
+                FILE* inc_f = fopen(inc_path, "rb");
+                if (inc_f) {
+                    fseek(inc_f, 0, SEEK_END);
+                    long inc_len = ftell(inc_f);
+                    fseek(inc_f, 0, SEEK_SET);
+                    /* We need to insert into the source buffer.
+                       Simple approach: concatenate strings */
+                    char* new_src = malloc(c->src_len + inc_len + 2);
+                    memcpy(new_src, c->src, c->pos);
+                    new_src[c->pos] = '\n';
+                    fread(new_src + c->pos + 1, 1, inc_len, inc_f);
+                    /* Copy remaining */
+                    int remaining = c->src_len - c->pos;
+                    memcpy(new_src + c->pos + 1 + inc_len,
+                           c->src + c->pos, remaining);
+                    free(c->src);
+                    c->src = new_src;
+                    c->src_len = c->src_len + inc_len + 1;
+                    c->src[c->src_len] = 0;
+                    fclose(inc_f);
+                    /* Don't advance pos - the included content is now inline */
+                    continue;
+                }
+                /* If file not found, just skip the line */
+                while (c->pos < (int)c->src_len && c->src[c->pos] != '\n') {
+                    c->pos++; col++;
+                }
+                continue;
+            }
             while (c->pos < (int)c->src_len && c->src[c->pos] != '\n') {
                 c->pos++; col++;
             }

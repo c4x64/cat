@@ -82,20 +82,43 @@ static Node* parse_type(Compiler* c) {
         sl->as.unary.op_kind = D_LBRACK;
         return sl;
     }
+    /* Array type: [N]T */
+    if (t.kind == D_LBRACK && c->pos + 1 < c->ntokens && c->tokens[c->pos + 1].kind == T_INT) {
+        advance(c);
+        int64_t count = advance(c).int_val;
+        if (count <= 0 || count > 1000000) {
+            print_error(c, "invalid array size");
+            if (peek(c).kind == D_RBRACK) advance(c);
+            free_node(parse_type(c));
+            return n;
+        }
+        if (peek(c).kind != D_RBRACK) { print_error(c, "expected ']' in array type"); free_node(parse_type(c)); return n; }
+        advance(c);
+        Node* elem = parse_type(c);
+        Node* arr = alloc_node(N_ARRAY_TYPE, line, col);
+        arr->as.array_type.elem_type = elem;
+        arr->as.array_type.count = count;
+        return arr;
+    }
     /* Identifiers: u8, u32, struct names, etc. */
     if (t.kind == T_IDENT) {
         advance(c);
         n->as.s_val = t.str_val ? strdup(t.str_val) : strdup("");
         return n;
     }
-    /* Type keywords */
+    /* Type keywords — store as string so free_node(N_IDENT) works */
     switch (t.kind) {
-        case T_U8: case T_U16: case T_U32: case T_U64:
-        case T_I8: case T_I16: case T_I32: case T_I64:
-        case T_BOOL: case T_VOID: case T_USIZE:
-            advance(c);
-            n->as.i_val = t.kind;
-            return n;
+        case T_U8: advance(c); n->as.s_val = strdup("u8"); return n;
+        case T_U16: advance(c); n->as.s_val = strdup("u16"); return n;
+        case T_U32: advance(c); n->as.s_val = strdup("u32"); return n;
+        case T_U64: advance(c); n->as.s_val = strdup("u64"); return n;
+        case T_I8: advance(c); n->as.s_val = strdup("i8"); return n;
+        case T_I16: advance(c); n->as.s_val = strdup("i16"); return n;
+        case T_I32: advance(c); n->as.s_val = strdup("i32"); return n;
+        case T_I64: advance(c); n->as.s_val = strdup("i64"); return n;
+        case T_BOOL: advance(c); n->as.s_val = strdup("bool"); return n;
+        case T_VOID: advance(c); n->as.s_val = strdup("void"); return n;
+        case T_USIZE: advance(c); n->as.s_val = strdup("usize"); return n;
         default:
             print_error(c, "expected type");
             return n;
@@ -196,6 +219,12 @@ static Node* parse_primary(Compiler* c) {
         advance(c);
         Node* n = alloc_node(N_BOOL, line, col);
         n->as.b_val = (t.kind == K_TRUE);
+        return n;
+    }
+    if (t.kind == K_UNDEFINED) {
+        advance(c);
+        Node* n = alloc_node(N_INT, line, col);
+        n->as.i_val = 0;
         return n;
     }
     if (t.kind == T_IDENT) {
@@ -400,18 +429,24 @@ static Node* parse_block(Compiler* c) {
     block->as.block.count = 0;
 
     expect(c, D_COLON, "':'");
-    expect(c, T_NEWLINE, "newline after ':'");
-    expect(c, T_INDENT, "indented block");
-
-    while (c->pos < c->ntokens) {
-        Token t = peek(c);
-        if (t.kind == T_DEDENT) break;
-        if (t.kind == T_EOF) break;
+    /* Support both `if cond: stmt` (single-line) and `if cond:\n    stmt` (block) */
+    if (peek(c).kind == T_NEWLINE) {
+        advance(c);
+        expect(c, T_INDENT, "indented block");
+        while (c->pos < c->ntokens) {
+            Token t = peek(c);
+            if (t.kind == T_DEDENT) break;
+            if (t.kind == T_EOF) break;
+            if (t.kind == T_NEWLINE) { advance(c); continue; }
+            Node* stmt = parse_stmt(c);
+            if (stmt) block->as.block.stmts[block->as.block.count++] = stmt;
+        }
+        expect(c, T_DEDENT, "dedent (end of block)");
+    } else {
+        /* Single-line: parse one statement */
         Node* stmt = parse_stmt(c);
         if (stmt) block->as.block.stmts[block->as.block.count++] = stmt;
     }
-
-    expect(c, T_DEDENT, "dedent (end of block)");
     return block;
 }
 

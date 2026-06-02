@@ -1,0 +1,4 @@
+fn main():
+    var arr: [8]i64 = undefined
+    arr[0] = 42
+    sys_exit(0)

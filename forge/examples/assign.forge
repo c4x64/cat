@@ -1,0 +1,8 @@
+# Variable assignment test
+fn main() -> i64:
+    var x = 10
+    var y = 20
+    x = x + y
+    asm volatile:
+        mov rax, [x]
+        ret

@@ -47,10 +47,13 @@ static int ir_data_string(const char* s) {
     return idx;
 }
 
-/* ─── Virtual register helper ────────────────────────────────────── */
+/* ─── Virtual register helper (cycle through 8-15) ──────────────── */
+/* x86-64 has only 16 registers (0-15); vregs must stay in 8-15. */
 static int vreg() {
     static int n = 8;
-    return n++;
+    int r = n;
+    n = (n + 1) % 8 + 8;
+    return r;
 }
 
 /* ─── x86_64 encoder ─────────────────────────────────────────────── */
@@ -86,6 +89,56 @@ static void rex(int w, int r, int x, int b) {
 /* ─── Known label resolution ─────────────────────────────────────── */
 static int* ir_to_offset = NULL; /* IR index → byte offset */
 static int codegen_arch = TARGET_X86_64;
+
+/* ─── Local variable table ────────────────────────────────────────── */
+static char local_names[MAX_LOCALS][64];
+static int  local_offsets[MAX_LOCALS];
+static int  nlocals;
+static int  current_frame_offset;
+
+static int find_local(const char* name) {
+    for (int i = 0; i < nlocals; i++)
+        if (strcmp(local_names[i], name) == 0) return i;
+    return -1;
+}
+
+static int local_size(Node* type) {
+    if (type && type->kind == N_ARRAY_TYPE)
+        return (int)(type->as.array_type.count * 8);
+    return 8;
+}
+
+static void add_local(const char* name, Node* type) {
+    if (nlocals >= MAX_LOCALS) return;
+    int len = strlen(name);
+    if (len > 63) len = 63;
+    memcpy(local_names[nlocals], name, len);
+    local_names[nlocals][len] = 0;
+    local_offsets[nlocals] = -(current_frame_offset + local_size(type));
+    current_frame_offset += local_size(type);
+    nlocals++;
+}
+
+static void collect_locals(Node* node) {
+    if (!node) return;
+    switch (node->kind) {
+    case N_PROGRAM:
+        for (int i = 0; i < node->as.program.count; i++)
+            collect_locals(node->as.program.stmts[i]);
+        break;
+    case N_FUNC:
+        collect_locals(node->as.func.body);
+        break;
+    case N_BLOCK:
+        for (int i = 0; i < node->as.block.count; i++)
+            collect_locals(node->as.block.stmts[i]);
+        break;
+    case N_LET: case N_VAR: case N_CONST:
+        add_local(node->as.var.name, node->as.var.type);
+        break;
+    default: break;
+    }
+}
 
 static void resolve_labels_arm64();
 
@@ -124,7 +177,8 @@ static void resolve_labels() {
             case IR_LABEL:     break;
             case IR_DATA_BYTE: off += 1; break;
             case IR_DATA_STRING: off += (ir[i].name ? strlen(ir[i].name) : 0) + 1; break;
-            case IR_MOVHI: case IR_LOAD: case IR_STORE: break;
+            case IR_LOAD: case IR_STORE: off += 7; break;
+            case IR_MOVHI: break;
         }
     }
 }
@@ -148,6 +202,7 @@ static void resolve_labels_arm64() {
             case IR_JE: case IR_JNE: case IR_JL: case IR_JLE:
             case IR_JG: case IR_JGE: case IR_JZ: case IR_JNZ:
                 off += 4; break;  /* B.cond: 4 bytes */
+            case IR_LOAD: case IR_STORE: off += 4; break;
             default:
                 off += 4; break;  /* most ARM64 insns are 4 bytes */
         }
@@ -307,8 +362,24 @@ static void ir_to_x86_64() {
             e1((uint8_t)p->imm);
             break;
 
+        case IR_STORE:
+            /* mov [base + disp32], src */
+            rex(1, rex_b, 0, rex_a);
+            e1(0x89);
+            rm(2, b7, a7);
+            e4((uint32_t)p->imm);
+            break;
+
+        case IR_LOAD:
+            /* mov dst, [base + disp32] */
+            rex(1, rex_a, 0, rex_b);
+            e1(0x8B);
+            rm(2, a7, b7);
+            e4((uint32_t)p->imm);
+            break;
+
         case IR_MOVHI: /* handled in x86_64 emit as MOVI with full 64-bit */
-        case IR_LOAD: case IR_STORE: case IR_SAR: break; /* placeholder */
+        case IR_SAR: break; /* placeholder */
         case IR_LABEL: break;
         }
     }
@@ -593,9 +664,27 @@ static void ir_to_arm64() {
             e1((uint8_t)p->imm);
             break;
 
-        case IR_MOVHI:
-        case IR_LOAD:
         case IR_STORE:
+            /* STR Xt, [Xn, #imm12*8] — unsigned offset */
+            {
+                int rt5 = a64_map(p->b) & 0x1F;
+                int rn5 = a64_map(p->a) & 0x1F;
+                int imm12 = ((int)p->imm >> 3) & 0xFFF;
+                e4(0xF9000000 | (imm12 << 10) | (rn5 << 5) | rt5);
+            }
+            break;
+
+        case IR_LOAD:
+            /* LDR Xt, [Xn, #imm12*8] — unsigned offset */
+            {
+                int rt5 = a64_map(p->a) & 0x1F;
+                int rn5 = a64_map(p->b) & 0x1F;
+                int imm12 = ((int)p->imm >> 3) & 0xFFF;
+                e4(0xF9400000 | (imm12 << 10) | (rn5 << 5) | rt5);
+            }
+            break;
+
+        case IR_MOVHI:
         case IR_SHL:
         case IR_SHR:
         case IR_SAR:
@@ -617,9 +706,17 @@ static int expr_to_ir(Node* n) {
     case N_BOOL:
         ir_emit(IR_MOVI, r, 0, n->as.b_val ? 1 : 0);
         return r;
-    case N_IDENT:
-        ir_emit(IR_MOVI, r, 0, 0);
+    case N_IDENT: {
+        int idx = find_local(n->as.s_val);
+        if (idx >= 0) {
+            int base = vreg();
+            ir_emit(IR_MOV, base, 5, 0);
+            ir_emit(IR_LOAD, r, base, local_offsets[idx]);
+        } else {
+            ir_emit(IR_MOVI, r, 0, 0);
+        }
         return r;
+    }
     case N_BINARY: {
         int l = expr_to_ir(n->as.binary.l);
         int r2 = expr_to_ir(n->as.binary.r);
@@ -694,6 +791,80 @@ static int expr_to_ir(Node* n) {
         ir_emit(IR_LEA, r, 0, data_idx);
         return r;
     }
+    case N_INDEX: {
+        if (n->as.index_.obj &&
+            n->as.index_.obj->kind == N_IDENT) {
+            int local_idx = find_local(n->as.index_.obj->as.s_val);
+            if (local_idx >= 0) {
+                int idx_reg = expr_to_ir(n->as.index_.idx);
+                // idx_reg *= 8 using 3×ADD
+                ir_emit(IR_ADD, idx_reg, idx_reg, 0);  // *2
+                ir_emit(IR_ADD, idx_reg, idx_reg, 0);  // *4
+                ir_emit(IR_ADD, idx_reg, idx_reg, 0);  // *8
+                int base = vreg();
+                ir_emit(IR_MOV, base, 5, 0);  // base = rbp
+                int off = vreg();
+                ir_emit(IR_MOVI, off, 0, local_offsets[local_idx]);
+                ir_emit(IR_ADD, base, off, 0);
+                ir_emit(IR_ADD, base, idx_reg, 0);
+                ir_emit(IR_LOAD, r, base, 0);
+            }
+        }
+        return r;
+    }
+    case N_ASSIGN:
+        if (n->as.assign.target &&
+            n->as.assign.target->kind == N_IDENT) {
+            int idx = find_local(n->as.assign.target->as.s_val);
+            if (idx >= 0) {
+                int val = expr_to_ir(n->as.assign.val);
+                int base = vreg();
+                ir_emit(IR_MOV, base, 5, 0);
+                ir_emit(IR_STORE, base, val, local_offsets[idx]);
+                ir_emit(IR_MOV, r, val, 0);
+            }
+        }
+        if (n->as.assign.target &&
+            n->as.assign.target->kind == N_INDEX) {
+            Node* idx_node = n->as.assign.target;
+            if (idx_node->as.index_.obj &&
+                idx_node->as.index_.obj->kind == N_IDENT) {
+                int local_idx = find_local(idx_node->as.index_.obj->as.s_val);
+                if (local_idx >= 0) {
+                    int idx_reg = expr_to_ir(idx_node->as.index_.idx);
+                    ir_emit(IR_ADD, idx_reg, idx_reg, 0);  // *2
+                    ir_emit(IR_ADD, idx_reg, idx_reg, 0);  // *4
+                    ir_emit(IR_ADD, idx_reg, idx_reg, 0);  // *8
+                    int val = expr_to_ir(n->as.assign.val);
+                    ir_emit(IR_MOV, r, val, 0);
+                    int base = vreg();
+                    ir_emit(IR_MOV, base, 5, 0);
+                    int off = vreg();
+                    ir_emit(IR_MOVI, off, 0, local_offsets[local_idx]);
+                    ir_emit(IR_ADD, base, off, 0);
+                    ir_emit(IR_ADD, base, idx_reg, 0);
+                    ir_emit(IR_STORE, base, val, 0);
+                }
+            }
+        }
+        return r;
+    case N_ADDR_OF:
+        if (n->as.unary.op &&
+            n->as.unary.op->kind == N_IDENT) {
+            int idx = find_local(n->as.unary.op->as.s_val);
+            if (idx >= 0) {
+                ir_emit(IR_MOV, r, 5, 0);
+                int off = vreg();
+                ir_emit(IR_MOVI, off, 0, local_offsets[idx]);
+                ir_emit(IR_ADD, r, off, 0);
+            }
+        }
+        return r;
+    case N_DEREF: {
+        int ptr = expr_to_ir(n->as.unary.op);
+        ir_emit(IR_LOAD, r, ptr, 0);
+        return r;
+    }
     default:
         ir_emit(IR_MOVI, r, 0, 0);
         return r;
@@ -745,10 +916,50 @@ static void stmt_to_ir(Node* stmt) {
             stmt_to_ir(stmt->as.block.stmts[i]);
         break;
 
-    case N_LET: case N_VAR:
+    case N_LET: case N_VAR: case N_CONST:
         if (stmt->as.var.init) {
-            int r = expr_to_ir(stmt->as.var.init);
-            ir_emit(IR_MOVI, r, 0, 0); /* consumed for effect */
+            int idx = find_local(stmt->as.var.name);
+            if (idx >= 0) {
+                int r = expr_to_ir(stmt->as.var.init);
+                int base = vreg();
+                ir_emit(IR_MOV, base, 5, 0);
+                ir_emit(IR_STORE, base, r, local_offsets[idx]);
+            }
+        }
+        break;
+
+    case N_ASSIGN:
+        if (stmt->as.assign.target &&
+            stmt->as.assign.target->kind == N_IDENT) {
+            int idx = find_local(stmt->as.assign.target->as.s_val);
+            if (idx >= 0) {
+                int r = expr_to_ir(stmt->as.assign.val);
+                int base = vreg();
+                ir_emit(IR_MOV, base, 5, 0);
+                ir_emit(IR_STORE, base, r, local_offsets[idx]);
+            }
+        }
+        if (stmt->as.assign.target &&
+            stmt->as.assign.target->kind == N_INDEX) {
+            Node* idx_node = stmt->as.assign.target;
+            if (idx_node->as.index_.obj &&
+                idx_node->as.index_.obj->kind == N_IDENT) {
+                int local_idx = find_local(idx_node->as.index_.obj->as.s_val);
+                if (local_idx >= 0) {
+                    int idx_reg = expr_to_ir(idx_node->as.index_.idx);
+                    ir_emit(IR_ADD, idx_reg, idx_reg, 0);  // *2
+                    ir_emit(IR_ADD, idx_reg, idx_reg, 0);  // *4
+                    ir_emit(IR_ADD, idx_reg, idx_reg, 0);  // *8
+                    int r = expr_to_ir(stmt->as.assign.val);
+                    int base = vreg();
+                    ir_emit(IR_MOV, base, 5, 0);
+                    int off = vreg();
+                    ir_emit(IR_MOVI, off, 0, local_offsets[local_idx]);
+                    ir_emit(IR_ADD, base, off, 0);
+                    ir_emit(IR_ADD, base, idx_reg, 0);
+                    ir_emit(IR_STORE, base, r, 0);
+                }
+            }
         }
         break;
 
@@ -892,6 +1103,22 @@ static void stmt_to_ir(Node* stmt) {
 }
 
 /* ─── Public API ──────────────────────────────────────────────────── */
+static void emit_prologue(int frame_size) {
+    ir_emit(IR_PUSH, 5, 0, 0);
+    ir_emit(IR_MOV, 5, 4, 0);
+    if (frame_size > 0) {
+        int tmp = vreg();
+        ir_emit(IR_MOVI, tmp, 0, frame_size);
+        ir_emit(IR_SUB, 4, tmp, 0);
+    }
+}
+
+static void emit_epilogue(void) {
+    ir_emit(IR_MOV, 4, 5, 0);
+    ir_emit(IR_POP, 5, 0, 0);
+    ir_emit(IR_RET, 0, 0, 0);
+}
+
 void codegen(Compiler* c, Node* node) {
     ir_n = 0;
     code = NULL; code_len = 0; code_cap = 0;
@@ -899,28 +1126,34 @@ void codegen(Compiler* c, Node* node) {
 
     if (!node) return;
 
-    /* First pass: collect all labels (function names, etc.) */
-    /* Generate prologue for whole program */
-    /* push rbp; mov rbp, rsp; sub rsp, frame_size */
-    ir_emit(IR_PUSH, 5, 0, 0);       /* push rbp */
-    ir_emit(IR_MOV, 5, 4, 0);         /* mov rbp, rsp */
-    ir_emit(IR_SUB, 4, 0, 0);         /* will patch to sub rsp, N */
-
     switch (node->kind) {
     case N_PROGRAM:
+        /* Emit _start entry point: call main then exit */
+        ir_label("_start");
+        {
+            int ci = ir_emit(IR_CALL, 0, 0, 0);
+            ir[ci].name = strdup("main");
+        }
+        if (codegen_arch == TARGET_ARM64) {
+            ir_emit(IR_MOVI, 8, 0, 93);   /* x8 = 93 (ARM64 sys_exit) */
+            ir_emit(IR_SYSCALL, 0, 0, 0);
+        } else {
+            ir_emit(IR_MOV, 7, 0, 0);      /* rdi = rax (exit code) */
+            ir_emit(IR_MOVI, 0, 0, 60);    /* rax = 60 (sys_exit) */
+            ir_emit(IR_SYSCALL, 0, 0, 0);
+        }
+
         for (int i = 0; i < node->as.program.count; i++) {
             Node* s = node->as.program.stmts[i];
             if (s->kind == N_FUNC) {
+                nlocals = 0;
+                current_frame_offset = 0;
+                collect_locals(s);
+                int frame_size = current_frame_offset;
                 ir_label(s->as.func.name);
-                /* Add function prologue */
-                ir_emit(IR_PUSH, 5, 0, 0);
-                ir_emit(IR_MOV, 5, 4, 0);
-                ir_emit(IR_SUB, 4, 0, 0);
+                emit_prologue(frame_size);
                 stmt_to_ir(s->as.func.body);
-                /* Function epilogue */
-                ir_emit(IR_MOV, 4, 5, 0);
-                ir_emit(IR_POP, 5, 0, 0);
-                ir_emit(IR_RET, 0, 0, 0);
+                emit_epilogue();
             } else if (s->kind == N_DATA) {
                 ir_label(s->as.data.name);
                 if (s->as.data.val) {
@@ -931,18 +1164,33 @@ void codegen(Compiler* c, Node* node) {
         }
         break;
     case N_FUNC:
+        ir_label("_start");
+        {
+            int ci = ir_emit(IR_CALL, 0, 0, 0);
+            ir[ci].name = strdup("main");
+        }
+        if (codegen_arch == TARGET_ARM64) {
+            ir_emit(IR_MOVI, 8, 0, 93);
+            ir_emit(IR_SYSCALL, 0, 0, 0);
+        } else {
+            ir_emit(IR_MOV, 7, 0, 0);
+            ir_emit(IR_MOVI, 0, 0, 60);
+            ir_emit(IR_SYSCALL, 0, 0, 0);
+        }
+        nlocals = 0;
+        current_frame_offset = 0;
+        collect_locals(node);
         ir_label(node->as.func.name);
+        emit_prologue(current_frame_offset);
         stmt_to_ir(node);
+        emit_epilogue();
         break;
     default:
+        emit_prologue(0);
         stmt_to_ir(node);
+        emit_epilogue();
         break;
     }
-
-    /* Epilogue: mov rsp, rbp; pop rbp; ret */
-    ir_emit(IR_MOV, 4, 5, 0);
-    ir_emit(IR_POP, 5, 0, 0);
-    ir_emit(IR_RET, 0, 0, 0);
 
     /* Translate to target machine code */
     if (codegen_arch == TARGET_ARM64) {
@@ -1004,14 +1252,16 @@ void emit_catarch_binary(Compiler* c, const char* outpath, uint64_t entry_overri
     int total = code_len;
     int entry_point = 0;
     
-    /* Find entry point: use 'main' label, or entry_override, or 0 */
+    /* Find entry point: prefer _start, fallback main, or entry_override */
     if (entry_override != 0) {
         entry_point = (int)(entry_override - 0x400000 - 128);
     } else {
         for (int i = 0; i < ir_n; i++) {
-            if (ir[i].op == IR_LABEL && ir[i].name && strcmp(ir[i].name, "main") == 0) {
-                entry_point = ir_to_offset[i];
-                break;
+            if (ir[i].op == IR_LABEL && ir[i].name) {
+                if (strcmp(ir[i].name, "_start") == 0) {
+                    entry_point = ir_to_offset[i];
+                    break;
+                }
             }
         }
     }
@@ -1023,10 +1273,11 @@ void emit_catarch_binary(Compiler* c, const char* outpath, uint64_t entry_overri
     memset(hdr, 0, 128);
     hdr[0] = 0x7F; hdr[1] = 'E'; hdr[2] = 'L'; hdr[3] = 'F';
     hdr[4] = 2; hdr[5] = 1; hdr[6] = 1;
+    *(uint16_t*)(hdr + 16) = 2;  /* ET_EXEC */
     if (codegen_arch == TARGET_ARM64) {
-        hdr[16] = 2; hdr[17] = 0xB7;  /* ET_EXEC, AArch64 */
+        *(uint16_t*)(hdr + 18) = 0xB7;  /* EM_AARCH64 */
     } else {
-        hdr[16] = 2; hdr[17] = 0x3E;  /* ET_EXEC, x86_64 */
+        *(uint16_t*)(hdr + 18) = 0x3E;  /* EM_X86_64 */
     }
     *(uint32_t*)(hdr + 20) = 1;
     *(uint64_t*)(hdr + 24) = 0x400000 + code_off + entry_point;

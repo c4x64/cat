@@ -1,0 +1,65 @@
+name: Forge Linux
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install deps
+        run: sudo apt-get update && sudo apt-get install -y gcc make binutils-aarch64-linux-gnu
+
+      - name: Build Stage 0 compiler
+        run: make -C forge/stage0
+
+      - name: Compile examples (x86_64)
+        run: |
+          forge/stage0/forge forge/examples/exit.forge -o /tmp/exit_x86
+          forge/stage0/forge forge/examples/hello.forge -o /tmp/hello_x86
+          forge/stage0/forge forge/examples/fib.forge -o /tmp/fib_x86
+
+      - name: Compile examples (ARM64)
+        run: |
+          forge/stage0/forge -m arm64 forge/examples/exit.forge -o /tmp/exit_arm64
+          forge/stage0/forge -m arm64 forge/examples/hello.forge -o /tmp/hello_arm64
+          forge/stage0/forge -m arm64 forge/examples/fib.forge -o /tmp/fib_arm64
+
+      - name: Verify x86_64 ELF
+        run: |
+          file /tmp/exit_x86 | grep -q 'ELF 64-bit LSB executable, x86-64'
+          file /tmp/hello_x86 | grep -q 'ELF 64-bit LSB executable, x86-64'
+          file /tmp/fib_x86 | grep -q 'ELF 64-bit LSB executable, x86-64'
+
+      - name: Verify ARM64 ELF
+        run: |
+          file /tmp/exit_arm64 | grep -q 'ELF 64-bit LSB executable, ARM aarch64'
+          file /tmp/hello_arm64 | grep -q 'ELF 64-bit LSB executable, ARM aarch64'
+          file /tmp/fib_arm64 | grep -q 'ELF 64-bit LSB executable, ARM aarch64'
+
+      - name: Test x86_64 execution
+        run: |
+          chmod +x /tmp/exit_x86; /tmp/exit_x86; echo "exit=$?"
+          chmod +x /tmp/hello_x86; /tmp/hello_x86
+          chmod +x /tmp/fib_x86; [ "$(/tmp/fib_x86)" = "55" ]
+
+      - name: Test kernel mode flat binary
+        run: |
+          forge/stage0/forge -k -e 0x400000 forge/examples/exit.forge -o /tmp/exit_kernel
+          file /tmp/exit_kernel | grep -q 'data'
+
+      - name: Test quiet mode
+        run: |
+          forge/stage0/forge -q forge/examples/exit.forge -o /tmp/exit_quiet 2>/dev/null
+          file /tmp/exit_quiet | grep -q ELF
+
+      - name: Verify codegen sizes
+        run: |
+          forge/stage0/forge forge/examples/exit.forge -o /dev/null 2>&1 | grep -E '^[0-9]+ bytes'
+          forge/stage0/forge forge/examples/hello.forge -o /dev/null 2>&1 | grep -E '^[0-9]+ bytes'
+          forge/stage0/forge forge/examples/fib.forge -o /dev/null 2>&1 | grep -E '^[0-9]+ bytes'

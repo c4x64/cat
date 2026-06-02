@@ -41,5 +41,13 @@ benchmarks/results/
 # Package manager
 .cat-cache/
 packages/
+
+# Forge build artifacts
 forge/stage0/forge
-forge/stage0/forge
+forge/stage0/*.o
+forge/build/
+forge/stage0/a.out
+forge/stage0/run_elf
+forge/stage0/run_elf.dSYM/
+forge/stage1/*.out
+a.out

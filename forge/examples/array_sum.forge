@@ -1,0 +1,14 @@
+#include "lib/std.forge"
+
+fn main():
+    var arr: [4]i64 = undefined
+    arr[0] = 10
+    arr[1] = 20
+    arr[2] = 30
+    arr[3] = 40
+    var sum: i64 = 0
+    var i: i64 = 0
+    while i < 4:
+        sum = sum + arr[i]
+        i = i + 1
+    sys_exit(sum)

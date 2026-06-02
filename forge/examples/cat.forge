@@ -1,0 +1,8 @@
+#include "lib/std.forge"
+
+:msg
+"Hello from Forge!\n"
+
+fn main():
+    sys_write(1, msg, 17)
+    sys_exit(0)

@@ -54,8 +54,8 @@ typedef enum {
     N_RETURN, N_ASM_BLOCK,
     N_BLOCK, N_ASSIGN, N_CALL, N_INDEX, N_FIELD,
     N_BINARY, N_UNARY, N_CAST, N_INT, N_FLOAT,
-    N_STRING, N_BOOL, N_IDENT, N_ARRAY_LIT, N_ADDR_OF,
-    N_SIZE_OF, N_DEREF, N_SAFETY_ANN, N_DATA,
+    N_STRING, N_BOOL, N_IDENT, N_ARRAY_LIT, N_ARRAY_TYPE,
+    N_ADDR_OF, N_SIZE_OF, N_DEREF, N_SAFETY_ANN, N_DATA,
 } NodeKind;
 
 typedef struct Node {
@@ -83,6 +83,7 @@ typedef struct Node {
         struct { struct Node* obj; char* field; } field;
         struct { struct Node* l; struct Node* r; int op; } binary;
         struct { struct Node* op; int op_kind; } unary;
+        struct { struct Node* elem_type; int64_t count; } array_type;
         struct { struct Node* expr; struct Node* type; } cast;
         struct { int level; } safety;
         int64_t i_val; double f_val; char* s_val; int b_val;

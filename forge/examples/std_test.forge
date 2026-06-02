@@ -1,0 +1,4 @@
+#include "lib/std.forge"
+
+fn main():
+    sys_exit(0)
