@@ -44,15 +44,24 @@ void free_node(Node* n) {
 
 int main(int argc, char** argv) {
     if (argc < 2) {
-        fprintf(stderr, "Usage: forge <input.forge> [-o <output>]\n");
-        fprintf(stderr, "Forge Stage 0 Bootstrap Compiler — x86_64 native\n");
+        fprintf(stderr, "Usage: forge <input.forge> [-o <output>] [-k] [-e <entry>] [-q]\n");
+        fprintf(stderr, "  -o <file>   output path (default: a.out)\n");
+        fprintf(stderr, "  -k          kernel mode: raw flat binary (no ELF wrapper)\n");
+        fprintf(stderr, "  -e <addr>   set entry point address (hex)\n");
+        fprintf(stderr, "  -q          quiet mode (no diagnostic output)\n");
         return 1;
     }
 
     const char* input = argv[1];
     const char* output = "a.out";
+    int kernel_mode = 0;
+    uint64_t entry_override = 0;
+    int quiet = 0;
     for (int i = 2; i < argc; i++) {
         if (strcmp(argv[i], "-o") == 0 && i + 1 < argc) { output = argv[i+1]; i++; }
+        else if (strcmp(argv[i], "-k") == 0) { kernel_mode = 1; }
+        else if (strcmp(argv[i], "-e") == 0 && i + 1 < argc) { entry_override = strtoull(argv[i+1], NULL, 16); i++; }
+        else if (strcmp(argv[i], "-q") == 0) { quiet = 1; }
     }
 
     FILE* f = fopen(input, "rb");
@@ -71,25 +80,29 @@ int main(int argc, char** argv) {
     fclose(f);
     strncpy(comp.filename, input, 255);
 
-    fprintf(stderr, "forge: lexing %s...\n", input);
+    if (!quiet) fprintf(stderr, "forge: lexing...\n");
     lex(&comp);
-    fprintf(stderr, "forge: %d tokens\n", comp.ntokens);
+    if (!quiet) fprintf(stderr, "forge: %d tokens\n", comp.ntokens);
 
-    fprintf(stderr, "forge: parsing...\n");
-    comp.pos = 0; /* lexer left pos at end of src; reset for token array */
+    if (!quiet) fprintf(stderr, "forge: parsing...\n");
+    comp.pos = 0;
     Node* ast = parse_program(&comp);
     if (comp.nerrors) {
-        fprintf(stderr, "forge: %d error(s), aborting\n", comp.nerrors);
+        if (!quiet) fprintf(stderr, "forge: %d error(s), aborting\n", comp.nerrors);
         free_node(ast); free(comp.src); free(comp.code); return 1;
     }
 
-    fprintf(stderr, "forge: codegen...\n");
+    if (!quiet) fprintf(stderr, "forge: codegen...\n");
     codegen(&comp, ast);
     resolve_fixups(&comp);
-    fprintf(stderr, "forge: %d bytes generated\n", comp.code_len);
+    if (!quiet) fprintf(stderr, "forge: %d bytes generated\n", comp.code_len);
 
-    fprintf(stderr, "forge: writing %s...\n", output);
-    emit_catarch_binary(&comp, output);
+    if (!quiet) fprintf(stderr, "forge: writing %s...\n", output);
+    if (kernel_mode) {
+        emit_raw_binary(&comp, output, entry_override);
+    } else {
+        emit_catarch_binary(&comp, output, entry_override);
+    }
 
     free_node(ast); free(comp.src); free(comp.code);
     return 0;

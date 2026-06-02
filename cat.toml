@@ -1,40 +1,39 @@
 [project]
-name        = "cat"
-version     = "1.0.0"
-authors     = ["CAT Language Contributors"]
+name        = "forge"
+version     = "0.1.0"
+authors     = ["Forge Contributors"]
 license     = "MIT"
-description = "Systems programming language, lower than assembly, faster than C"
-homepage    = "https://cat-lang.org"
-repository  = "https://github.com/catgui/cat"
-keywords    = ["systems", "compiler", "kernel", "x86", "embedded"]
+description = "Self-hosting systems language combining assembly power with Python-like syntax and formal safety"
+homepage    = "https://forge-lang.org"
+repository  = "https://github.com/c4x64/forge"
+keywords    = ["systems", "compiler", "self-hosting", "x86_64", "safety-annotated"]
 
 [compiler]
-entry       = "src/lexer.cat"    # Phase 1 entry point
-std         = "none"             # Zero standard library by default
+entry       = "forge/stage0/main.c"
+std         = "forge/lib"
+
+[stages]
+stage0      = "C (lexer, parser, codegen, ELF64 writer)"
+stage1      = "Forge-Sub (bootstrap subset)"
+stage2      = "Full Forge (self-hosting)"
 
 [backends]
-# Uncomment to activate a backend
-# x86_64 = "@backend/x86_64"
-# arm64   = "@backend/arm64"
-# wasm    = "@backend/wasm"
-# riscv   = "@backend/riscv"
+x86_64      = "@backend/x86_64"
 
 [dependencies]
 # None — zero dependencies, by design
 
 [dev-dependencies]
-# Test harness will be added in a future phase
+gcc         = ">11"
+make        = ">4.0"
 
 [profile.dev]
 optimize    = false
 debug       = true
-hot_reload  = true
 
 [profile.release]
 optimize    = true
 debug       = false
-pgo         = false
-cpu_specific = false
 
 [profile.release-pgo]
 optimize    = true

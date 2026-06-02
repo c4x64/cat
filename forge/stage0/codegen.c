@@ -666,52 +666,70 @@ void resolve_fixups(Compiler* c) {
     (void)c;
 }
 
-void emit_catarch_binary(Compiler* c, const char* outpath) {
+void emit_raw_binary(Compiler* c, const char* outpath, uint64_t entry_override) {
     (void)c;
-    /* Write as ELF x86_64 executable */
+    (void)entry_override;
+    /* Raw flat binary — no ELF headers, code starts at byte 0 */
+    /* Entry point is the first byte (offset 0) — suitable for kernels,
+       bootloaders, and firmware images where the loader knows the address. */
+    FILE* f = fopen(outpath, "wb");
+    if (!f) { fprintf(stderr, "error: cannot write %s\n", outpath); return; }
+    fwrite(code, 1, code_len, f);
+    fclose(f);
+    chmod(outpath, 0755);
+    fprintf(stderr, "forge: wrote %s (%d bytes, raw binary)\n", outpath, code_len);
+}
+
+void emit_catarch_binary(Compiler* c, const char* outpath, uint64_t entry_override) {
+    (void)c;
+    /* Write as standard ELF64 x86_64 executable — no .comment, no section
+       headers, no symbol tables. The output is indistinguishable from any
+       other minimal ELF binary: no compiler branding, no custom metadata. */
     int total = code_len;
     int entry_point = 0;
     
-    /* Find 'main' function in labels */
-    for (int i = 0; i < ir_n; i++) {
-        if (ir[i].op == IR_LABEL && ir[i].name && strcmp(ir[i].name, "main") == 0) {
-            entry_point = ir_to_offset[i];
-            break;
+    /* Find entry point: use 'main' label, or entry_override, or 0 */
+    if (entry_override != 0) {
+        entry_point = (int)(entry_override - 0x400000 - 128);
+    } else {
+        for (int i = 0; i < ir_n; i++) {
+            if (ir[i].op == IR_LABEL && ir[i].name && strcmp(ir[i].name, "main") == 0) {
+                entry_point = ir_to_offset[i];
+                break;
+            }
         }
     }
 
-    /* Page-align offset for code */
-    int code_off = 128; /* Ehdr(64) + Phdr(56) + pad to match hdr[] array */
+    int code_off = 128;
 
-    /* ELF64 header */
+    /* ELF64 header — standard values throughout */
     uint8_t hdr[128];
     memset(hdr, 0, 128);
     hdr[0] = 0x7F; hdr[1] = 'E'; hdr[2] = 'L'; hdr[3] = 'F';
-    hdr[4] = 2; hdr[5] = 1; hdr[6] = 1; /* class, data, version */
-    hdr[16] = 2; hdr[17] = 0x3E; /* ET_EXEC, x86_64 */
-    *(uint32_t*)(hdr + 20) = 1; /* version */
-    *(uint64_t*)(hdr + 24) = 0x400000 + code_off + entry_point; /* entry */
-    *(uint64_t*)(hdr + 32) = 64; /* phoff */
-    hdr[52] = 64; hdr[53] = 0; /* ehsize */
-    hdr[54] = 56; hdr[55] = 0; /* phentsize */
-    hdr[56] = 1; hdr[57] = 0; /* phnum */
+    hdr[4] = 2; hdr[5] = 1; hdr[6] = 1;
+    hdr[16] = 2; hdr[17] = 0x3E;
+    *(uint32_t*)(hdr + 20) = 1;
+    *(uint64_t*)(hdr + 24) = 0x400000 + code_off + entry_point;
+    *(uint64_t*)(hdr + 32) = 64;
+    hdr[52] = 64; hdr[53] = 0;
+    hdr[54] = 56; hdr[55] = 0;
+    hdr[56] = 1; hdr[57] = 0;
 
-    /* Program header (PT_LOAD) */
+    /* Program header (PT_LOAD) — standard values */
     memset(hdr + 64, 0, 56);
-    *(uint32_t*)(hdr + 64) = 1; /* PT_LOAD */
-    *(uint32_t*)(hdr + 68) = 5; /* PF_R | PF_X */
-    *(uint64_t*)(hdr + 72) = 0; /* offset */
-    *(uint64_t*)(hdr + 80) = 0x400000; /* vaddr */
-    *(uint64_t*)(hdr + 88) = 0x400000; /* paddr */
-    *(uint64_t*)(hdr + 96) = code_off + total; /* filesz */
-    *(uint64_t*)(hdr + 104) = code_off + total; /* memsz */
-    *(uint64_t*)(hdr + 112) = 0x1000; /* align */
+    *(uint32_t*)(hdr + 64) = 1;
+    *(uint32_t*)(hdr + 68) = 5;
+    *(uint64_t*)(hdr + 72) = 0;
+    *(uint64_t*)(hdr + 80) = 0x400000;
+    *(uint64_t*)(hdr + 88) = 0x400000;
+    *(uint64_t*)(hdr + 96) = code_off + total;
+    *(uint64_t*)(hdr + 104) = code_off + total;
+    *(uint64_t*)(hdr + 112) = 0x1000;
 
-    /* Write file */
     FILE* f = fopen(outpath, "wb");
     if (!f) { fprintf(stderr, "error: cannot write %s\n", outpath); return; }
     fwrite(hdr, 1, 128, f);
-    /* Pad to code offset */
+    /* Zero pad — standard, no identifiable pattern */
     for (int i = 128; i < code_off; i++) fputc(0, f);
     fwrite(code, 1, code_len, f);
     fclose(f);

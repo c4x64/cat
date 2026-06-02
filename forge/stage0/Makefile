@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -O2 -std=c99 -g
+CFLAGS = -Wall -Wextra -O2 -std=gnu99 -g
 LDFLAGS =
 
 SRCS = main.c lexer.c parser.c codegen.c
