@@ -1,8 +1,8 @@
-name: CI
+name: Forge CI
 
 on:
   push:
-    branches: [main, dev]
+    branches: [main]
   pull_request:
     branches: [main]
 
@@ -12,22 +12,26 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build Chain
-        run: |
-          python clc.py clc.cl -o clc
-          chmod +x clc
-          ./clc cslc.cl -o cslc
-          chmod +x cslc
-          rm clc.py
-          ./cslc examples/hello.csl -o examples/hello.cl
-          ./clc examples/hello.cl -o examples/hello.elf
-          ./cslc examples/fibonacci.csl -o examples/fibonacci.cl
-          ./clc examples/fibonacci.cl -o examples/fibonacci.elf
-          ./cslc examples/function.csl -o examples/function.cl
-          ./clc examples/function.cl -o examples/function.elf
+      - name: Install build deps
+        run: sudo apt-get update && sudo apt-get install -y gcc make
 
-      - name: Verify bin sizes
+      - name: Build Stage 0 compiler
+        run: make -C forge/stage0
+
+      - name: Compile examples
         run: |
-          stat -c%s examples/hello.elf
-          stat -c%s examples/fibonacci.elf
-          stat -c%s examples/function.elf
+          forge/stage0/forge forge/examples/exit.forge -o /tmp/exit_test
+          forge/stage0/forge forge/examples/hello.forge -o /tmp/hello_test
+          forge/stage0/forge forge/examples/fib.forge -o /tmp/fib_test
+
+      - name: Verify ELF binaries
+        run: |
+          file /tmp/exit_test | grep -q ELF
+          file /tmp/hello_test | grep -q ELF
+          file /tmp/fib_test | grep -q ELF
+
+      - name: Verify code sizes
+        run: |
+          forge/stage0/forge forge/examples/exit.forge -o /dev/null 2>&1 | grep -E '^forge: [0-9]+ bytes generated'
+          forge/stage0/forge forge/examples/hello.forge -o /dev/null 2>&1 | grep -E '^forge: [0-9]+ bytes generated'
+          forge/stage0/forge forge/examples/fib.forge -o /dev/null 2>&1 | grep -E '^forge: [0-9]+ bytes generated'
