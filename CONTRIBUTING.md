@@ -1,68 +1,68 @@
-# Contributing to CAT
+# Contributing to Forge
 
-Thank you for your interest in building the world's fastest systems programming language.
+Forge is a self-hosting systems language combining assembly power with Python-like syntax and formal safety. We welcome contributions from the community.
 
-## Philosophy
+## Reporting Bugs
 
-Every contribution must honor CAT's core promise:
+- **Search existing issues** before filing a duplicate.
+- Use a clear, descriptive title and include the Forge version (`forge --version` or commit hash).
+- Provide a **minimal reproduction**: source file, compiler flags, expected vs. actual output.
+- Label the issue with `bug` and, if applicable, the affected stage (`stage0`, `stage1`).
 
-> **Zero compromises. Performance is the ONLY goal.**
+## Submitting Changes
 
----
-
-## How to Contribute
-
-### Reporting Bugs
-
-Open an issue with:
-1. Exact input that triggered the bug
-2. Expected output vs actual output
-3. OS and architecture
-
-### Submitting a Change
-
-1. Fork the repository
-2. Create a branch: `git checkout -b feat/my-change`
-3. Follow code style (see below)
-4. Write tests for your change
-5. Submit a pull request
-
----
+1. **Fork** the repository on GitHub.
+2. **Create a feature branch** from `main`: `git checkout -b feat/my-change`.
+3. **Commit** small, focused changes with descriptive messages (imperative mood, e.g. "Add constant folding to Stage 1").
+4. **Push** and open a **Pull Request** against `main`.
+   - Reference any related issues in the PR body.
+   - Ensure the PR title follows conventional commits: `type(scope): description`.
+5. A maintainer will review your PR. Address feedback with additional commits — avoid force-pushing during review.
 
 ## Code Style
 
-- **4-space indentation** (no tabs)
-- **snake_case** for functions and local variables
-- **PascalCase** for types and enums
-- **SCREAMING_SNAKE_CASE** for constants
-- **Comments explain WHY, not WHAT**
-- Zero compiler warnings permitted
-- Zero undefined behavior permitted
+- **Indentation**: 4 spaces (no tabs).
+- **Naming**: `snake_case` for functions, variables, and types.
+- **Stage 0** (bootstrapping compiler): written in **C99**.
+- **Stage 1** (self-hosted compiler): written in **Forge-Sub**, a safe subset of Forge.
+- No trailing whitespace. Files must end with a single newline.
 
----
+## Compiler Requirements
 
-## Performance Requirements
+All code merged into Forge must:
 
-Any change that regresses performance will not be merged.
-
-| Benchmark | Minimum |
-|-----------|---------|
-| Lex 100K LOC (cold) | < 500ms |
-| Lex 100K LOC (warm) | < 1ms |
-| Peak RAM (100K LOC) | < 50 MB |
-| Throughput | > 10M tokens/sec |
-
----
+- Compile with **zero warnings** (treat warnings as errors).
+- Contain **zero instances of undefined behavior** — Stage 0 must pass `-Wall -Wextra -Wpedantic -Werror` with Clang or GCC; Stage 1 must pass the Forge-Sub safety checker.
+- Use `const` correctness, avoid implicit casts, and prefer bounded operations.
 
 ## Testing
 
-Every change must:
-- Pass all existing tests in `tests/test_lexer.cat`
-- Add new tests covering new behavior
-- Not regress benchmarks in `tests/benchmark_lexer.cat`
+Before submitting, verify the three core test programs still pass:
 
----
+```sh
+cd forge/stage0 && make
+./forge ../../examples/exit.forge   # exit code 0
+./forge ../../examples/hello.forge  # prints "hello, world"
+./forge ../../examples/fib.forge    # prints Fibonacci sequence correctly
+```
 
-## License
+If any test fails, your change is not ready for review. Add new test cases under `examples/` for new features.
 
-By contributing, you agree your contributions will be licensed under MIT.
+## Building
+
+```sh
+cd forge/stage0 && make
+```
+
+The Makefile uses C99 and must remain dependency-free beyond a host C99 compiler (Clang or GCC). Stage 1 builds itself via the Stage 0 compiler — see `forge/stage1/Makefile`.
+
+## Distributed Development Model
+
+Forge development follows a **100 subagents participation model**: the project is designed so that hundreds of independent agents (human or automated) can contribute concurrently without central coordination. Each agent:
+
+- Works in its own fork or feature branch.
+- Self-validates changes against the core test suite.
+- Submits small, atomic PRs that pass CI.
+- Participates in asynchronous review rounds.
+
+This model scales contributions horizontally and minimises merge conflicts through strict separation of concerns — the compiler pipeline, standard library, and examples are independently modifiable.

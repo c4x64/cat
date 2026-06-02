@@ -41,3 +41,5 @@ benchmarks/results/
 # Package manager
 .cat-cache/
 packages/
+forge/stage0/forge
+forge/stage0/forge

@@ -1,29 +1,21 @@
 ---
-name: Feature request
-about: Suggest a new language feature or compiler improvement
+name: Feature Request
+about: Suggest an idea for Forge
+title: ''
 labels: enhancement
+assignees: ''
 ---
+**Is your feature request related to a problem?**
+A clear description of what the problem is.
 
-## Summary
+**Describe the solution you'd like**
+What you want to happen.
 
-A concise summary of the feature.
+**Describe alternatives you've considered**
+Other approaches you've thought about.
 
-## Motivation
+**Additional context**
+Any other context or examples.
 
-Why does CAT need this? Which target user (kernel dev, anticheat dev, etc.) benefits?
-
-## Proposed Design
-
-How would it look syntactically and semantically?
-
-```cat
-# Example usage
-```
-
-## Performance Impact
-
-Will this feature require runtime overhead? If so, how do we make it opt-in (e.g., @annotation)?
-
-## Alternatives Considered
-
-Other ways to solve this problem, and why they are worse.
+**Would you implement this yourself?**
+Let us know if you're planning to submit a PR.
